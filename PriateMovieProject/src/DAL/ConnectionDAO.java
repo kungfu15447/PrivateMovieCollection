@@ -16,7 +16,7 @@ import java.sql.Connection;
 public class ConnectionDAO
 {
     private static final String SERVER_NAME = "10.176.111.31";
-    private static final String DATABASE_NAME = "Tunes";
+    private static final String DATABASE_NAME = "PrivateMovies";
     private static final String USER = "CS2018A_14";
     private static final String PASSWORD = "CS2018A_14";
     SQLServerDataSource ds;
