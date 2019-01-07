@@ -21,7 +21,7 @@ public class MovieProjectMain extends Application
     @Override
     public void start(Stage stage) throws Exception
     {
-        Parent root = FXMLLoader.load(getClass().getResource("MovieView.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("/GUI/View/MovieView.fxml"));
         
         Scene scene = new Scene(root);
         
