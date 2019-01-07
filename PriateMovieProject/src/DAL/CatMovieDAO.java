@@ -3,13 +3,13 @@
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
  */
-package DAO;
+package DAL;
 
 /**
  *
  * @author Frederik Jensen
  */
-public class ConnectionDAO
+public class CatMovieDAO
 {
     
 }
