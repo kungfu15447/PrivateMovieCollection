@@ -15,7 +15,7 @@ import javafx.stage.Stage;
  *
  * @author bonde
  */
-public class PriateMovieProject extends Application
+public class MovieProjectMain extends Application
 {
     
     @Override
