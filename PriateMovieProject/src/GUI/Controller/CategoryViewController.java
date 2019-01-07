@@ -7,15 +7,21 @@ package GUI.Controller;
 
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.event.ActionEvent;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.ListView;
 
 /**
  * FXML Controller class
  *
  * @author Kristian Urup laptop
  */
-public class CategoryController implements Initializable
+public class CategoryViewController implements Initializable
 {
+
+    @FXML
+    private ListView<?> listCategory;
 
     /**
      * Initializes the controller class.
@@ -25,5 +31,15 @@ public class CategoryController implements Initializable
     {
         // TODO
     }    
+
+    @FXML
+    private void handleCancelBtn(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void handleOkBtn(ActionEvent event)
+    {
+    }
     
 }
