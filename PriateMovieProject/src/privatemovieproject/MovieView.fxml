@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane id="AnchorPane" prefHeight="782.0" prefWidth="1477.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="priatemovieproject.MovieViewController">
+<AnchorPane id="AnchorPane" prefHeight="782.0" prefWidth="1477.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="privatemovieproject.MovieViewController">
     <children>
         <Button fx:id="button" layoutX="492.0" layoutY="737.0" onAction="#play" text="Play" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
