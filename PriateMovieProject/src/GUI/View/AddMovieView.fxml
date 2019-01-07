@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 
 
-<AnchorPane id="AnchorPane" prefHeight="234.0" prefWidth="284.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="privatemovieproject.AddMovieViewController">
+<AnchorPane id="AnchorPane" prefHeight="234.0" prefWidth="284.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/10.0.1" fx:controller="GUI.Controller.AddMovieViewController">
    <children>
       <TextField fx:id="txtTitle" layoutX="54.0" layoutY="30.0" />
       <TextField fx:id="txtYear" layoutX="54.0" layoutY="98.0" />
