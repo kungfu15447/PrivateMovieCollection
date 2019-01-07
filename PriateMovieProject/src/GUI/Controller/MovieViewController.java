@@ -144,7 +144,15 @@ public class MovieViewController implements Initializable
     @FXML
     private void addMovie(ActionEvent event) throws IOException
     {
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddMovieView.fxml"));
+        Parent root = (Parent) loader.load();
         
+        AddMovieViewController amvcontroller = loader.getController();
+        
+        Stage stage = new Stage();
+        stage.setTitle("Movie collection");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
     
     /*
