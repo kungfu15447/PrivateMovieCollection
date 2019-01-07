@@ -38,29 +38,30 @@ public class MovieDAO
             while(rs.next())
             {
                 int id = rs.getInt("id");
-                String title = rs.getString("title");
-                int duration = rs.getInt("duration");
-                int year = rs.getInt("year");
-                String filePath = rs.getString("filePath");
-                Movie movie = new Movie(id, title, duration, year, filePath);
+                String name = rs.getString("name");
+                double rating = rs.getDouble("rating");
+                String filepath = rs.getString("filePath");
+                int lastview = rs.getInt("lastview");
+                Movie movie = new Movie(id, name, rating, filepath, lastview);
                 movies.add(movie);
             }
         }
         return movies;
     }
     
-    public Movie createMovie(String title, int duration, int year, String filePath) throws SQLException
+    public Movie createMovie(String name, double rating, String filepath, int lastview) throws SQLException
     {
-        String sql = "INSERT INTO Movie (title, duration, year, filePath) VALUE(?,?,?,?);";
+        String sql = "INSERT INTO Movie (name, rating, filepath, lastview) VALUE(?,?,?,?);";
         
         try (Connection con = cb.getConnection())
         {
             PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             
-            st.setString(1, title);
-            st.setInt(2, duration);
-            st.setInt(3, year);
-            st.setString(4, filePath);
+            st.setString(1, name);
+            st.setDouble(2, rating);
+            st.setString(3, filepath);
+            st.setInt(4, lastview);
+            
             
             int rowsAffected = st.executeUpdate();
             
@@ -70,7 +71,7 @@ public class MovieDAO
             {
                 id = rs.getInt(1);
             }
-            Movie movie = new Movie(id, title, duration, year, filePath);
+            Movie movie = new Movie(id, name, rating, filepath, lastview);
             return movie;
         } 
     }
