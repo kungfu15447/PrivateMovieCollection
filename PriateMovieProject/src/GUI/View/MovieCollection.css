@@ -21,7 +21,7 @@ and open the template in the editor.
 }
 
 .label-bright {
-    -fx-font-size: 18pt;
+    -fx-font-size: 11pt;
     -fx-font-family: "Segoe UI Semibold";
     -fx-text-fill: white;
     -fx-opacity: 0.6;
@@ -49,7 +49,7 @@ and open the template in the editor.
 }
 
 .table-view .column-header, .table-view .filler {
-    -fx-size: 20;
+    -fx-size: 35;
     -fx-border-width: 0 0 1 0;
     -fx-background-color: transparent;
     -fx-border-color: 
@@ -61,8 +61,8 @@ and open the template in the editor.
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 12pt;
-    -fx-font-family: "Segoe UI Bold";
+    -fx-font-size: 20pt;
+    -fx-font-family: "Segoe UI Light";
     -fx-text-fill: white;
     -fx-alignment: center-left;
     -fx-opacity: 0.6;
