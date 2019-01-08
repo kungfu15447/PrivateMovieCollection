@@ -5,7 +5,9 @@
  */
 package BLL;
 
+import BE.Category;
 import BE.Movie;
+import DAL.CategoryDAO;
 import DAL.MovieDAO;
 import java.sql.SQLException;
 import java.util.List;
@@ -17,10 +19,12 @@ import java.util.List;
 public class MovieManager
 {
     private final MovieDAO mdao;
+    private final CategoryDAO cdao;
 
     public MovieManager()
     {
         mdao = new MovieDAO();
+        cdao = new CategoryDAO();
     }
     
     public List<Movie> getAllMovies() throws SQLException
@@ -43,4 +47,19 @@ public class MovieManager
         mdao.updateRating(movie);
     }
     
+     public List<Category> getAllCategories() throws SQLException
+     {
+         return cdao.getAllCategories();
+     }
+     
+     public Category createCategory(String name) throws SQLException
+     {
+         return cdao.createCategory(name);
+     }
+     
+     public void deleteCategory(Category category) throws SQLException
+     {
+         cdao.deleteCategory(category);
+     }
 }
+    
