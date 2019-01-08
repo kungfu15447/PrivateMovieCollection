@@ -39,10 +39,10 @@ public class AddMovieViewController implements Initializable
     private TextField txtFilepath;
     @FXML
     private AnchorPane rootPane;
+
     
     private MovieManager mm;
     private String trueTrueFilePath;
-    
     /**
      * Initializes the controller class.
      */

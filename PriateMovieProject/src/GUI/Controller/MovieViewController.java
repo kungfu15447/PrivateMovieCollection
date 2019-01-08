@@ -5,6 +5,7 @@
  */
 package GUI.Controller;
 
+import BLL.MovieManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -40,6 +41,7 @@ public class MovieViewController implements Initializable
 {
     private MediaPlayer mediaPlayer;
     private String filePath;
+    private final MovieManager moma;
     
     @FXML
     private Label label;
@@ -53,6 +55,10 @@ public class MovieViewController implements Initializable
     private Slider volumeSlider;
     
     
+    public MovieViewController()
+    {
+        moma = new MovieManager();
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb)

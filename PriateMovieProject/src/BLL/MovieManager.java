@@ -80,7 +80,7 @@ public class MovieManager
     
     public List<Category> getAllCategories() throws SQLException
     {
-        return cdao.getAllCategories();
+            return cdao.getAllCategories();
     }
             
     public Category createCategory(String name) throws SQLException
