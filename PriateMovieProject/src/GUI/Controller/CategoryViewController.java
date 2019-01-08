@@ -11,6 +11,8 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 
 /**
  * FXML Controller class
@@ -22,6 +24,8 @@ public class CategoryViewController implements Initializable
 
     @FXML
     private ListView<?> listCategory;
+    @FXML
+    private AnchorPane rootPane;
 
     /**
      * Initializes the controller class.
@@ -35,6 +39,8 @@ public class CategoryViewController implements Initializable
     @FXML
     private void handleCancelBtn(ActionEvent event)
     {
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML
