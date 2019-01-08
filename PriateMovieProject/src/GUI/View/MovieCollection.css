@@ -114,15 +114,15 @@ and open the template in the editor.
  */
 .button {
     -fx-padding: 4 15 4 15;   
-    -fx-border-color: #e2e2e2;
-    -fx-border-width: 2;
+    -fx-border-width: 3;
+    -fx-border-color: #A83F39;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI", Helvetica, Arial, sans-serif;
+    -fx-font-family: "Segoe UI Semibold"/*, Helvetica, Arial, sans-serif*/;
     -fx-font-size: 9pt;
-    -fx-text-fill: #d8d8d8;
+    -fx-text-fill: #A83F39;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
-    -fx-opacity: 0.6;
+    -fx-opacity: 0.9;
     -fx-cursor:hand;
 }
 
@@ -136,8 +136,9 @@ and open the template in the editor.
 }
 
 .button:pressed, .button:default:hover:pressed {
-  -fx-background-color: white;
-  -fx-text-fill: #1d1d1d;
+  -fx-background-color: #A83F39;
+  -fx-opacity: 0,6;
+  -fx-text-fill: #3a3a3a;
 }
 
 .button:focused {
@@ -161,4 +162,9 @@ and open the template in the editor.
 
 .button:default:hover {
     -fx-background-color: derive(-fx-focus-color,30%);
+}
+
+.text-field{
+    -fx-background-color: #A83F39;
+    -fx-opacity: 0.6;
 }
