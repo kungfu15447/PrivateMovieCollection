@@ -5,8 +5,10 @@
  */
 package BLL;
 
+import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
+import DAL.CategoryDAO;
 import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.sql.SQLException;
@@ -21,10 +23,12 @@ import java.util.logging.Logger;
 public class MovieManager
 {
     private final MovieDAO mdao;
+    private final CategoryDAO cdao;
 
     public MovieManager()
     {
         mdao = new MovieDAO();
+        cdao = new CategoryDAO();
     }
     
     public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
@@ -72,6 +76,21 @@ public class MovieManager
         {
             throw new MTBllException("Could not update movie. " + ex.getMessage());
         }
+    }
+    
+    public List<Category> getAllCategories() throws SQLException
+    {
+        return cdao.getAllCategories();
+    }
+            
+    public Category createCategory(String name) throws SQLException
+    {
+        return cdao.createCategory(name);
+    }
+    
+    public void deleteCategory(Category category) throws SQLException
+    {
+        cdao.deleteCategory(category);
     }
     
 }
