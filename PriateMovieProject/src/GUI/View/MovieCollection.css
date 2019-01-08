@@ -14,34 +14,37 @@ and open the template in the editor.
 }
 
 .label {
-    -fx-font-size: 9pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-font-size: 11pt;
+    -fx-font-family: "Berlin Sans FB Demi";
+    -fx-text-fill: black;
     -fx-opacity: 0.6;
 }
 
 .label-bright {
     -fx-font-size: 11pt;
-    -fx-font-family: "Segoe UI Semibold";
-    -fx-text-fill: white;
+    -fx-font-family: "Berlin Sans FB Demi";
+    -fx-text-fill: #A83F39;
     -fx-opacity: 0.6;
 }
 
 .label-header {
     -fx-font-size: 32pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Berlin Sans FB Demi";
     -fx-text-fill: white;
     -fx-opacity: 0.6;
 }   
 
 .table-view {
     -fx-base: #1d1d1d;
-    -fx-control-inner-background: #1d1d1d;
-    -fx-background-color: #1d1d1d;
+    -fx-control-inner-background: #a83f39   ;
+    -fx-background-color: #A83F39;
     -fx-table-cell-border-color: transparent;
     -fx-table-header-border-color: transparent;
     -fx-padding: 5;
     -fx-cursor:hand;
+    -fx-opacity: 0.6;
+    -fx-border-radius: 10 10 10 10;
+    -fx-background-radius: 10 10 10 10;
 }
 
 .table-view .column-header-background {
@@ -58,18 +61,19 @@ and open the template in the editor.
         derive(-fx-base, 80%) 
         transparent;
     -fx-border-insets: 0 10 1 0;
+    -fx-border-color: black;
 }
 
 .table-view .column-header .label {
-    -fx-font-size: 20pt;
-    -fx-font-family: "Segoe UI Light";
-    -fx-text-fill: white;
+    -fx-font-size: 12pt;
+    -fx-font-family: "SBerlin Sans FB Demi";
     -fx-alignment: center-left;
-    -fx-opacity: 0.6;
+    -fx-text-fill: black;
+    -fx-opacity: 1;
 }
 
 .table-view:focused .table-row-cell:filled:focused:selected {
-    -fx-background-color: -fx-focus-color;
+    -fx-background-color: -fx-focused-color;
 }
 
 .split-pane:horizontal > .split-pane-divider {
@@ -92,7 +96,7 @@ and open the template in the editor.
 
 .menu-bar .label {
     -fx-font-size: 14pt;
-    -fx-font-family: "Segoe UI Light";
+    -fx-font-family: "Berlin Sans FB Demi";
     -fx-text-fill: white;
     -fx-opacity: 0.6;
 }
@@ -103,7 +107,7 @@ and open the template in the editor.
 
 .text-field {
     -fx-font-size: 9pt;
-    -fx-font-family: "Segoe UI Semibold";
+    -fx-font-family: "Berlin Sans FB Demi";
     -fx-opacity: 0.6;
 }
 
@@ -113,12 +117,14 @@ and open the template in the editor.
  * http://pixelduke.wordpress.com/2012/10/23/jmetro-windows-8-controls-on-java/
  */
 .button {
+    -fx-border-radius: 7 7 7 7;
+    -fx-background-radius: 7 7 7 7;
     -fx-padding: 4 15 4 15;   
     -fx-border-width: 3;
     -fx-border-color: #A83F39;
     -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
-    -fx-font-family: "Segoe UI Semibold"/*, Helvetica, Arial, sans-serif*/;
+    -fx-font-family: "Berlin Sans FB Demi"/*, Helvetica, Arial, sans-serif*/;
     -fx-font-size: 9pt;
     -fx-text-fill: #A83F39;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -129,6 +135,8 @@ and open the template in the editor.
 .button-sliders
 {
     -fx-opacity: 0.6;
+    -fx-color: black;
+    -fx-control-inner-background: #A83F39;
 }
 
 .button:hover {
@@ -167,4 +175,11 @@ and open the template in the editor.
 .text-field{
     -fx-background-color: #A83F39;
     -fx-opacity: 0.6;
+}
+
+.separator{
+    -fx-opacity: 0.6;
+    -fx-border-color: #A83F39;
+    -fx-border-width: 4;
+    -fx-background-color: #A83F39;
 }

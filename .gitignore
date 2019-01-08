@@ -36,3 +36,5 @@ nbdist/
 .nb-gradle/
 
 # End of https://www.gitignore.io/api/java,netbeans
+PriateMovieProject/dist/PrivateMovieProject.html
+PriateMovieProject/dist/PrivateMovieProject.jnlp

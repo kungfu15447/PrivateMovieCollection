@@ -5,9 +5,13 @@
  */
 package GUI.Controller;
 
+import BE.Movie;
+import BLL.Exception.MTBllException;
+import BLL.MovieManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -24,6 +28,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -40,6 +46,7 @@ public class MovieViewController implements Initializable
 {
     private MediaPlayer mediaPlayer;
     private String filePath;
+    private final MovieManager moma;
     
     @FXML
     private Label label;
@@ -51,8 +58,20 @@ public class MovieViewController implements Initializable
     private Slider durationSlider;
     @FXML
     private Slider volumeSlider;
+    @FXML
+    private TableView<?> tableView;
+    @FXML
+    private TableColumn<?, ?> clmTitle;
+    @FXML
+    private TableColumn<?, ?> clmMyRating;
+    @FXML
+    private TableColumn<?, ?> clmImdbRating;
     
     
+    public MovieViewController()
+    {
+        moma = new MovieManager();
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -167,4 +186,14 @@ public class MovieViewController implements Initializable
             }
         });
     }
+    public List<Movie> getAllMovies() throws MTBllException
+    {
+        return moma.getAllMovies();
+    }
+    
+     public void deleteMovie(Movie movie) throws MTBllException
+     {
+         moma.deleteMovie(movie);
+     }
+     
 }

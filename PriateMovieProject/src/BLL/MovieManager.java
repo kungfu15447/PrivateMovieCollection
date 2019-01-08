@@ -13,8 +13,6 @@ import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -38,7 +36,7 @@ public class MovieManager
             return mdao.createMovie(name, rating, filepath, lastview);
         } catch (MTDalException ex)
         {
-            throw new MTBllException("Could not create movie. " + ex.getMessage());
+            throw new MTBllException("" + ex.getMessage());
         }
     }
     
@@ -80,7 +78,7 @@ public class MovieManager
     
     public List<Category> getAllCategories() throws SQLException
     {
-        return cdao.getAllCategories();
+            return cdao.getAllCategories();
     }
             
     public Category createCategory(String name) throws SQLException

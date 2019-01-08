@@ -60,7 +60,7 @@ public class MovieDAO
     {
         try (Connection con = cb.getConnection())
         {
-            String sql = "INSERT INTO Movie (name, rating, filepath, lastview) VALUE(?,?,?,?);";
+            String sql = "INSERT INTO Movie (name, rating, filepath, lastview) VALUES(?,?,?,?);";
             
             PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
