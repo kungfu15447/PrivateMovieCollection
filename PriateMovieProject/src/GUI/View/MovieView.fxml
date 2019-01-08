@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane id="AnchorPane" prefHeight="782.0" prefWidth="1477.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MovieViewController">
+<AnchorPane id="AnchorPane" prefHeight="782.0" prefWidth="1477.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MovieViewController">
     <children>
         <Button fx:id="button" layoutX="492.0" layoutY="737.0" onAction="#play" text="Play" />
         <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
@@ -17,15 +17,15 @@
       <Button layoutX="1156.0" layoutY="737.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
       <Button layoutX="612.0" layoutY="737.0" mnemonicParsing="false" onAction="#stop" text="Stop" />
       <MediaView fx:id="mediaView" fitHeight="700.0" fitWidth="1200.0" layoutX="26.0" layoutY="14.0" />
-      <Slider fx:id="durationSlider" layoutX="26.0" layoutY="714.0" onMouseClicked="#setDuration" prefHeight="18.0" prefWidth="1200.0" />
-      <Slider fx:id="volumeSlider" layoutX="175.0" layoutY="744.0" prefHeight="18.0" prefWidth="184.0" />
-      <TableView layoutX="1233.0" layoutY="12.0" prefHeight="706.0" prefWidth="239.0">
+      <Slider fx:id="durationSlider" layoutX="26.0" layoutY="714.0" onMouseClicked="#setDuration" prefHeight="18.0" prefWidth="1200.0" styleClass="button-sliders" />
+      <Slider fx:id="volumeSlider" layoutX="175.0" layoutY="744.0" prefHeight="18.0" prefWidth="184.0" styleClass="button-sliders" />
+      <TableView layoutX="1245.0" layoutY="12.0" prefHeight="706.0" prefWidth="227.0">
         <columns>
-          <TableColumn prefWidth="75.0" text="Title" />
-          <TableColumn prefWidth="75.0" text="Duration" />
-            <TableColumn prefWidth="75.0" text="Year" />
+          <TableColumn prefWidth="82.0" text="Title" />
+          <TableColumn prefWidth="83.0" text="Duration" />
+            <TableColumn prefWidth="60.0" text="Year" />
         </columns>
       </TableView>
-      <Button layoutX="1389.0" layoutY="725.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
+      <Button layoutX="1328.0" layoutY="731.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
     </children>
 </AnchorPane>
