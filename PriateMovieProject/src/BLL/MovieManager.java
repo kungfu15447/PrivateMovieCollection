@@ -12,7 +12,7 @@ import java.util.List;
 
 /**
  *
- * @author Frederik Jensen
+ * @author Schweizeren
  */
 public class MovieManager
 {
