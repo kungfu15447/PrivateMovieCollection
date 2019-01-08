@@ -67,7 +67,8 @@ public class CatMovieDAO
         {
             String sql = "INSERT INTO CategoryMovie (CategoryId, MovieId) VALUES (?,?)";
             PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
-            for (Category cate: catlist) {
+            for (Category cate : catlist)
+            {
                 pst.setInt(1, cate.getId());
                 pst.setInt(2, movie.getId());
                 pst.addBatch();
@@ -75,5 +76,16 @@ public class CatMovieDAO
             pst.executeBatch();
         }
 
+    }
+
+    public void deleteMovieFromTable(Movie movie) throws SQLException
+    {
+        try (Connection con = cb.getConnection())
+        {
+            String sql = "DELETE FROM CategoryMovie WHERE MovieId = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, movie.getId());
+            pst.execute();
+        }
     }
 }
