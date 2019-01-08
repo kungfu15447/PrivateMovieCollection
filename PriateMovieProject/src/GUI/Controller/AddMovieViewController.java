@@ -6,6 +6,7 @@
 package GUI.Controller;
 
 import BLL.Exception.MTBllException;
+import BLL.MovieManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -28,6 +29,8 @@ import javafx.stage.Stage;
  */
 public class AddMovieViewController implements Initializable
 {
+    
+    private final MovieManager moma;
 
     @FXML
     private TextField txtTitle;
@@ -40,6 +43,12 @@ public class AddMovieViewController implements Initializable
 
     
     private String trueTrueFilePath;
+    
+    public AddMovieViewController()
+    {
+        moma = new MovieManager();
+    }
+    
     /**
      * Initializes the controller class.
      */
@@ -47,7 +56,8 @@ public class AddMovieViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         txtFilepath.setDisable(true);
-    }    
+    }
+    
 
     @FXML
     private void chooseFile(ActionEvent event)
