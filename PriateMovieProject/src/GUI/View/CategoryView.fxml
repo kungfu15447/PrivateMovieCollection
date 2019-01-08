@@ -9,14 +9,14 @@
 
 <AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="376.0" prefWidth="281.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CategoryViewController">
    <children>
-      <ListView fx:id="listCategory" layoutX="34.0" layoutY="76.0" prefHeight="224.0" prefWidth="200.0" styleClass="context-menu" />
-      <Label layoutX="98.0" layoutY="11.0" styleClass="table-view" text="Category">
+      <ListView fx:id="listCategory" layoutX="41.0" layoutY="76.0" prefHeight="224.0" prefWidth="200.0" styleClass="table-view" />
+      <Label layoutX="110.0" layoutY="14.0" styleClass="label-bright" text="Category">
          <font>
             <Font size="18.0" />
          </font>
       </Label>
       <Button layoutX="181.0" layoutY="324.0" mnemonicParsing="false" onAction="#handleCancelBtn" text="Cancel" />
-      <Button layoutX="115.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleOkBtn" prefHeight="25.0" prefWidth="52.0" text="Ok" />
-      <Separator layoutY="42.0" prefHeight="13.0" prefWidth="281.0" />
+      <Button layoutX="106.0" layoutY="325.0" mnemonicParsing="false" onAction="#handleOkBtn" prefHeight="29.0" prefWidth="61.0" text="OK" />
+      <Separator layoutY="42.0" prefHeight="2.0" prefWidth="281.0" />
    </children>
 </AnchorPane>
