@@ -23,7 +23,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -68,7 +67,7 @@ public class AddMovieViewController implements Initializable
     private void chooseFile(ActionEvent event)
     {
         movieModel.initializeFile();
-        txtFilepath.setText(trueTrueFilePath);
+        txtFilepath.setText(movieModel.getFilePath());
     }
 
     @FXML

@@ -50,4 +50,13 @@ public class MovieModel
             trueTrueFilePath = trueFilePath.replace("%20", " ");
         }
     }
+    
+    
+    
+    
+    
+    public String getFilePath()
+    {
+        return trueTrueFilePath;
+    }
 }
