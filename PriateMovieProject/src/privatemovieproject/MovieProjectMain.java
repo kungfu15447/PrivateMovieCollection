@@ -25,6 +25,7 @@ public class MovieProjectMain extends Application
         
         Scene scene = new Scene(root);
         
+        stage.setTitle("Movie collection");
         stage.setScene(scene);
         stage.show();
     }
