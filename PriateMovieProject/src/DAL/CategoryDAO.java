@@ -7,6 +7,7 @@ package DAL;
 
 import BE.Category;
 import java.sql.Connection;
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.sql.Statement;
@@ -35,9 +36,37 @@ public class CategoryDAO
             while(rs.next()) {
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
+                Category category = new Category(id, name);
+                catList.add(category);
             }
             
         }
         return catList;
+    }
+    
+    public Category createCategory(String name) throws SQLException {
+        try (Connection con = cb.getConnection()) {
+            String sql = "INSERT INTO Category (name) VALUES (?);";
+            PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
+            st.setString(1, name);
+            
+            int rowsAffected = st.executeUpdate();
+            
+            ResultSet rs = st.getGeneratedKeys();
+            int id = 0;
+            if (rs.next()) {
+                id = rs.getInt(1);
+            }
+            Category category = new Category(id, name);
+            return category;
+        }
+    }
+    
+    public void deleteCategory(Category category) throws SQLException {
+        try (Connection con = cb.getConnection()) {
+            Statement st = con.createStatement();
+            String sql = "DELETE FROM Category WHERE = " + category.getId() + ";";
+            st.executeUpdate(sql);
+        }
     }
 }
