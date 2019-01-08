@@ -25,6 +25,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -53,6 +55,14 @@ public class MovieViewController implements Initializable
     private Slider durationSlider;
     @FXML
     private Slider volumeSlider;
+    @FXML
+    private TableView<?> tableView;
+    @FXML
+    private TableColumn<?, ?> clmTitle;
+    @FXML
+    private TableColumn<?, ?> clmMyRating;
+    @FXML
+    private TableColumn<?, ?> clmImdbRating;
     
     
     public MovieViewController()

@@ -34,8 +34,6 @@ public class AddMovieViewController implements Initializable
     @FXML
     private TextField txtTitle;
     @FXML
-    private TextField txtYear;
-    @FXML
     private TextField txtFilepath;
     @FXML
     private AnchorPane rootPane;
@@ -43,6 +41,8 @@ public class AddMovieViewController implements Initializable
     
     private MovieManager mm;
     private String trueTrueFilePath;
+    @FXML
+    private TextField txtRating;
     /**
      * Initializes the controller class.
      */
@@ -80,7 +80,7 @@ public class AddMovieViewController implements Initializable
         try
         {
             title = txtTitle.getText();
-            rating = Double.parseDouble(txtYear.getText());
+            rating = Double.parseDouble(txtRating.getText());
             filepath = txtFilepath.getText();
             
             mm.createMovie(title, 0, filepath, 0);
