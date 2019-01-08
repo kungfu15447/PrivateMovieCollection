@@ -21,7 +21,7 @@ public class MovieModel
 {
     private final ObservableList<Movie> movieList;
     private final MovieManager moma;
-    private String trueTrueFilePath;
+    private String filePath;
     
     public MovieModel() throws MTBllException
     {
@@ -38,7 +38,6 @@ public class MovieModel
     
     public void initializeFile()
     {
-        String filePath;
         FileChooser fileChooser = new FileChooser();
         FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a File (*.mp4)", "*.mp4");
         fileChooser.getExtensionFilters().add(filter);
@@ -46,8 +45,6 @@ public class MovieModel
         if (file != null)
         {
             filePath = file.toURI().toString();
-            String trueFilePath = filePath.replaceFirst("file:/", "");
-            trueTrueFilePath = trueFilePath.replace("%20", " ");
         }
     }
     
@@ -78,6 +75,6 @@ public class MovieModel
     */
     public String getFilePath()
     {
-        return trueTrueFilePath;
+        return filePath;
     }
 }

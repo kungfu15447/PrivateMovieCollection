@@ -91,6 +91,23 @@ public class MovieViewController implements Initializable
     @FXML
     private void play(ActionEvent event)
     {
+        String filepath = tableView.getSelectionModel().getSelectedItem().getFilepath();
+            Media media = new Media (filepath);
+            mediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mediaPlayer);
+            
+            DoubleProperty width = mediaView.fitWidthProperty();
+            DoubleProperty height = mediaView.fitHeightProperty();
+
+        
+        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+            @Override
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+                durationSlider.setValue(newValue.toSeconds());
+                durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
+            }
+        });
+        controlSound();
         mediaPlayer.play();
     }
     
@@ -106,7 +123,7 @@ public class MovieViewController implements Initializable
         fileChooser.getExtensionFilters().add(filter);
         File file = fileChooser.showOpenDialog(null);
         filePath = file.toURI().toString();
-        
+        System.out.println(filePath);
         if(filePath != null)
         {
             Media media = new Media (filePath);
