@@ -20,19 +20,19 @@ import javafx.stage.FileChooser;
 public class MovieModel
 {
     private ObservableList<Movie> movieList;
-    private MovieManager mm;
+    private MovieManager moma;
     private String trueTrueFilePath;
     
     public MovieModel() throws MTBllException
     {
-        mm = new MovieManager();
+        moma = new MovieManager();
         movieList = FXCollections.observableArrayList();
-        movieList.addAll(mm.getAllMovies());
+        movieList.addAll(moma.getAllMovies());
     }
     
     public void createMovie (String title, double rating, String filepath, int lastView) throws MTBllException
     {
-        Movie movie = mm.createMovie(title, rating, filepath, lastView);
+        Movie movie = moma.createMovie(title, rating, filepath, lastView);
         movieList.add(movie);
     }
     

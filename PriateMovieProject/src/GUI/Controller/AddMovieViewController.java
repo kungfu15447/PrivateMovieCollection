@@ -45,7 +45,7 @@ public class AddMovieViewController implements Initializable
     @FXML
     private TextField txtRating;
     
-    private MovieManager mm;
+    private MovieManager moma;
     private String trueTrueFilePath;
     private MovieModel movieModel;
     
@@ -86,7 +86,7 @@ public class AddMovieViewController implements Initializable
             rating = Double.parseDouble(txtRating.getText());
             filepath = txtFilepath.getText();
             
-            mm.createMovie(title, 0, filepath, 0);
+            moma.createMovie(title, 0, filepath, 0);
         } catch (MTBllException ex)
         {
             displayError(ex);
