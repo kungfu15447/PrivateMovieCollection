@@ -5,6 +5,8 @@
  */
 package GUI.Controller;
 
+import BLL.Exception.MTBllException;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -16,6 +18,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -35,23 +38,41 @@ public class AddMovieViewController implements Initializable
     @FXML
     private AnchorPane rootPane;
 
+    
+    private String trueTrueFilePath;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        txtFilepath.setDisable(true);
     }    
 
     @FXML
     private void chooseFile(ActionEvent event)
     {
+        String filePath;
+        FileChooser fileChooser = new FileChooser();
+        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a File (*.mp4)", "*.mp4");
+        fileChooser.getExtensionFilters().add(filter);
+        File file = fileChooser.showOpenDialog(null);
+        if (file != null)
+        {
+            filePath = file.toURI().toString();
+            String trueFilePath = filePath.replaceFirst("file:/", "");
+            trueTrueFilePath = trueFilePath.replace("%20", " ");
+            
+        }
+        txtFilepath.setText(trueTrueFilePath);
     }
 
     @FXML
     private void saveMovie(ActionEvent event)
     {
+        String title;
+        double rating;
+        String filepath;
     }
 
     @FXML

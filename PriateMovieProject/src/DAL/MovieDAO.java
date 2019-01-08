@@ -6,7 +6,7 @@
 package DAL;
 
 import BE.Movie;
-import com.microsoft.sqlserver.jdbc.SQLServerException;
+import DAL.Exception.MTDalException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +31,7 @@ public class MovieDAO
         cb = new ConnectionDAO();
     }
 
-    public List<Movie> getAllMovies() throws SQLException
+    public List<Movie> getAllMovies() throws MTDalException
     {
         List<Movie> movies = new ArrayList<>();
 
@@ -47,14 +49,15 @@ public class MovieDAO
                 Movie movie = new Movie(id, name, rating, filepath, lastview);
                 movies.add(movie);
             }
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not read all movies. " + ex.getMessage());
         }
         return movies;
     }
 
-    public Movie createMovie(String name, double rating, String filepath, int lastview) throws SQLException
+    public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTDalException
     {
-        
-
         try (Connection con = cb.getConnection())
         {
             String sql = "INSERT INTO Movie (name, rating, filepath, lastview) VALUE(?,?,?,?);";
@@ -76,20 +79,26 @@ public class MovieDAO
             }
             Movie movie = new Movie(id, name, rating, filepath, lastview);
             return movie;
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not create movie. " + ex.getMessage());
         }
     }
 
-    public void deleteMovie(Movie movie) throws SQLException
+    public void deleteMovie(Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())
         {
             Statement statement = con.createStatement();
             String sql = "DELETE FROM Movie WHERE id = " + movie.getId() + ";";
             statement.executeUpdate(sql);
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not delete movie. " + ex.getMessage());
         }
     }
 
-    public void updateRating(Movie movie) throws SQLException
+    public void updateRating(Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())
         {
@@ -101,6 +110,9 @@ public class MovieDAO
             st.setInt(2, movie.getId());
             
             st.executeUpdate();
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not update movie. " + ex.getMessage());
         }
     }
 }

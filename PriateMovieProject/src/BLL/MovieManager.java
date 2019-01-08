@@ -7,10 +7,14 @@ package BLL;
 
 import BE.Category;
 import BE.Movie;
+import BLL.Exception.MTBllException;
 import DAL.CategoryDAO;
+import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -27,39 +31,66 @@ public class MovieManager
         cdao = new CategoryDAO();
     }
     
-    public List<Movie> getAllMovies() throws SQLException
+    public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
     {
-        return mdao.getAllMovies();
+        try
+        {
+            return mdao.createMovie(name, rating, filepath, lastview);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not create movie. " + ex.getMessage());
+        }
     }
     
-    public Movie createMovie(String name, double rating, String filepath, int lastview) throws SQLException
+    /*
+    Gets all movies.
+    */
+    public List<Movie> getAllMovies() throws MTBllException
     {
-        return mdao.createMovie(name, rating, filepath, lastview);
+        try
+        {
+            return mdao.getAllMovies();
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not read all songs. " + ex.getMessage());
+        }
     }
             
-    public void deleteMovie(Movie movie) throws SQLException
+    public void deleteMovie(Movie movie) throws MTBllException
     {
-        mdao.deleteMovie(movie);
+        try
+        {
+            mdao.deleteMovie(movie);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not delete song. " + ex.getMessage());
+        }
     }
             
-    public void updateRating(Movie movie) throws SQLException
+    public void updateRating(Movie movie) throws MTBllException
     {
-        mdao.updateRating(movie);
+        try
+        {
+            mdao.updateRating(movie);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not update movie. " + ex.getMessage());
+        }
     }
     
-     public List<Category> getAllCategories() throws SQLException
-     {
-         return cdao.getAllCategories();
-     }
-     
-     public Category createCategory(String name) throws SQLException
-     {
-         return cdao.createCategory(name);
-     }
-     
-     public void deleteCategory(Category category) throws SQLException
-     {
-         cdao.deleteCategory(category);
-     }
+    public List<Category> getAllCategories() throws SQLException
+    {
+            return cdao.getAllCategories();
+    }
+            
+    public Category createCategory(String name) throws SQLException
+    {
+        return cdao.createCategory(name);
+    }
+    
+    public void deleteCategory(Category category) throws SQLException
+    {
+        cdao.deleteCategory(category);
+    }
+    
 }
-    
