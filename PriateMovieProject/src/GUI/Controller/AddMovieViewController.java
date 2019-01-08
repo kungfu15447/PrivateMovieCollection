@@ -5,11 +5,14 @@
  */
 package GUI.Controller;
 
+import BE.Category;
+import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.sql.SQLException;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -132,5 +135,25 @@ public class AddMovieViewController implements Initializable
         alert.setContentText(ex.getMessage());
 
         alert.showAndWait();
+    }
+    
+    public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
+    {
+        return moma.createMovie(name, rating, filepath, lastview);
+    }
+    
+    public void updateRating(Movie movie) throws MTBllException
+    {
+        moma.updateRating(movie);
+    }
+    
+    public Category createCategory(String name) throws SQLException
+    {
+        return moma.createCategory(name);
+    }
+    
+    public void deleteCategory(Category category) throws SQLException
+    {
+        moma.deleteCategory(category);
     }
 }

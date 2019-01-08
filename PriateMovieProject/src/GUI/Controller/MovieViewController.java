@@ -5,10 +5,13 @@
  */
 package GUI.Controller;
 
+import BE.Movie;
+import BLL.Exception.MTBllException;
 import BLL.MovieManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
@@ -183,4 +186,14 @@ public class MovieViewController implements Initializable
             }
         });
     }
+    public List<Movie> getAllMovies() throws MTBllException
+    {
+        return moma.getAllMovies();
+    }
+    
+     public void deleteMovie(Movie movie) throws MTBllException
+     {
+         moma.deleteMovie(movie);
+     }
+     
 }
