@@ -9,11 +9,14 @@ import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
+import GUI.Model.MovieModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -23,7 +26,6 @@ import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 
 /**
@@ -33,8 +35,6 @@ import javafx.stage.Stage;
  */
 public class AddMovieViewController implements Initializable
 {
-    
-    private final MovieManager moma;
 
     @FXML
     private TextField txtTitle;
@@ -42,26 +42,26 @@ public class AddMovieViewController implements Initializable
     private TextField txtFilepath;
     @FXML
     private AnchorPane rootPane;
-
+    @FXML
+    private TextField txtRating;
     
     private MovieManager mm;
     private String trueTrueFilePath;
+    private MovieModel movieModel;
     
-    public AddMovieViewController()
-    {
-        moma = new MovieManager();
-    }
-    
-
-    @FXML
-    private TextField txtRating;
-
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        try
+        {
+            movieModel = new MovieModel();
+        } catch (MTBllException ex)
+        {
+            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         txtFilepath.setDisable(true);
     }
     
@@ -69,19 +69,8 @@ public class AddMovieViewController implements Initializable
     @FXML
     private void chooseFile(ActionEvent event)
     {
-        String filePath;
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a File (*.mp4)", "*.mp4");
-        fileChooser.getExtensionFilters().add(filter);
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null)
-        {
-            filePath = file.toURI().toString();
-            String trueFilePath = filePath.replaceFirst("file:/", "");
-            trueTrueFilePath = trueFilePath.replace("%20", " ");
-            
-        }
-        txtFilepath.setText(trueTrueFilePath);
+        movieModel.initializeFile();
+        txtFilepath.setText(movieModel.getFilePath());
     }
 
     @FXML
