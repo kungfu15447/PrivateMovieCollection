@@ -8,6 +8,7 @@ package GUI.Controller;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
+import GUI.Model.MovieModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -30,6 +31,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -47,6 +49,7 @@ public class MovieViewController implements Initializable
     private MediaPlayer mediaPlayer;
     private String filePath;
     private final MovieManager moma;
+    private final MovieModel movieModel;
     
     @FXML
     private Label label;
@@ -59,24 +62,27 @@ public class MovieViewController implements Initializable
     @FXML
     private Slider volumeSlider;
     @FXML
-    private TableView<?> tableView;
+    private TableView<Movie> tableView;
     @FXML
-    private TableColumn<?, ?> clmTitle;
+    private TableColumn<Movie, String> clmTitle;
     @FXML
-    private TableColumn<?, ?> clmMyRating;
+    private TableColumn<Movie, Double> clmMyRating;
     @FXML
-    private TableColumn<?, ?> clmImdbRating;
+    private TableColumn<Movie, Double> clmImdbRating;
     
     
-    public MovieViewController()
+    public MovieViewController() throws MTBllException
     {
         moma = new MovieManager();
+        movieModel = new MovieModel();
     }
     
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
+        clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        tableView.setItems(movieModel.getMovies());
     }    
 
     /*
@@ -167,6 +173,7 @@ public class MovieViewController implements Initializable
         Parent root = (Parent) loader.load();
         
         AddMovieViewController amvcontroller = loader.getController();
+        amvcontroller.initializeModel(movieModel);
         
         Stage stage = new Stage();
         stage.setTitle("Movie collection");

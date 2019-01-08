@@ -55,13 +55,6 @@ public class AddMovieViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        try
-        {
-            movieModel = new MovieModel();
-        } catch (MTBllException ex)
-        {
-            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
         txtFilepath.setDisable(true);
     }
     
@@ -140,5 +133,15 @@ public class AddMovieViewController implements Initializable
     public void deleteCategory(Category category) throws SQLException
     {
         moma.deleteCategory(category);
+    }
+    
+    /**
+     * Initializes this class' moviemodel object
+     * @param movieModel the movieModel this class' movieModel is getting
+     * initialized with
+     */
+    public void initializeModel(MovieModel movieModel)
+    {
+        this.movieModel = movieModel;
     }
 }
