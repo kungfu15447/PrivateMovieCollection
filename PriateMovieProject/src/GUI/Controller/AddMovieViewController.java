@@ -60,7 +60,7 @@ public class AddMovieViewController implements Initializable
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
-
+    
     @FXML
     private void handleCategoryChooseBtn(ActionEvent event) throws IOException
     {
