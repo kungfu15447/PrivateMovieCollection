@@ -16,31 +16,31 @@ import java.util.List;
  */
 public class MovieManager
 {
-    private final MovieDAO md;
+    private final MovieDAO mdao;
 
     public MovieManager()
     {
-        md = new MovieDAO();
+        mdao = new MovieDAO();
     }
     
     public List<Movie> getAllMovies() throws SQLException
     {
-        return md.getAllMovies();
+        return mdao.getAllMovies();
     }
     
     public Movie createMovie(String name, double rating, String filepath, int lastview) throws SQLException
     {
-        return md.createMovie(name, rating, filepath, lastview);
+        return mdao.createMovie(name, rating, filepath, lastview);
     }
             
     public void deleteMovie(Movie movie) throws SQLException
     {
-        md.deleteMovie(movie);
+        mdao.deleteMovie(movie);
     }
             
     public void updateRating(Movie movie) throws SQLException
     {
-        md.updateRating(movie);
+        mdao.updateRating(movie);
     }
     
 }
