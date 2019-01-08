@@ -61,7 +61,8 @@ public class AddMovieViewController implements Initializable
             Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
         txtFilepath.setDisable(true);
-    }    
+    }
+    
 
     @FXML
     private void chooseFile(ActionEvent event)
