@@ -88,4 +88,13 @@ public class CatMovieDAO
             pst.execute();
         }
     }
+    
+    public void deleteCategoryFromTable(Category category) throws SQLException {
+        try (Connection con = cb.getConnection()) {
+            String sql = "DELETE FROM CategoryMovie WHERE CategoryId = ?";
+            PreparedStatement pst = con.prepareStatement(sql);
+            pst.setInt(1, category.getId());
+            pst.execute();
+        }
+    }
 }
