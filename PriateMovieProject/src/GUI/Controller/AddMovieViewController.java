@@ -7,10 +7,13 @@ package GUI.Controller;
 
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
+import GUI.Model.MovieModel;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -37,36 +40,33 @@ public class AddMovieViewController implements Initializable
     private TextField txtFilepath;
     @FXML
     private AnchorPane rootPane;
-
+    @FXML
+    private TextField txtRating;
     
     private MovieManager mm;
     private String trueTrueFilePath;
-    @FXML
-    private TextField txtRating;
+    private MovieModel movieModel;
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
+        try
+        {
+            movieModel = new MovieModel();
+        } catch (MTBllException ex)
+        {
+            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         txtFilepath.setDisable(true);
     }    
 
     @FXML
     private void chooseFile(ActionEvent event)
     {
-        String filePath;
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a File (*.mp4)", "*.mp4");
-        fileChooser.getExtensionFilters().add(filter);
-        File file = fileChooser.showOpenDialog(null);
-        if (file != null)
-        {
-            filePath = file.toURI().toString();
-            String trueFilePath = filePath.replaceFirst("file:/", "");
-            trueTrueFilePath = trueFilePath.replace("%20", " ");
-            
-        }
+        movieModel.initializeFile();
         txtFilepath.setText(trueTrueFilePath);
     }
 
