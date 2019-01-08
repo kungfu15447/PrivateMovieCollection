@@ -6,6 +6,7 @@
 package GUI.Controller;
 
 import BLL.Exception.MTBllException;
+import BLL.MovieManager;
 import java.io.File;
 import java.io.IOException;
 import java.net.URL;
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.FileChooser;
@@ -38,6 +40,7 @@ public class AddMovieViewController implements Initializable
     @FXML
     private AnchorPane rootPane;
     
+    private MovieManager mm;
     private String trueTrueFilePath;
     
     /**
@@ -71,8 +74,20 @@ public class AddMovieViewController implements Initializable
     private void saveMovie(ActionEvent event)
     {
         String title;
+        String category;
         double rating;
         String filepath;
+        try
+        {
+            title = txtTitle.getText();
+            rating = Double.parseDouble(txtYear.getText());
+            filepath = txtFilepath.getText();
+            
+            mm.createMovie(title, 0, filepath, 0);
+        } catch (MTBllException ex)
+        {
+            displayError(ex);
+        }
     }
 
     @FXML
@@ -94,4 +109,17 @@ public class AddMovieViewController implements Initializable
         stage.show();
     }
     
+    /**
+     * A popup window that displays the error that occured
+     * @param ex the exception getting showened to the user
+     */
+    private void displayError(Exception ex)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(ex.getMessage());
+
+        alert.showAndWait();
+    }
 }
