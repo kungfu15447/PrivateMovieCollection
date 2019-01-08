@@ -5,8 +5,11 @@
  */
 package GUI.Controller;
 
+import BE.Category;
 import BLL.MovieManager;
 import java.net.URL;
+import java.sql.SQLException;
+import java.util.List;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -51,7 +54,14 @@ public class CategoryViewController implements Initializable
     @FXML
     private void handleOkBtn(ActionEvent event)
     {
+        
     }
+    
+    public List<Category> getAllCategories() throws SQLException
+    {
+        return moma.getAllCategories();
+    }
+    
     
     
     

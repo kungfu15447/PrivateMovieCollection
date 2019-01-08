@@ -21,11 +21,11 @@
       <MediaView fx:id="mediaView" fitHeight="700.0" fitWidth="1200.0" layoutX="23.0" layoutY="14.0" />
       <Slider fx:id="durationSlider" layoutX="17.0" layoutY="771.0" onMouseClicked="#setDuration" prefHeight="32.0" prefWidth="1200.0" />
       <Slider fx:id="volumeSlider" layoutX="166.0" layoutY="815.0" prefHeight="18.0" prefWidth="184.0" />
-      <TableView layoutX="1233.0" layoutY="69.0" prefHeight="738.0" prefWidth="390.0">
+      <TableView fx:id="tableView" layoutX="1233.0" layoutY="69.0" prefHeight="738.0" prefWidth="390.0">
         <columns>
-          <TableColumn prefWidth="161.6666259765625" text="Title" />
-          <TableColumn prefWidth="80.666748046875" text="My rating" />
-            <TableColumn prefWidth="142.333251953125" text="IMDB rating" />
+          <TableColumn fx:id="clmTitle" prefWidth="161.6666259765625" text="Title" />
+          <TableColumn fx:id="clmMyRating" prefWidth="80.666748046875" text="My rating" />
+            <TableColumn fx:id="clmImdbRating" prefWidth="142.333251953125" text="IMDB rating" />
         </columns>
       </TableView>
       <Button layoutX="1499.0" layoutY="840.0" mnemonicParsing="false" onAction="#addMovie" text="Add Movie" />
