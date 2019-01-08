@@ -14,6 +14,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
@@ -210,14 +212,18 @@ public class MovieViewController implements Initializable
             }
         });
     }
-    public List<Movie> getAllMovies() throws MTBllException
+
+    @FXML
+    private void deleteMovie(ActionEvent event)
     {
-        return moma.getAllMovies();
+        try
+        {
+            Movie movie = tableView.getSelectionModel().getSelectedItem();
+            movieModel.deleteMovie(movie);
+        } catch (MTBllException ex)
+        {
+            
+        }
     }
-    
-     public void deleteMovie(Movie movie) throws MTBllException
-     {
-         moma.deleteMovie(movie);
-     }
      
 }
