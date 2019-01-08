@@ -19,8 +19,8 @@ import javafx.stage.FileChooser;
  */
 public class MovieModel
 {
-    private ObservableList<Movie> movieList;
-    private MovieManager mm;
+    private final ObservableList<Movie> movieList;
+    private final MovieManager mm;
     private String trueTrueFilePath;
     
     public MovieModel() throws MTBllException
@@ -52,9 +52,30 @@ public class MovieModel
     }
     
     
+    public void deleteMovie(Movie movie) throws MTBllException
+    {
+        try
+        {
+            mm.deleteMovie(movie);
+            movieList.remove(movie);
+        } catch (MTBllException ex)
+        {
+            throw new MTBllException("Could not delete movie");
+        }
+    }
     
+    /**
+     * Returns the list containing all movies from the database
+     * @return the ObservableList containing all movies
+     */
+    public ObservableList<Movie> getMovies()
+    {
+        return movieList;
+    }
     
-    
+    /*
+    * returns the filepath for the movie.
+    */
     public String getFilePath()
     {
         return trueTrueFilePath;
