@@ -5,6 +5,7 @@
  */
 package GUI.Controller;
 
+import BLL.MovieManager;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -21,12 +22,16 @@ import javafx.stage.Stage;
  */
 public class CategoryViewController implements Initializable
 {
-
+    private final MovieManager moma;
     @FXML
     private ListView<?> listCategory;
     @FXML
     private AnchorPane rootPane;
 
+    public CategoryViewController()
+    {
+        moma = new MovieManager();
+    }
     /**
      * Initializes the controller class.
      */
@@ -47,5 +52,8 @@ public class CategoryViewController implements Initializable
     private void handleOkBtn(ActionEvent event)
     {
     }
+    
+    
+    
     
 }

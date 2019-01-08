@@ -5,6 +5,7 @@
  */
 package GUI.Controller;
 
+import BLL.MovieManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,6 +27,8 @@ import javafx.stage.Stage;
 public class AddMovieViewController implements Initializable
 {
 
+    private final MovieManager moma;
+    
     @FXML
     private TextField txtTitle;
     @FXML
@@ -35,6 +38,11 @@ public class AddMovieViewController implements Initializable
     @FXML
     private AnchorPane rootPane;
 
+    public AddMovieViewController()
+    {
+        moma = new MovieManager();
+    }
+    
     /**
      * Initializes the controller class.
      */
