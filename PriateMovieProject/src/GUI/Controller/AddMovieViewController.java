@@ -76,17 +76,13 @@ public class AddMovieViewController implements Initializable
     @FXML
     private void saveMovie(ActionEvent event)
     {
-        String title;
-        String category;
-        double rating;
-        String filepath;
         try
         {
-            title = txtTitle.getText();
-            rating = Double.parseDouble(txtRating.getText());
-            filepath = txtFilepath.getText();
+            String title = txtTitle.getText();
+            double rating = Double.parseDouble(txtRating.getText());
+            String filepath = txtFilepath.getText();
             
-            moma.createMovie(title, 0, filepath, 0);
+            movieModel.createMovie(title, rating, filepath, 0);
         } catch (MTBllException ex)
         {
             displayError(ex);
