@@ -14,6 +14,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.util.List;
+import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -29,12 +30,17 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
@@ -50,10 +56,11 @@ import javafx.util.Duration;
  */
 public class MovieViewController implements Initializable
 {
+
     private MediaPlayer mediaPlayer;
     private String filePath;
     private final MovieModel movieModel;
-    
+
     @FXML
     private Label label;
     private MediaView mediaView;
@@ -75,13 +82,12 @@ public class MovieViewController implements Initializable
     private Button btnAddCate;
     @FXML
     private Button btnDeleteCate;
-    
-    
+
     public MovieViewController() throws MTBllException
     {
         movieModel = new MovieModel();
     }
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -89,36 +95,37 @@ public class MovieViewController implements Initializable
         clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         tableView.setItems(movieModel.getMovies());
         lstCategories.setItems(movieModel.getCategories());
-    }    
+    }
 
     /*
     Plays the chosen movie.
-    */
+     */
     private void play(ActionEvent event)
     {
 
         filePath = tableView.getSelectionModel().getSelectedItem().getFilepath();
-            Media media = new Media (filePath);
-            mediaPlayer = new MediaPlayer(media);
-            mediaView.setMediaPlayer(mediaPlayer);
-            
-            DoubleProperty width = mediaView.fitWidthProperty();
-            DoubleProperty height = mediaView.fitHeightProperty();
+        Media media = new Media(filePath);
+        mediaPlayer = new MediaPlayer(media);
+        mediaView.setMediaPlayer(mediaPlayer);
 
-        
-        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
+        DoubleProperty width = mediaView.fitWidthProperty();
+        DoubleProperty height = mediaView.fitHeightProperty();
+
+        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>()
+        {
             @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
+            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue)
+            {
                 durationSlider.setValue(newValue.toSeconds());
                 durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
             }
         });
         mediaPlayer.play();
     }
-    
+
     /*
     Temporary movie chooser.
-    */
+     */
     @FXML
     private void chooseFiles(ActionEvent event) throws IOException
     {
@@ -126,11 +133,11 @@ public class MovieViewController implements Initializable
         String filePath = movie.getFilepath();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
         Parent root = (Parent) loader.load();
-        
+
         MoviePlayerViewController mpvcontroller = loader.getController();
         mpvcontroller.initializeModel(movieModel);
         mpvcontroller.getFilePath(filePath);
-        
+
         Stage stage = new Stage();
         stage.setTitle("Movie player");
         stage.setScene(new Scene(root));
@@ -139,7 +146,7 @@ public class MovieViewController implements Initializable
 
     /*
     Pauses the movie, pressing play will continue the movie.
-    */
+     */
     private void pause(ActionEvent event)
     {
         mediaPlayer.pause();
@@ -147,7 +154,7 @@ public class MovieViewController implements Initializable
 
     /*
     Exits the program.
-    */
+     */
     @FXML
     private void exit(ActionEvent event)
     {
@@ -156,7 +163,7 @@ public class MovieViewController implements Initializable
 
     /*
     Stops and resets the movie.
-    */
+     */
     private void stop(ActionEvent event)
     {
         mediaPlayer.stop();
@@ -164,7 +171,7 @@ public class MovieViewController implements Initializable
 
     /*
     By clicking the slider, you can change where the movie plays from.
-    */
+     */
     private void setDuration(MouseEvent event)
     {
         mediaPlayer.seek(Duration.seconds(durationSlider.getValue()));
@@ -172,16 +179,16 @@ public class MovieViewController implements Initializable
 
     /*
     Adds a movie
-    */
+     */
     @FXML
     private void addMovie(ActionEvent event) throws IOException
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddMovieView.fxml"));
         Parent root = (Parent) loader.load();
-        
+
         AddMovieViewController amvcontroller = loader.getController();
         amvcontroller.initializeModel(movieModel);
-        
+
         Stage stage = new Stage();
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
@@ -197,22 +204,42 @@ public class MovieViewController implements Initializable
             movieModel.deleteMovie(movie);
         } catch (MTBllException ex)
         {
-            
+
         }
     }
 
     @FXML
     private void createCategory(ActionEvent event)
     {
+
+        TextInputDialog dialog = new TextInputDialog("");
+        dialog.setTitle("Creating category");
+        dialog.setContentText("Category title:");
+        Optional<String> result = dialog.showAndWait();
+        if (result.isPresent())
+        {
+            try
+            {
+                movieModel.createCategory(result.get());
+            } catch (MTBllException ex)
+            {
+                
+            }
+        }
     }
 
     @FXML
     private void deleteCategory(ActionEvent event)
     {
+        try
+        {
+            System.out.println("button works");
+            Category category = lstCategories.getSelectionModel().getSelectedItem();
+            movieModel.deleteCategory(category);
+        } catch (MTBllException ex)
+        {
+            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
-    
-     
-    
-    
+
 }

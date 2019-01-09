@@ -74,7 +74,6 @@ public class AddMovieViewController implements Initializable
             String title = txtTitle.getText();
             double rating = Double.parseDouble(txtRating.getText());
             String filepath = txtFilepath.getText();
-            
             movieModel.createMovie(title, rating, filepath, 0);
         } catch (MTBllException ex)
         {

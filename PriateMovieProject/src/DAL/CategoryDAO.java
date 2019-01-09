@@ -74,7 +74,7 @@ public class CategoryDAO
     public void deleteCategory(Category category) throws MTDalException {
         try (Connection con = cb.getConnection()) {
             Statement st = con.createStatement();
-            String sql = "DELETE FROM Category WHERE = " + category.getId() + ";";
+            String sql = "DELETE FROM Category WHERE id = " + category.getId() + ";";
             st.executeUpdate(sql);
         } catch (SQLException ex)
         {
