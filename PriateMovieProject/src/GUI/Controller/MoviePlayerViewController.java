@@ -8,7 +8,6 @@ package GUI.Controller;
 import GUI.Model.MovieModel;
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.beans.InvalidationListener;
 import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
@@ -39,10 +38,9 @@ public class MoviePlayerViewController implements Initializable
     private MediaPlayer mediaPlayer;
     private String filePath;
     private MovieModel movieModel;
-    private MovieViewController mvc;
-    
-    @FXML
-    private Button button;
+    private boolean playing = false;
+    private boolean paused = false;
+
     @FXML
     private Label label;
     @FXML
@@ -53,6 +51,8 @@ public class MoviePlayerViewController implements Initializable
     private Slider volumeSlider;
     @FXML
     private AnchorPane anchorPane;
+    @FXML
+    private Button playPauseButton;
 
     /**
      * Initializes the controller class.
@@ -61,50 +61,55 @@ public class MoviePlayerViewController implements Initializable
     public void initialize(URL url, ResourceBundle rb)
     {
         
-    }    
+    }
 
     @FXML
     private void play(ActionEvent event)
     {
-        
-            Media media = new Media (filePath);
+        if (!paused && !playing)
+        {
+            Media media = new Media(filePath);
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
-            
+
             DoubleProperty width = mediaView.fitWidthProperty();
             DoubleProperty height = mediaView.fitHeightProperty();
 
-        
-        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                durationSlider.setValue(newValue.toSeconds());
-                durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
-            }
-        });
-        controlSound();
-        mediaPlayer.play();
-    }
+            mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>()
+            {
+                @Override
+                public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue)
+                {
+                    durationSlider.setValue(newValue.toSeconds());
+                    durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
+                }
+            });
 
-
-    @FXML
-    private void pause(ActionEvent event)
-    {
-        mediaPlayer.pause();
+            mediaPlayer.play();
+            playing = true;
+            paused = false;
+        } else if (paused) {
+           mediaPlayer.play();
+           paused = false;
+           playing = true;
+           playPauseButton.setText("Pause");
+        } else if (playing) {
+            mediaPlayer.pause();
+            paused = true;
+            playing = false;
+            playPauseButton.setText("Play");
+        }
     }
 
     @FXML
     private void exit(ActionEvent event)
     {
-        mediaPlayer.stop();
+        if (playing == true)
+        {
+            mediaPlayer.stop();
+        }
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.close();
-    }
-
-    @FXML
-    private void stop(ActionEvent event)
-    {
-        mediaPlayer.stop();
     }
 
     @FXML
@@ -112,20 +117,22 @@ public class MoviePlayerViewController implements Initializable
     {
         mediaPlayer.seek(Duration.seconds(durationSlider.getValue()));
     }
- 
+
     /*
     Sets the volume of the video to 100, but also allows changes to the volume by clicking it.
-    */
-    private void controlSound() {
+     */
+    private void controlSound()
+    {
         volumeSlider.setValue(mediaPlayer.getVolume() * 100);
         volumeSlider.valueProperty().addListener((Observable observable) ->
         {
             mediaPlayer.setVolume(volumeSlider.getValue() / 100);
         });
     }
-    
+
     /**
      * Initializes this class' moviemodel object
+     *
      * @param movieModel the movieModel this class' movieModel is getting
      * initialized with
      */
@@ -133,7 +140,7 @@ public class MoviePlayerViewController implements Initializable
     {
         this.movieModel = movieModel;
     }
-    
+
     public void getFilePath(String filepath)
     {
         this.filePath = filepath;
