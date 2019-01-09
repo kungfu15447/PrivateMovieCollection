@@ -151,7 +151,7 @@ public class MovieViewController implements Initializable
     @FXML
     private void exit(ActionEvent event)
     {
-        mediaPlayer.stop();
+        System.exit(0);
     }
 
     /*
