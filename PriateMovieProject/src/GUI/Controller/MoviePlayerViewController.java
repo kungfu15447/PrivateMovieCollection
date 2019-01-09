@@ -53,6 +53,8 @@ public class MoviePlayerViewController implements Initializable
     private AnchorPane anchorPane;
     @FXML
     private Button playPauseButton;
+    @FXML
+    private Label timer;
 
     /**
      * Initializes the controller class.
@@ -99,6 +101,7 @@ public class MoviePlayerViewController implements Initializable
             playing = false;
             playPauseButton.setText("Play");
         }
+        controlSound();
     }
 
     @FXML
@@ -144,5 +147,10 @@ public class MoviePlayerViewController implements Initializable
     public void getFilePath(String filepath)
     {
         this.filePath = filepath;
+    }
+    
+    private void labelTimer()
+    {
+        
     }
 }
