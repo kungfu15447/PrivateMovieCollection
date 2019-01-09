@@ -5,6 +5,7 @@
  */
 package GUI.Controller;
 
+import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
@@ -30,6 +31,7 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -55,13 +57,8 @@ public class MovieViewController implements Initializable
     
     @FXML
     private Label label;
-    @FXML
-    private Button button;
-    @FXML
     private MediaView mediaView;
-    @FXML
     private Slider durationSlider;
-    @FXML
     private Slider volumeSlider;
     @FXML
     private TableView<Movie> tableView;
@@ -71,6 +68,14 @@ public class MovieViewController implements Initializable
     private TableColumn<Movie, Double> clmMyRating;
     @FXML
     private TableColumn<Movie, Double> clmImdbRating;
+    @FXML
+    private ListView<Category> lstCategories;
+    @FXML
+    private Button btnEditRating;
+    @FXML
+    private Button btnAddCate;
+    @FXML
+    private Button btnDeleteCate;
     
     
     public MovieViewController() throws MTBllException
@@ -90,9 +95,9 @@ public class MovieViewController implements Initializable
     /*
     Plays the chosen movie.
     */
-    @FXML
     private void play(ActionEvent event)
     {
+        
         String filepath = tableView.getSelectionModel().getSelectedItem().getFilepath();
             Media media = new Media (filepath);
             mediaPlayer = new MediaPlayer(media);
@@ -149,7 +154,6 @@ public class MovieViewController implements Initializable
     /*
     Pauses the movie, pressing play will continue the movie.
     */
-    @FXML
     private void pause(ActionEvent event)
     {
         mediaPlayer.pause();
@@ -167,7 +171,6 @@ public class MovieViewController implements Initializable
     /*
     Stops and resets the movie.
     */
-    @FXML
     private void stop(ActionEvent event)
     {
         mediaPlayer.stop();
@@ -176,7 +179,6 @@ public class MovieViewController implements Initializable
     /*
     By clicking the slider, you can change where the movie plays from.
     */
-    @FXML
     private void setDuration(MouseEvent event)
     {
         mediaPlayer.seek(Duration.seconds(durationSlider.getValue()));
