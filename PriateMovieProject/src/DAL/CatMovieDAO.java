@@ -7,6 +7,7 @@ package DAL;
 
 import BE.Category;
 import BE.Movie;
+import DAL.Exception.MTDalException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -14,6 +15,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -29,7 +32,7 @@ public class CatMovieDAO
         cb = new ConnectionDAO();
     }
 
-    public List<Movie> getMoviesFromCats(List<Category> catlist) throws SQLException
+    public List<Movie> getMoviesFromCats(List<Category> catlist) throws MTDalException
     {
         List<Movie> categoryMovies = new ArrayList<>();
         try (Connection con = cb.getConnection())
@@ -57,11 +60,14 @@ public class CatMovieDAO
                 Movie movie = new Movie(id, name, rating, filepath, lastview);
                 categoryMovies.add(movie);
             }
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not get movies from the selected categories.", ex);
         }
         return categoryMovies;
     }
 
-    public void addCategoryToMovie(List<Category> catlist, Movie movie) throws SQLException
+    public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())
         {
@@ -74,11 +80,14 @@ public class CatMovieDAO
                 pst.addBatch();
             }
             pst.executeBatch();
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not add categories to the movie.", ex);
         }
 
     }
 
-    public void deleteMovieFromTable(Movie movie) throws SQLException
+    public void deleteMovieFromTable(Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())
         {
@@ -86,15 +95,23 @@ public class CatMovieDAO
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, movie.getId());
             pst.execute();
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not delete movies from the CategoryMovie table.", ex);
         }
     }
-    
-    public void deleteCategoryFromTable(Category category) throws SQLException {
-        try (Connection con = cb.getConnection()) {
+
+    public void deleteCategoryFromTable(Category category) throws MTDalException
+    {
+        try (Connection con = cb.getConnection())
+        {
             String sql = "DELETE FROM CategoryMovie WHERE CategoryId = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, category.getId());
             pst.execute();
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not delete categories from the CategoryMovie table.", ex);
         }
     }
 }

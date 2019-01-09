@@ -8,11 +8,14 @@ package BLL;
 import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
+import DAL.CatMovieDAO;
 import DAL.CategoryDAO;
 import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -22,11 +25,13 @@ public class MovieManager
 {
     private final MovieDAO mdao;
     private final CategoryDAO cdao;
+    private final CatMovieDAO cmdao;
 
     public MovieManager()
     {
         mdao = new MovieDAO();
         cdao = new CategoryDAO();
+        cmdao = new CatMovieDAO();
     }
     
     public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
@@ -76,19 +81,47 @@ public class MovieManager
         }
     }
     
-    public List<Category> getAllCategories() throws SQLException
+    public List<Category> getAllCategories() throws MTBllException
     {
+        try
+        {
             return cdao.getAllCategories();
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not get a ll categories");
+        }
     }
             
-    public Category createCategory(String name) throws SQLException
+    public Category createCategory(String name) throws MTBllException
     {
-        return cdao.createCategory(name);
+        try
+        {
+            return cdao.createCategory(name);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not create category");
+        }
     }
     
-    public void deleteCategory(Category category) throws SQLException
+    public void deleteCategory(Category category) throws MTBllException
     {
-        cdao.deleteCategory(category);
+        try
+        {
+            cdao.deleteCategory(category);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not delete category");
+        }
+    }
+    
+    public void deleteCategoryFromTable(Category category) throws MTBllException {
+        try
+        {
+            cmdao.deleteCategoryFromTable(category);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not delete category from the CategoryMovie table");
+        }
     }
     
 }

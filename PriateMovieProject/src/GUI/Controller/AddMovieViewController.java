@@ -78,7 +78,6 @@ public class AddMovieViewController implements Initializable
             String title = txtTitle.getText();
             double rating = Double.parseDouble(txtRating.getText());
             String filepath = txtFilepath.getText();
-            
             movieModel.createMovie(title, rating, filepath, 0);
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.close();
@@ -125,7 +124,7 @@ public class AddMovieViewController implements Initializable
 
         alert.showAndWait();
     }
-    
+
     /**
      *
      * @return
@@ -173,16 +172,17 @@ public class AddMovieViewController implements Initializable
         moma.updateRating(movie);
     }
     
-    public Category createCategory(String name) throws SQLException
+    public Category createCategory(String name) throws SQLException, MTBllException
     {
         return moma.createCategory(name);
     }
     
-    public void deleteCategory(Category category) throws SQLException
+    public void deleteCategory(Category category) throws SQLException, MTBllException
     {
         moma.deleteCategory(category);
     }
     
+
     /**
      * Initializes this class' moviemodel object
      * @param movieModel the movieModel this class' movieModel is getting

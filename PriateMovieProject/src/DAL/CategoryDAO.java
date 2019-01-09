@@ -6,6 +6,7 @@
 package DAL;
 
 import BE.Category;
+import DAL.Exception.MTDalException;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
@@ -13,6 +14,8 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -26,7 +29,7 @@ public class CategoryDAO
         cb = new ConnectionDAO();
     }
     
-    public List<Category> getAllCategories() throws SQLException {
+    public List<Category> getAllCategories() throws MTDalException {
         List<Category> catList = new ArrayList<>();
         
         try (Connection con = cb.getConnection()) {
@@ -40,11 +43,14 @@ public class CategoryDAO
                 catList.add(category);
             }
             
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not get all categories.", ex);
         }
         return catList;
     }
     
-    public Category createCategory(String name) throws SQLException {
+    public Category createCategory(String name) throws MTDalException {
         try (Connection con = cb.getConnection()) {
             String sql = "INSERT INTO Category (name) VALUES (?);";
             PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -59,14 +65,20 @@ public class CategoryDAO
             }
             Category category = new Category(id, name);
             return category;
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not create category.", ex);
         }
     }
     
-    public void deleteCategory(Category category) throws SQLException {
+    public void deleteCategory(Category category) throws MTDalException {
         try (Connection con = cb.getConnection()) {
             Statement st = con.createStatement();
-            String sql = "DELETE FROM Category WHERE = " + category.getId() + ";";
+            String sql = "DELETE FROM Category WHERE id = " + category.getId() + ";";
             st.executeUpdate(sql);
+        } catch (SQLException ex)
+        {
+            throw new MTDalException("Could not delete category.", ex);
         }
     }
 }
