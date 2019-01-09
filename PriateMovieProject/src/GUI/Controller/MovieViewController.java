@@ -50,7 +50,6 @@ public class MovieViewController implements Initializable
 {
     private MediaPlayer mediaPlayer;
     private String filePath;
-    private final MovieManager moma;
     private final MovieModel movieModel;
     
     @FXML
@@ -75,7 +74,6 @@ public class MovieViewController implements Initializable
     
     public MovieViewController() throws MTBllException
     {
-        moma = new MovieManager();
         movieModel = new MovieModel();
     }
     
@@ -93,8 +91,8 @@ public class MovieViewController implements Initializable
     @FXML
     private void play(ActionEvent event)
     {
-        String filepath = tableView.getSelectionModel().getSelectedItem().getFilepath();
-            Media media = new Media (filepath);
+        filePath = tableView.getSelectionModel().getSelectedItem().getFilepath();
+            Media media = new Media (filePath);
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
             
@@ -109,7 +107,6 @@ public class MovieViewController implements Initializable
                 durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
             }
         });
-        controlSound();
         mediaPlayer.play();
     }
     
@@ -117,33 +114,20 @@ public class MovieViewController implements Initializable
     Temporary movie chooser.
     */
     @FXML
-    private void chooseFiles(ActionEvent event)
+    private void chooseFiles(ActionEvent event) throws IOException
     {
-        FileChooser fileChooser = new FileChooser();
-        FileChooser.ExtensionFilter filter = new FileChooser.ExtensionFilter("Select a Fle(*.mp4", "*.mp4");
+        String filePath = tableView.getSelectionModel().getSelectedItem().getFilepath();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
+        Parent root = (Parent) loader.load();
         
-        fileChooser.getExtensionFilters().add(filter);
-        File file = fileChooser.showOpenDialog(null);
-        filePath = file.toURI().toString();
-        System.out.println(filePath);
-        if(filePath != null)
-        {
-            Media media = new Media (filePath);
-            mediaPlayer = new MediaPlayer(media);
-            mediaView.setMediaPlayer(mediaPlayer);
-            
-            DoubleProperty width = mediaView.fitWidthProperty();
-            DoubleProperty height = mediaView.fitHeightProperty();
-        }
+        MoviePlayerViewController mpvcontroller = loader.getController();
+        mpvcontroller.initializeModel(movieModel);
+        mpvcontroller.getFilePath(filePath);
         
-        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>() {
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue) {
-                durationSlider.setValue(newValue.toSeconds());
-                durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
-            }
-        });
-        controlSound();
+        Stage stage = new Stage();
+        stage.setTitle("Movie player");
+        stage.setScene(new Scene(root));
+        stage.show();
     }
 
     /*
@@ -161,7 +145,7 @@ public class MovieViewController implements Initializable
     @FXML
     private void exit(ActionEvent event)
     {
-        System.exit(0);
+        mediaPlayer.stop();
     }
 
     /*
@@ -199,19 +183,6 @@ public class MovieViewController implements Initializable
         stage.setScene(new Scene(root));
         stage.show();
     }
-    
-    /*
-    Sets the volume of the video to 100, but also allows changes to the volume by clicking it.
-    */
-    private void controlSound() {
-        volumeSlider.setValue(mediaPlayer.getVolume() * 100);
-        volumeSlider.valueProperty().addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-                mediaPlayer.setVolume(volumeSlider.getValue() / 100);
-            }
-        });
-    }
 
     @FXML
     private void deleteMovie(ActionEvent event)
@@ -226,4 +197,6 @@ public class MovieViewController implements Initializable
         }
     }
      
+    
+    
 }
