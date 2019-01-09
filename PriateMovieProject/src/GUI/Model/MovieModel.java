@@ -5,10 +5,13 @@
  */
 package GUI.Model;
 
+import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
 import java.io.File;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
@@ -20,6 +23,7 @@ import javafx.stage.FileChooser;
 public class MovieModel
 {
     private final ObservableList<Movie> movieList;
+    private final ObservableList<Category> categoryList;
     private final MovieManager moma;
     private String filePath;
     
@@ -27,7 +31,9 @@ public class MovieModel
     {
         moma = new MovieManager();
         movieList = FXCollections.observableArrayList();
+        categoryList = FXCollections.observableArrayList();
         movieList.addAll(moma.getAllMovies());
+        categoryList.addAll(moma.getAllCategories());
     }
     
     public void createMovie (String title, double rating, String filepath, int lastView) throws MTBllException
@@ -77,4 +83,31 @@ public class MovieModel
     {
         return filePath;
     }
+    
+    public ObservableList<Category> getCategories() {
+        return categoryList;
+    }
+    
+    public void createCategory(String title) throws MTBllException {
+        try
+        {
+            Category cate = moma.createCategory(title);
+            categoryList.add(cate);
+        } catch (MTBllException ex)
+        {
+            throw new MTBllException("Could not create category");
+        }
+    }
+    
+    public void deleteCategory(Category category) throws MTBllException {
+        try
+        {
+            moma.deleteCategory(category);
+            categoryList.remove(category);
+        } catch (MTBllException ex)
+        {
+            throw new MTBllException("Could not delete category");
+        }
+    }
+    
 }

@@ -88,6 +88,7 @@ public class MovieViewController implements Initializable
         clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         tableView.setItems(movieModel.getMovies());
+        lstCategories.setItems(movieModel.getCategories());
     }    
 
     /*
@@ -121,7 +122,8 @@ public class MovieViewController implements Initializable
     @FXML
     private void chooseFiles(ActionEvent event) throws IOException
     {
-        String filePath = tableView.getSelectionModel().getSelectedItem().getFilepath();
+        Movie movie = tableView.getSelectionModel().getSelectedItem();
+        String filePath = movie.getFilepath();
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
         Parent root = (Parent) loader.load();
         
@@ -149,7 +151,7 @@ public class MovieViewController implements Initializable
     @FXML
     private void exit(ActionEvent event)
     {
-        mediaPlayer.stop();
+        System.exit(0);
     }
 
     /*
@@ -198,6 +200,18 @@ public class MovieViewController implements Initializable
             
         }
     }
+
+    @FXML
+    private void createCategory(ActionEvent event)
+    {
+    }
+
+    @FXML
+    private void deleteCategory(ActionEvent event)
+    {
+    }
+    
+    
      
     
     

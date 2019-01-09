@@ -115,26 +115,6 @@ public class AddMovieViewController implements Initializable
         alert.showAndWait();
     }
     
-    public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
-    {
-        return moma.createMovie(name, rating, filepath, lastview);
-    }
-    
-    public void updateRating(Movie movie) throws MTBllException
-    {
-        moma.updateRating(movie);
-    }
-    
-    public Category createCategory(String name) throws SQLException
-    {
-        return moma.createCategory(name);
-    }
-    
-    public void deleteCategory(Category category) throws SQLException
-    {
-        moma.deleteCategory(category);
-    }
-    
     /**
      * Initializes this class' moviemodel object
      * @param movieModel the movieModel this class' movieModel is getting
