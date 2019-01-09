@@ -24,6 +24,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -69,6 +70,9 @@ public class AddMovieViewController implements Initializable
     @FXML
     private void saveMovie(ActionEvent event)
     {
+        String emptyField = getEmptyFieldInfo();
+        if(emptyField != null)
+        {
         try
         {
             String title = txtTitle.getText();
@@ -76,9 +80,16 @@ public class AddMovieViewController implements Initializable
             String filepath = txtFilepath.getText();
             
             movieModel.createMovie(title, rating, filepath, 0);
+            Stage stage = (Stage) rootPane.getScene().getWindow();
+            stage.close();
+            
         } catch (MTBllException ex)
         {
             displayError(ex);
+        }
+        }
+        else{
+            getAlertBox();
         }
     }
 
@@ -115,7 +126,44 @@ public class AddMovieViewController implements Initializable
         alert.showAndWait();
     }
     
-    public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
+    /**
+     *
+     * @return
+     */
+    public String getErrorInfo()
+    {
+        String errorInfo;
+        if(txtTitle == null)
+        {
+            errorInfo = "title";
+        }
+        else if (txtFilepath == null)
+        {
+            errorInfo = "filepath";
+        }
+        else if (txtRating == null)
+        {
+            errorInfo = "rating";
+        }
+        else 
+        {
+            errorInfo = null;
+        }
+        return errorInfo;
+    }
+    
+    public String getEmptyFieldInfo()
+    {
+        
+        String emptyField = null;
+        if(txtTitle == null || txtFilepath == null || txtRating == null)
+        {
+            emptyField = null;
+        }
+        return emptyField;
+    }
+    
+    public Movie createMovie(String name, double rating, String filepath, int lastview,Exception ex) throws MTBllException
     {
         return moma.createMovie(name, rating, filepath, lastview);
     }
@@ -143,5 +191,16 @@ public class AddMovieViewController implements Initializable
     public void initializeModel(MovieModel movieModel)
     {
         this.movieModel = movieModel;
+    }
+    
+    public void getAlertBox()
+    {
+        String errorInfo = getErrorInfo();
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Dialog");
+        alert.setHeaderText("You have not chosen a " + errorInfo + " for the movie");
+        alert.setContentText("Please select a " + errorInfo + " for the movie");
+        
+        alert.showAndWait();
     }
 }

@@ -219,11 +219,14 @@ public class MovieViewController implements Initializable
         try
         {
             Movie movie = tableView.getSelectionModel().getSelectedItem();
+            if(movie != null)
+            {
             movieModel.deleteMovie(movie);
+            }
         } catch (MTBllException ex)
         {
             
         }
     }
-     
+    
 }
