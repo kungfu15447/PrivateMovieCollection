@@ -110,4 +110,14 @@ public class MovieModel
         }
     }
     
+    public void deleteCategoryFromTable(Category category) throws MTBllException {
+        try
+        {
+            moma.deleteCategoryFromTable(category);
+        } catch (MTBllException ex)
+        {
+            throw new MTBllException("Could not delete category from CategoryMovie table");
+        }
+    }
+    
 }

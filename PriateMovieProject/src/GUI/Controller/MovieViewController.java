@@ -223,7 +223,7 @@ public class MovieViewController implements Initializable
                 movieModel.createCategory(result.get());
             } catch (MTBllException ex)
             {
-                
+
             }
         }
     }
@@ -233,9 +233,14 @@ public class MovieViewController implements Initializable
     {
         try
         {
-            System.out.println("button works");
             Category category = lstCategories.getSelectionModel().getSelectedItem();
-            movieModel.deleteCategory(category);
+            if (category != null)
+            {
+                movieModel.deleteCategory(category);
+                movieModel.deleteCategoryFromTable(category);
+            } else {
+                
+            }
         } catch (MTBllException ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
