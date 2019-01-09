@@ -100,9 +100,11 @@ public class CatMovieDAO
             throw new MTDalException("Could not delete movies from the CategoryMovie table.", ex);
         }
     }
-    
-    public void deleteCategoryFromTable(Category category) throws MTDalException {
-        try (Connection con = cb.getConnection()) {
+
+    public void deleteCategoryFromTable(Category category) throws MTDalException
+    {
+        try (Connection con = cb.getConnection())
+        {
             String sql = "DELETE FROM CategoryMovie WHERE CategoryId = ?";
             PreparedStatement pst = con.prepareStatement(sql);
             pst.setInt(1, category.getId());
