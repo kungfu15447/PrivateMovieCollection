@@ -116,4 +116,25 @@ public class MovieDAO
         }
     }
     
+
+    public void updateLastView(Movie movie) throws MTDalException
+    {
+        try (Connection con = cb.getConnection())
+        {
+            String sql = "UPDATE Movie SET lastview = ? WHERE id = ?;";
+            
+            PreparedStatement st = con.prepareStatement(sql);
+            
+            st.setInt(1, movie.getLastview());
+            st.setInt(2, movie.getId());
+            
+            st.executeUpdate();
+            
+            
+        }
+        catch (SQLException ex)
+        {
+            throw new MTDalException("Could not update LastView. " + ex.getMessage());
+        }
+    }
 }
