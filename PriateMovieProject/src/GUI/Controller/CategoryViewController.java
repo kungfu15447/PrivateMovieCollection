@@ -57,11 +57,6 @@ public class CategoryViewController implements Initializable
         
     }
     
-    public List<Category> getAllCategories() throws SQLException
-    {
-        return moma.getAllCategories();
-    }
-    
     
     
     

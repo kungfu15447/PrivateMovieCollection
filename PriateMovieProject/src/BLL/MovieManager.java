@@ -13,6 +13,8 @@ import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.sql.SQLException;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -76,19 +78,37 @@ public class MovieManager
         }
     }
     
-    public List<Category> getAllCategories() throws SQLException
+    public List<Category> getAllCategories() throws MTBllException
     {
+        try
+        {
             return cdao.getAllCategories();
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not get a ll categories");
+        }
     }
             
-    public Category createCategory(String name) throws SQLException
+    public Category createCategory(String name) throws MTBllException
     {
-        return cdao.createCategory(name);
+        try
+        {
+            return cdao.createCategory(name);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not create category");
+        }
     }
     
-    public void deleteCategory(Category category) throws SQLException
+    public void deleteCategory(Category category) throws MTBllException
     {
-        cdao.deleteCategory(category);
+        try
+        {
+            cdao.deleteCategory(category);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not delete category");
+        }
     }
     
 }

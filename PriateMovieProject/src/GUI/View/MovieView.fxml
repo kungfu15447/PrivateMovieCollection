@@ -31,7 +31,7 @@
       <Button layoutX="495.0" layoutY="810.0" mnemonicParsing="false" onAction="#deleteMovie" prefHeight="29.0" prefWidth="108.0" text="Delete Movie" />
       <ListView fx:id="lstCategories" layoutX="14.0" layoutY="68.0" prefHeight="731.0" prefWidth="349.0" />
       <Button fx:id="btnEditRating" layoutX="389.0" layoutY="846.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="108.0" text="Edit rating" />
-      <Button fx:id="btnAddCate" layoutX="14.0" layoutY="809.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="123.0" text="Add Category" />
-      <Button fx:id="btnDeleteCate" layoutX="137.0" layoutY="809.0" mnemonicParsing="false" text="Delete Category" />
+      <Button fx:id="btnAddCate" layoutX="14.0" layoutY="809.0" mnemonicParsing="false" onAction="#createCategory" prefHeight="29.0" prefWidth="123.0" text="Add Category" />
+      <Button fx:id="btnDeleteCate" layoutX="137.0" layoutY="809.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete Category" />
     </children>
 </AnchorPane>
