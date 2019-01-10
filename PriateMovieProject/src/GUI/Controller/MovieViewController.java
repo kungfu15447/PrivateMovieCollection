@@ -65,8 +65,6 @@ public class MovieViewController implements Initializable
     private final CategoryMovieModel cmm;
 
     @FXML
-    private Label label;
-    @FXML
     private TableView<Movie> tableView;
     @FXML
     private TableColumn<Movie, String> clmTitle;
