@@ -48,6 +48,7 @@ public class CatMovieDAO
                     sql = sql + "CategoryMovie.CategoryId = " + catlist.get(i).getId() + " AND ";
                 }
             }
+            System.out.println(sql);
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next())
@@ -60,11 +61,12 @@ public class CatMovieDAO
                 Movie movie = new Movie(id, name, rating, filepath, lastview);
                 categoryMovies.add(movie);
             }
+            return categoryMovies;
         } catch (SQLException ex)
         {
             throw new MTDalException("Could not get movies from the selected categories.", ex);
         }
-        return categoryMovies;
+        
     }
 
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTDalException

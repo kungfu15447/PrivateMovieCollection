@@ -28,6 +28,7 @@ public class MovieModel
     private final ObservableList<Movie> movieCheck;
     private final ObservableList<Movie> movieList;
     private final ObservableList<Category> categoryList;
+    private final ObservableList<Category> checkedCategoryList;
     private final MovieManager moma;
     private final MovieSearcher mose;
     private String filePath;
@@ -39,6 +40,7 @@ public class MovieModel
         movieList = FXCollections.observableArrayList();
         categoryList = FXCollections.observableArrayList();
         movieCheck = FXCollections.observableArrayList();
+        checkedCategoryList = FXCollections.observableArrayList();
         movieList.addAll(moma.getAllMovies());
         categoryList.addAll(moma.getAllCategories());
     }
@@ -78,8 +80,9 @@ public class MovieModel
         return movieList;
     }
 
-    /*
-    * returns the filepath for the movie.
+    /**
+     * Returns the filepath of the movie
+     * @return the movies filepath
      */
     public String getFilePath()
     {
@@ -138,5 +141,31 @@ public class MovieModel
         searchedMovieList.addAll(mose.searchMovies(searchBase, query));
         return searchedMovieList;
     }
-
+    
+    public void fillCheckedCategoryList() {
+        checkedCategoryList.clear();
+        for (Category cate : categoryList) {
+            if (cate.getSelect().isSelected()) {
+                checkedCategoryList.add(cate);
+            }
+        }
+    }
+    
+    public ObservableList<Movie> getMoviesFromCats() throws MTBllException {
+        ObservableList<Movie> movies = FXCollections.observableArrayList();
+        List<Movie> moviesFromCatsList = moma.getMoviesFromCats(checkedCategoryList);
+        for (Movie movie : moviesFromCatsList) {
+            movies.add(movie);
+        }
+        return movies;
+    }
+    
+    public ObservableList<Movie> contextOfMovieList() throws MTBllException {
+        if (checkedCategoryList.isEmpty()) {
+            return movieList;
+        } else {
+            return getMoviesFromCats();
+        }
+    }
+    
 }

@@ -72,4 +72,5 @@ public class CategoryMovieModel
     {
         moma.deleteMovieFromTable(movie);
     }
+    
 }

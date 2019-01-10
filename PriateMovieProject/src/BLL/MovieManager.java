@@ -13,8 +13,6 @@ import DAL.CategoryDAO;
 import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -162,5 +160,6 @@ public class MovieManager
             throw new MTBllException("Could not delete movie from CategoryMovie table");
         }
     }
-
+    
+    
 }
