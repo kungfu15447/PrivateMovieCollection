@@ -1,4 +1,4 @@
-/*
+    /*
  * To change this license header, choose License Headers in Project Properties.
  * To change this template file, choose Tools | Templates
  * and open the template in the editor.
@@ -11,6 +11,8 @@ import BLL.Exception.MTBllException;
 import BLL.MovieManager;
 import DAL.Exception.MTDalException;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -23,6 +25,7 @@ import javafx.stage.FileChooser;
  */
 public class MovieModel
 {
+    private final ObservableList<Movie> movieCheck;
     private final ObservableList<Movie> movieList;
     private final ObservableList<Category> categoryList;
     private final MovieManager moma;
@@ -33,6 +36,7 @@ public class MovieModel
         moma = new MovieManager();
         movieList = FXCollections.observableArrayList();
         categoryList = FXCollections.observableArrayList();
+        movieCheck = FXCollections.observableArrayList();
         movieList.addAll(moma.getAllMovies());
         categoryList.addAll(moma.getAllCategories());
     }
@@ -122,7 +126,35 @@ public class MovieModel
     }
     public void updateLastView(Movie movie) throws MTDalException
     {
+        Date date = new Date();
+        long miliTime = date.getTime();
+        int days = (int) (miliTime /(60*60*24*1000));
+        movie.setLastview(days);
         moma.updateLastView(movie);
+        
+    }
+    public void checkMovies(Movie movie)
+    {
+        Date Date = new Date();
+        long MiliTime = Date.getTime();
+        int days = (int) (MiliTime / (60*60*24*1000));
+        int days2 = movie.getLastview();
+        int inBetween = (days2-days);
+        
+        for (int i = 0; i > movieList.size(); i++)
+        {
+            if (inBetween > 730)
+            {
+                movieCheck.add(movie);
+            }
+            else
+            {
+                i++;
+            }
+        }
+        
+        
+        
     }
     
 }
