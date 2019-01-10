@@ -122,9 +122,9 @@ and open the template in the editor.
     -fx-padding: 4 15 4 15;   
     -fx-border-width: 3;
     -fx-border-color: #A83F39;
-    -fx-background-radius: 0;
     -fx-background-color: #1d1d1d;
     -fx-font-family: "Berlin Sans FB Demi"/*, Helvetica, Arial, sans-serif*/;
+    -fx-effect: dropshadow( three-pass-box, #a83f39, 17.0, 0.0, 0.0, 0.0);
     -fx-font-size: 9pt;
     -fx-text-fill: #A83F39;
     -fx-background-insets: 0 0 0 0, 0, 1, 2;
@@ -135,7 +135,7 @@ and open the template in the editor.
 .button-sliders
 {
     -fx-opacity: 0.6;
-    -fx-color: black;
+    -fx-color: #1d1d1d;
     -fx-control-inner-background: #A83F39;
 }
 
