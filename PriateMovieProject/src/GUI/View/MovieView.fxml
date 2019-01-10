@@ -21,7 +21,7 @@
         </columns>
       </TableView>
       <Button layoutX="387.0" layoutY="810.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="29.0" prefWidth="108.0" text="Add Movie" />
-      <TextField layoutX="441.0" layoutY="16.0" prefHeight="31.0" prefWidth="232.0" />
+      <TextField fx:id="searchbar" layoutX="441.0" layoutY="16.0" onKeyPressed="#writeSearch" prefHeight="31.0" prefWidth="232.0" />
       <Label layoutX="389.0" layoutY="22.0" styleClass="label-bright" text="Search:">
          <font>
             <Font size="21.0" />
@@ -33,7 +33,7 @@
       <Button fx:id="btnDeleteCate" layoutX="137.0" layoutY="809.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete Category" />
       <TableView fx:id="tblCategory" layoutX="26.0" layoutY="64.0" prefHeight="738.0" prefWidth="271.0">
         <columns>
-          <TableColumn fx:id="clmCateTitle" prefWidth="175.0" text="Title" />
+          <TableColumn fx:id="clmCateTitle" prefWidth="175.0" text="Category" />
           <TableColumn fx:id="clmCateCheck" prefWidth="77.0" text="Check" />
         </columns>
       </TableView>

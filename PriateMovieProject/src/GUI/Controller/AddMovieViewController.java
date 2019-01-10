@@ -5,21 +5,16 @@
  */
 package GUI.Controller;
 
-import BE.Category;
+
 import BE.Movie;
 import BLL.Exception.MTBllException;
-import BLL.MovieManager;
+import GUI.Model.CategoryMovieModel;
 import GUI.Model.MovieModel;
-import java.io.File;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URL;
-import java.sql.SQLException;
-import java.text.DecimalFormat;
+import java.net.URL;;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -31,10 +26,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
-import javafx.scene.control.TableColumn;
-import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
-import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -59,9 +51,12 @@ public class AddMovieViewController implements Initializable
     private Label lblRating;
 
     private MovieModel movieModel;
+    private CategoryMovieModel cmm;
     
     
-    
+    public AddMovieViewController() {
+        cmm = new CategoryMovieModel();
+    }
     /**
      * Initializes the controller class.
      */
@@ -91,7 +86,7 @@ public class AddMovieViewController implements Initializable
             double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
             String filepath = txtFilepath.getText();
             Movie movie = movieModel.createMovie(title, rating, filepath, 0);
-            movieModel.addCategoryToMovie(movie);
+            cmm.addCategoryToMovie(cmm.getCheckedCategory(), movie);
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.close();
             
@@ -118,7 +113,7 @@ public class AddMovieViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
         Parent root = (Parent) loader.load();
         CategoryViewController cwcontroller = loader.getController();
-        cwcontroller.initializeModel(movieModel);
+        cwcontroller.initializeModel(cmm);
         
         Stage stage = new Stage();
         stage.setTitle("Movie collection");

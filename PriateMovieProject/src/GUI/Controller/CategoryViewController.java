@@ -8,6 +8,7 @@ package GUI.Controller;
 import BE.Category;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
+import GUI.Model.CategoryMovieModel;
 import GUI.Model.MovieModel;
 import java.net.URL;
 import java.sql.SQLException;
@@ -32,7 +33,9 @@ import javafx.stage.Stage;
  */
 public class CategoryViewController implements Initializable
 {
+
     private MovieModel movieModel;
+    private CategoryMovieModel cmm;
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -41,20 +44,21 @@ public class CategoryViewController implements Initializable
     private TableColumn<Category, String> clmCateTitle;
     @FXML
     private TableColumn<Category, String> clmCateSelect;
-    
+
     /**
      * Initializes the controller class.
      */
-    
-    public CategoryViewController() {
-        tblCategory.setItems(movieModel.getCategories());
+    public CategoryViewController()
+    {
+        cmm = new CategoryMovieModel();
     }
+
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
         clmCateSelect.setCellValueFactory(new PropertyValueFactory<>("select"));
-    }    
+    }
 
     @FXML
     private void handleCancelBtn(ActionEvent event)
@@ -66,15 +70,20 @@ public class CategoryViewController implements Initializable
     @FXML
     private void handleOkBtn(ActionEvent event)
     {
-        movieModel.setCheckedCategory(movieModel.getCategories());
+
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
-    
-    public void initializeModel(MovieModel mm) {
-        this.movieModel = mm;
+
+    public void initializeModel(CategoryMovieModel cmm)
+    {
+        this.cmm = cmm;
+        setCategoryTable();
     }
-    
-    
-    
+
+    private void setCategoryTable()
+    {
+        tblCategory.setItems(cmm.getCategories());
+    }
+
 }

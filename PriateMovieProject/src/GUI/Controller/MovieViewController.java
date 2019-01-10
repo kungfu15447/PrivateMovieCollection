@@ -9,10 +9,10 @@ import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import DAL.Exception.MTDalException;
+import GUI.Model.CategoryMovieModel;
 import GUI.Model.MovieModel;
 import java.io.IOException;
 import java.net.URL;
-import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
@@ -33,8 +33,10 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -52,6 +54,7 @@ public class MovieViewController implements Initializable
     private MediaPlayer mediaPlayer;
     private String filePath;
     private final MovieModel movieModel;
+    private final CategoryMovieModel cmm;
 
     @FXML
     private Label label;
@@ -78,10 +81,13 @@ public class MovieViewController implements Initializable
     private TableColumn<Category, String> clmCateTitle;
     @FXML
     private TableColumn<Category, String> clmCateCheck;
+    @FXML
+    private TextField searchbar;
 
     public MovieViewController() throws MTBllException
     {
         movieModel = new MovieModel();
+        cmm = new CategoryMovieModel();
     }
 
     @Override
@@ -93,6 +99,7 @@ public class MovieViewController implements Initializable
         clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
         tableView.setItems(movieModel.getMovies());
         tblCategory.setItems(movieModel.getCategories());
+        tableView.getSelectionModel().setCellSelectionEnabled(true);
     }
 
     /*
@@ -130,7 +137,7 @@ public class MovieViewController implements Initializable
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         String filePath = movie.getFilepath();
         movieModel.updateLastView(movie);
-        
+
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
         Parent root = (Parent) loader.load();
 
@@ -143,6 +150,7 @@ public class MovieViewController implements Initializable
         stage.setScene(new Scene(root));
         stage.show();
     }
+
     /*
     Pauses the movie, pressing play will continue the movie.
      */
@@ -200,9 +208,10 @@ public class MovieViewController implements Initializable
         try
         {
             Movie movie = tableView.getSelectionModel().getSelectedItem();
-            if(movie != null)
+            if (movie != null)
             {
-            movieModel.deleteMovie(movie);
+                cmm.deleteMovieFromTable(movie);
+                movieModel.deleteMovie(movie);
             }
         } catch (MTBllException ex)
         {
@@ -238,15 +247,29 @@ public class MovieViewController implements Initializable
             Category category = tblCategory.getSelectionModel().getSelectedItem();
             if (category != null)
             {
+                cmm.deleteCategoryFromTable(category);
                 movieModel.deleteCategory(category);
-                movieModel.deleteCategoryFromTable(category);
-            } else {
-                
+            } else
+            {
+
             }
         } catch (MTBllException ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
+
+    @FXML
+    private void writeSearch(KeyEvent event)
+    {
+        try
+        {
+            tableView.setItems(movieModel.searchMovies(movieModel.getMovies(), searchbar.getText().toLowerCase()));
+        } catch (MTBllException ex)
+        {
+            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
 
 }

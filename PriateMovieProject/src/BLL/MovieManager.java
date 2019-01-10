@@ -13,6 +13,8 @@ import DAL.CategoryDAO;
 import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -20,6 +22,7 @@ import java.util.List;
  */
 public class MovieManager
 {
+
     private final MovieDAO mdao;
     private final CategoryDAO cdao;
     private final CatMovieDAO cmdao;
@@ -30,7 +33,7 @@ public class MovieManager
         cdao = new CategoryDAO();
         cmdao = new CatMovieDAO();
     }
-    
+
     public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
     {
         try
@@ -41,10 +44,10 @@ public class MovieManager
             throw new MTBllException("" + ex.getMessage());
         }
     }
-    
+
     /*
     Gets all movies.
-    */
+     */
     public List<Movie> getAllMovies() throws MTBllException
     {
         try
@@ -55,7 +58,7 @@ public class MovieManager
             throw new MTBllException("Could not read all songs. " + ex.getMessage());
         }
     }
-            
+
     public void deleteMovie(Movie movie) throws MTBllException
     {
         try
@@ -66,7 +69,7 @@ public class MovieManager
             throw new MTBllException("Could not delete song. " + ex.getMessage());
         }
     }
-            
+
     public void updateRating(Movie movie) throws MTBllException
     {
         try
@@ -77,7 +80,7 @@ public class MovieManager
             throw new MTBllException("Could not update movie. " + ex.getMessage());
         }
     }
-    
+
     public List<Category> getAllCategories() throws MTBllException
     {
         try
@@ -88,7 +91,7 @@ public class MovieManager
             throw new MTBllException("Could not get a ll categories");
         }
     }
-            
+
     public Category createCategory(String name) throws MTBllException
     {
         try
@@ -99,7 +102,7 @@ public class MovieManager
             throw new MTBllException("Could not create category");
         }
     }
-    
+
     public void deleteCategory(Category category) throws MTBllException
     {
         try
@@ -110,8 +113,9 @@ public class MovieManager
             throw new MTBllException("Could not delete category");
         }
     }
-    
-    public void deleteCategoryFromTable(Category category) throws MTBllException {
+
+    public void deleteCategoryFromTable(Category category) throws MTBllException
+    {
         try
         {
             cmdao.deleteCategoryFromTable(category);
@@ -120,12 +124,14 @@ public class MovieManager
             throw new MTBllException("Could not delete category from the CategoryMovie table");
         }
     }
+
     public void updateLastView(Movie movie) throws MTDalException
     {
         mdao.updateLastView(movie);
     }
-    
-    public List<Movie> getMoviesFromCats(List<Category> catlist) throws MTBllException {
+
+    public List<Movie> getMoviesFromCats(List<Category> catlist) throws MTBllException
+    {
         try
         {
             return cmdao.getMoviesFromCats(catlist);
@@ -134,8 +140,9 @@ public class MovieManager
             throw new MTBllException("Could not get movies from selected categories");
         }
     }
-    
-    public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTBllException {
+
+    public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTBllException
+    {
         try
         {
             cmdao.addCategoryToMovie(catlist, movie);
@@ -144,5 +151,16 @@ public class MovieManager
             throw new MTBllException("Could not add categories to movie");
         }
     }
-    
+
+    public void deleteMovieFromTable(Movie movie) throws MTBllException
+    {
+        try
+        {
+            cmdao.deleteMovieFromTable(movie);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not delete movie from CategoryMovie table");
+        }
+    }
+
 }

@@ -4,14 +4,12 @@
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Separator?>
 <?import javafx.scene.control.Slider?>
-<?import javafx.scene.control.TableColumn?>
-<?import javafx.scene.control.TableView?>
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.effect.Glow?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="285.0" prefWidth="535.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AddMovieViewController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="285.0" prefWidth="319.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.AddMovieViewController">
    <children>
       <TextField fx:id="txtTitle" layoutX="79.0" layoutY="77.0" />
       <Button layoutX="240.0" layoutY="194.0" mnemonicParsing="false" onAction="#chooseFile" text="Choose" />
@@ -35,11 +33,5 @@
          </effect>
       </Slider>
       <Label fx:id="lblRating" layoutX="222.0" layoutY="150.0" prefHeight="24.0" prefWidth="55.0" />
-      <TableView fx:id="tlbCategory" layoutX="340.0" layoutY="16.0" prefHeight="259.0" prefWidth="181.0">
-        <columns>
-          <TableColumn fx:id="clmCateTitle" prefWidth="106.0" text="Category" />
-          <TableColumn fx:id="clmCateCheck" prefWidth="177.0" text="Select" />
-        </columns>
-      </TableView>
    </children>
 </AnchorPane>
