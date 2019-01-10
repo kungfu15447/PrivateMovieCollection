@@ -12,11 +12,15 @@ import BLL.MovieManager;
 import GUI.Model.MovieModel;
 import java.io.File;
 import java.io.IOException;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.net.URL;
 import java.sql.SQLException;
+import java.text.DecimalFormat;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -25,7 +29,10 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.Label;
+import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -44,11 +51,14 @@ public class AddMovieViewController implements Initializable
     @FXML
     private AnchorPane rootPane;
     @FXML
-    private TextField txtRating;
-    
+    private Slider ratingSlider;
+    @FXML
+    private Label lblRating;
     private MovieManager moma;
     private String trueTrueFilePath;
     private MovieModel movieModel;
+    
+    
     
     /**
      * Initializes the controller class.
@@ -76,7 +86,7 @@ public class AddMovieViewController implements Initializable
         try
         {
             String title = txtTitle.getText();
-            double rating = Double.parseDouble(txtRating.getText());
+            double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
             String filepath = txtFilepath.getText();
             movieModel.createMovie(title, rating, filepath, 0);
             Stage stage = (Stage) rootPane.getScene().getWindow();
@@ -111,6 +121,18 @@ public class AddMovieViewController implements Initializable
         stage.show();
     }
     
+    /*
+    *Dragging the slider will adjust the users rating.
+    */
+    @FXML
+    private void handleRating(MouseEvent event)
+    {
+        ratingSlider.valueProperty().addListener((Observable observable) ->
+        {
+            lblRating.setText(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).toString());
+        });
+    }
+    
     /**
      * A popup window that displays the error that occured
      * @param ex the exception getting showened to the user
@@ -140,10 +162,6 @@ public class AddMovieViewController implements Initializable
         {
             errorInfo = "filepath";
         }
-        else if (txtRating.getText().isEmpty())
-        {
-            errorInfo = "rating";
-        }
         else 
         {
             errorInfo = null;
@@ -155,31 +173,11 @@ public class AddMovieViewController implements Initializable
     {
         
         boolean emptyField = false;
-        if(txtTitle.getText().isEmpty() || txtFilepath.getText().isEmpty() || txtRating.getText().isEmpty())
+        if(txtTitle.getText().isEmpty() || txtFilepath.getText().isEmpty())
         {
             emptyField = true;
         }
         return emptyField;
-    }
-    
-    public Movie createMovie(String name, double rating, String filepath, int lastview,Exception ex) throws MTBllException
-    {
-        return moma.createMovie(name, rating, filepath, lastview);
-    }
-    
-    public void updateRating(Movie movie) throws MTBllException
-    {
-        moma.updateRating(movie);
-    }
-    
-    public Category createCategory(String name) throws SQLException, MTBllException
-    {
-        return moma.createCategory(name);
-    }
-    
-    public void deleteCategory(Category category) throws SQLException, MTBllException
-    {
-        moma.deleteCategory(category);
     }
     
 
