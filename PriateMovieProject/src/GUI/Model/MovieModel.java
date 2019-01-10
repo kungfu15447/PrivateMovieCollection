@@ -9,6 +9,7 @@ import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
+import DAL.Exception.MTDalException;
 import java.io.File;
 import java.util.logging.Level;
 import java.util.logging.Logger;
@@ -118,6 +119,10 @@ public class MovieModel
         {
             throw new MTBllException("Could not delete category from CategoryMovie table");
         }
+    }
+    public void updateLastView(Movie movie) throws MTDalException
+    {
+        moma.updateLastView(movie);
     }
     
 }
