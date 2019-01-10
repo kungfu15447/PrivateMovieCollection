@@ -123,5 +123,9 @@ public class MovieManager
             throw new MTBllException("Could not delete category from the CategoryMovie table");
         }
     }
+    public void updateLastView(Movie movie) throws MTDalException
+    {
+        mdao.updateLastView(movie);
+    }
     
 }
