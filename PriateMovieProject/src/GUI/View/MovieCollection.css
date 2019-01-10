@@ -14,9 +14,9 @@ and open the template in the editor.
 }
 
 .label {
-    -fx-font-size: 11pt;
+    -fx-font-size: 15pt;
     -fx-font-family: "Berlin Sans FB Demi";
-    -fx-text-fill: black;
+    -fx-text-fill: red;
     -fx-opacity: 0.6;
 }
 
