@@ -10,6 +10,8 @@ import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
 import java.io.File;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.collections.FXCollections;
@@ -24,6 +26,7 @@ public class MovieModel
 {
     private final ObservableList<Movie> movieList;
     private final ObservableList<Category> categoryList;
+    private ObservableList<Category> selectedCategoryList;
     private final MovieManager moma;
     private String filePath;
     
@@ -32,6 +35,7 @@ public class MovieModel
         moma = new MovieManager();
         movieList = FXCollections.observableArrayList();
         categoryList = FXCollections.observableArrayList();
+        selectedCategoryList = FXCollections.observableArrayList();
         movieList.addAll(moma.getAllMovies());
         categoryList.addAll(moma.getAllCategories());
     }
@@ -119,5 +123,28 @@ public class MovieModel
             throw new MTBllException("Could not delete category from CategoryMovie table");
         }
     }
+    public void setCheckedCategory(ObservableList<Category> catlist) {
+        this.selectedCategoryList = catlist;
+    }
+    private List<Category> getCheckedCategory() {
+        List<Category> checkedCategories = new ArrayList<>();
+        for (Category cat : selectedCategoryList) {
+            if (cat.getSelect().isSelected()) {
+                checkedCategories.add(cat);
+            }
+        }
+        return checkedCategories;
+    }
+    
+    public void addCategoryToMovie(Movie movie) throws MTBllException {
+        try
+        {
+            moma.addCategoryToMovie(getCheckedCategory(), movie);
+        } catch (MTBllException ex)
+        {
+            throw new MTBllException("Could not add categories to movie");
+        }
+    }
+    
     
 }

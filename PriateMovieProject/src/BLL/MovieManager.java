@@ -124,4 +124,24 @@ public class MovieManager
         }
     }
     
+    public List<Movie> getMoviesFromCats(List<Category> catlist) throws MTBllException {
+        try
+        {
+            return cmdao.getMoviesFromCats(catlist);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not get movies from selected categories");
+        }
+    }
+    
+    public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTBllException {
+        try
+        {
+            cmdao.addCategoryToMovie(catlist, movie);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not add categories to movie");
+        }
+    }
+    
 }

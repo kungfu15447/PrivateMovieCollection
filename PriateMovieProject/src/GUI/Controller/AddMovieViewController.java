@@ -45,9 +45,7 @@ public class AddMovieViewController implements Initializable
     private AnchorPane rootPane;
     @FXML
     private TextField txtRating;
-    
-    private MovieManager moma;
-    private String trueTrueFilePath;
+
     private MovieModel movieModel;
     
     /**
@@ -104,6 +102,8 @@ public class AddMovieViewController implements Initializable
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
         Parent root = (Parent) loader.load();
+        CategoryViewController cwcontroller = loader.getController();
+        cwcontroller.initializeModel(movieModel);
         
         Stage stage = new Stage();
         stage.setTitle("Movie collection");
@@ -162,27 +162,6 @@ public class AddMovieViewController implements Initializable
         return emptyField;
     }
     
-    public Movie createMovie(String name, double rating, String filepath, int lastview,Exception ex) throws MTBllException
-    {
-        return moma.createMovie(name, rating, filepath, lastview);
-    }
-    
-    public void updateRating(Movie movie) throws MTBllException
-    {
-        moma.updateRating(movie);
-    }
-    
-    public Category createCategory(String name) throws SQLException, MTBllException
-    {
-        return moma.createCategory(name);
-    }
-    
-    public void deleteCategory(Category category) throws SQLException, MTBllException
-    {
-        moma.deleteCategory(category);
-    }
-    
-
     /**
      * Initializes this class' moviemodel object
      * @param movieModel the movieModel this class' movieModel is getting
