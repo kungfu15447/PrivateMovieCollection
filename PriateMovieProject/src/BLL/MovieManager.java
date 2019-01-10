@@ -12,10 +12,7 @@ import DAL.CatMovieDAO;
 import DAL.CategoryDAO;
 import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
