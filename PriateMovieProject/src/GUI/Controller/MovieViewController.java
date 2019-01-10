@@ -22,6 +22,7 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -40,6 +41,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 /**
@@ -52,12 +54,10 @@ public class MovieViewController implements Initializable
     private MediaPlayer mediaPlayer;
     private String filePath;
     private final MovieModel movieModel;
-
+    private MoviePlayerViewController mpvc;
+    
     @FXML
     private Label label;
-    private MediaView mediaView;
-    private Slider durationSlider;
-    private Slider volumeSlider;
     @FXML
     private TableView<Movie> tableView;
     @FXML
@@ -90,32 +90,6 @@ public class MovieViewController implements Initializable
     }
 
     /*
-    Plays the chosen movie.
-     */
-    private void play(ActionEvent event)
-    {
-
-        filePath = tableView.getSelectionModel().getSelectedItem().getFilepath();
-        Media media = new Media(filePath);
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-
-        DoubleProperty width = mediaView.fitWidthProperty();
-        DoubleProperty height = mediaView.fitHeightProperty();
-
-        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue)
-            {
-                durationSlider.setValue(newValue.toSeconds());
-                durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
-            }
-        });
-        mediaPlayer.play();
-    }
-
-    /*
     Temporary movie chooser.
      */
     @FXML
@@ -141,13 +115,12 @@ public class MovieViewController implements Initializable
         stage.setTitle("Movie player");
         stage.setScene(new Scene(root));
         stage.show();
-    }
-    /*
-    Pauses the movie, pressing play will continue the movie.
-     */
-    private void pause(ActionEvent event)
-    {
-        mediaPlayer.pause();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+        @Override
+        public void handle(WindowEvent event) {
+            mpvc.stopSound();
+        }
+});
     }
 
     /*
@@ -157,22 +130,6 @@ public class MovieViewController implements Initializable
     private void exit(ActionEvent event)
     {
         System.exit(0);
-    }
-
-    /*
-    Stops and resets the movie.
-     */
-    private void stop(ActionEvent event)
-    {
-        mediaPlayer.stop();
-    }
-
-    /*
-    By clicking the slider, you can change where the movie plays from.
-     */
-    private void setDuration(MouseEvent event)
-    {
-        mediaPlayer.seek(Duration.seconds(durationSlider.getValue()));
     }
 
     /*

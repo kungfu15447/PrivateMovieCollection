@@ -165,4 +165,9 @@ public class MoviePlayerViewController implements Initializable
         
         lblTimer.setText(hours + ":" + minutes + ":" + seconds + "");
     }
+    
+    public void stopSound()
+    {
+        mediaPlayer.stop();
+    }
 }
