@@ -120,7 +120,8 @@ public class MovieModel
         long MiliTime = Date.getTime();
         int days = (int) (MiliTime / (60 * 60 * 24 * 1000));
         int days2 = movie.getLastview();
-        int inBetween = (days2 - days);
+
+        int inBetween = (days - days2);
 
         for (int i = 0; i > movieList.size(); i++)
         {

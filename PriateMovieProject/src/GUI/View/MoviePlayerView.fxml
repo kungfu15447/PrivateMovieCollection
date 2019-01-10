@@ -11,9 +11,9 @@
         <Button fx:id="playPauseButton" layoutX="533.0" layoutY="807.0" onAction="#play" prefHeight="32.0" prefWidth="169.0" text="Play" />
         <Label fx:id="lblVolume" layoutX="224.0" layoutY="833.0" minHeight="16" minWidth="69" />
       <Button layoutX="1147.0" layoutY="808.0" mnemonicParsing="false" onAction="#exit" text="Back" />
-      <MediaView fx:id="mediaView" fitHeight="700.0" fitWidth="1200.0" layoutX="17.0" layoutY="14.0" />
+      <MediaView fx:id="mediaView" fitHeight="725.0" fitWidth="1200.0" layoutX="17.0" layoutY="14.0" />
       <Slider fx:id="durationSlider" layoutX="17.0" layoutY="771.0" onMouseClicked="#setDuration" prefHeight="32.0" prefWidth="1200.0" styleClass="button-sliders" />
       <Slider fx:id="volumeSlider" layoutX="166.0" layoutY="815.0" prefHeight="18.0" prefWidth="184.0" styleClass="button-sliders" />
-      <Label fx:id="lblTimer" layoutX="23.0" layoutY="803.0" prefHeight="24.0" prefWidth="79.0" />
+      <Label fx:id="lblTimer" layoutX="24.0" layoutY="747.0" prefHeight="24.0" prefWidth="79.0" />
     </children>
 </AnchorPane>

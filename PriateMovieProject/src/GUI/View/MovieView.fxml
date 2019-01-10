@@ -10,7 +10,6 @@
 
 <AnchorPane id="AnchorPane" prefHeight="889.0" prefWidth="867.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MovieViewController">
     <children>
-        <Label fx:id="label" layoutX="126" layoutY="120" minHeight="16" minWidth="69" />
       <Button layoutX="603.0" layoutY="810.0" mnemonicParsing="false" onAction="#chooseFiles" prefHeight="29.0" prefWidth="108.0" text="Play Movie" />
       <Button layoutX="793.0" layoutY="846.0" mnemonicParsing="false" onAction="#exit" text="Exit" />
       <TableView fx:id="tableView" layoutX="389.0" layoutY="64.0" prefHeight="738.0" prefWidth="461.0">

@@ -5,6 +5,8 @@
  */
 package GUI.Controller;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
@@ -22,12 +24,16 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -36,12 +42,14 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 /**
@@ -58,9 +66,6 @@ public class MovieViewController implements Initializable
 
     @FXML
     private Label label;
-    private MediaView mediaView;
-    private Slider durationSlider;
-    private Slider volumeSlider;
     @FXML
     private TableView<Movie> tableView;
     @FXML
@@ -103,32 +108,6 @@ public class MovieViewController implements Initializable
     }
 
     /*
-    Plays the chosen movie.
-     */
-    private void play(ActionEvent event)
-    {
-
-        filePath = tableView.getSelectionModel().getSelectedItem().getFilepath();
-        Media media = new Media(filePath);
-        mediaPlayer = new MediaPlayer(media);
-        mediaView.setMediaPlayer(mediaPlayer);
-
-        DoubleProperty width = mediaView.fitWidthProperty();
-        DoubleProperty height = mediaView.fitHeightProperty();
-
-        mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>()
-        {
-            @Override
-            public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue)
-            {
-                durationSlider.setValue(newValue.toSeconds());
-                durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
-            }
-        });
-        mediaPlayer.play();
-    }
-
-    /*
     Temporary movie chooser.
      */
     @FXML
@@ -152,36 +131,12 @@ public class MovieViewController implements Initializable
     }
 
     /*
-    Pauses the movie, pressing play will continue the movie.
-     */
-    private void pause(ActionEvent event)
-    {
-        mediaPlayer.pause();
-    }
-
-    /*
     Exits the program.
      */
     @FXML
     private void exit(ActionEvent event)
     {
         System.exit(0);
-    }
-
-    /*
-    Stops and resets the movie.
-     */
-    private void stop(ActionEvent event)
-    {
-        mediaPlayer.stop();
-    }
-
-    /*
-    By clicking the slider, you can change where the movie plays from.
-     */
-    private void setDuration(MouseEvent event)
-    {
-        mediaPlayer.seek(Duration.seconds(durationSlider.getValue()));
     }
 
     /*
@@ -195,7 +150,7 @@ public class MovieViewController implements Initializable
 
         AddMovieViewController amvcontroller = loader.getController();
         amvcontroller.initializeModel(movieModel);
-
+        
         Stage stage = new Stage();
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
@@ -212,6 +167,10 @@ public class MovieViewController implements Initializable
             {
                 cmm.deleteMovieFromTable(movie);
                 movieModel.deleteMovie(movie);
+            }
+            else
+            {
+            getAlertBox();
             }
         } catch (MTBllException ex)
         {
@@ -257,6 +216,22 @@ public class MovieViewController implements Initializable
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void getAlertBox()
+    {
+        
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Dialog");
+        alert.setHeaderText("You have not chosen a movie");
+        alert.setContentText("Please select a movie");
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
+        dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
+        
+        alert.showAndWait();
     }
 
     @FXML
