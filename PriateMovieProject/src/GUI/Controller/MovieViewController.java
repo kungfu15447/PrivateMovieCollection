@@ -5,6 +5,8 @@
  */
 package GUI.Controller;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
@@ -29,6 +31,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -36,6 +41,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -67,13 +73,17 @@ public class MovieViewController implements Initializable
     @FXML
     private TableColumn<Movie, Double> clmImdbRating;
     @FXML
-    private ListView<Category> lstCategories;
-    @FXML
     private Button btnEditRating;
     @FXML
     private Button btnAddCate;
     @FXML
     private Button btnDeleteCate;
+    @FXML
+    private TableView<Category> tblCategory;
+    @FXML
+    private TableColumn<Category, String> clmCateTitle;
+    @FXML
+    private TableColumn<Category, String> clmCateCheck;
 
     public MovieViewController() throws MTBllException
     {
@@ -85,8 +95,10 @@ public class MovieViewController implements Initializable
     {
         clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
         tableView.setItems(movieModel.getMovies());
-        lstCategories.setItems(movieModel.getCategories());
+        tblCategory.setItems(movieModel.getCategories());
     }
 
     /*
@@ -97,11 +109,6 @@ public class MovieViewController implements Initializable
     {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         String filePath = movie.getFilepath();
-        
-        Date date = new Date();
-        long miliTime = date.getTime();
-        int days = (int) (miliTime /(60*60*24*1000));
-        movie.setLastview(days);
         movieModel.updateLastView(movie);
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
@@ -143,7 +150,7 @@ public class MovieViewController implements Initializable
 
         AddMovieViewController amvcontroller = loader.getController();
         amvcontroller.initializeModel(movieModel);
-
+        
         Stage stage = new Stage();
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
@@ -159,6 +166,10 @@ public class MovieViewController implements Initializable
             if(movie != null)
             {
             movieModel.deleteMovie(movie);
+            }
+            else
+            {
+            getAlertBox();
             }
         } catch (MTBllException ex)
         {
@@ -191,7 +202,7 @@ public class MovieViewController implements Initializable
     {
         try
         {
-            Category category = lstCategories.getSelectionModel().getSelectedItem();
+            Category category = tblCategory.getSelectionModel().getSelectedItem();
             if (category != null)
             {
                 movieModel.deleteCategory(category);
@@ -203,6 +214,22 @@ public class MovieViewController implements Initializable
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void getAlertBox()
+    {
+        
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Dialog");
+        alert.setHeaderText("You have not chosen a movie");
+        alert.setContentText("Please select a movie");
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
+        dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
+        
+        alert.showAndWait();
     }
 
 }

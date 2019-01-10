@@ -29,9 +29,15 @@ import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
+import javafx.scene.control.DialogPane;
+import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -54,8 +60,7 @@ public class AddMovieViewController implements Initializable
     private Slider ratingSlider;
     @FXML
     private Label lblRating;
-    private MovieManager moma;
-    private String trueTrueFilePath;
+
     private MovieModel movieModel;
     
     
@@ -88,7 +93,8 @@ public class AddMovieViewController implements Initializable
             String title = txtTitle.getText();
             double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
             String filepath = txtFilepath.getText();
-            movieModel.createMovie(title, rating, filepath, 0);
+            Movie movie = movieModel.createMovie(title, rating, filepath, 0);
+            movieModel.addCategoryToMovie(movie);
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.close();
             
@@ -114,6 +120,8 @@ public class AddMovieViewController implements Initializable
     {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
         Parent root = (Parent) loader.load();
+        CategoryViewController cwcontroller = loader.getController();
+        cwcontroller.initializeModel(movieModel);
         
         Stage stage = new Stage();
         stage.setTitle("Movie collection");
@@ -194,10 +202,15 @@ public class AddMovieViewController implements Initializable
     public void getAlertBox()
     {
         String errorInfo = getErrorInfo();
-        Alert alert = new Alert(AlertType.INFORMATION);
+        Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Dialog");
         alert.setHeaderText("You have not chosen a " + errorInfo + " for the movie");
         alert.setContentText("Please select a " + errorInfo + " for the movie");
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
+        dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Keyboard.png").toString()));
         
         alert.showAndWait();
     }

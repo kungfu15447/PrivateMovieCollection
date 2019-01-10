@@ -6,15 +6,22 @@
 package GUI.Controller;
 
 import BE.Category;
+import BLL.Exception.MTBllException;
 import BLL.MovieManager;
+import GUI.Model.MovieModel;
 import java.net.URL;
 import java.sql.SQLException;
 import java.util.List;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.ListView;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -25,23 +32,28 @@ import javafx.stage.Stage;
  */
 public class CategoryViewController implements Initializable
 {
-    private final MovieManager moma;
-    @FXML
-    private ListView<?> listCategory;
+    private MovieModel movieModel;
     @FXML
     private AnchorPane rootPane;
-
-    public CategoryViewController()
-    {
-        moma = new MovieManager();
-    }
+    @FXML
+    private TableView<Category> tblCategory;
+    @FXML
+    private TableColumn<Category, String> clmCateTitle;
+    @FXML
+    private TableColumn<Category, String> clmCateSelect;
+    
     /**
      * Initializes the controller class.
      */
+    
+    public CategoryViewController() {
+        tblCategory.setItems(movieModel.getCategories());
+    }
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        // TODO
+        clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clmCateSelect.setCellValueFactory(new PropertyValueFactory<>("select"));
     }    
 
     @FXML
@@ -54,10 +66,14 @@ public class CategoryViewController implements Initializable
     @FXML
     private void handleOkBtn(ActionEvent event)
     {
-        
+        movieModel.setCheckedCategory(movieModel.getCategories());
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
     
-    
+    public void initializeModel(MovieModel mm) {
+        this.movieModel = mm;
+    }
     
     
     
