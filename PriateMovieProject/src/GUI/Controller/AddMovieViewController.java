@@ -70,8 +70,8 @@ public class AddMovieViewController implements Initializable
     @FXML
     private void saveMovie(ActionEvent event)
     {
-        String emptyField = getEmptyFieldInfo();
-        if(emptyField != null)
+        boolean emptyField = getEmptyFieldInfo();
+        if(!emptyField)
         {
         try
         {
@@ -132,15 +132,15 @@ public class AddMovieViewController implements Initializable
     public String getErrorInfo()
     {
         String errorInfo;
-        if(txtTitle == null)
+        if(txtTitle.getText().isEmpty())
         {
             errorInfo = "title";
         }
-        else if (txtFilepath == null)
+        else if (txtFilepath.getText().isEmpty())
         {
             errorInfo = "filepath";
         }
-        else if (txtRating == null)
+        else if (txtRating.getText().isEmpty())
         {
             errorInfo = "rating";
         }
@@ -151,13 +151,13 @@ public class AddMovieViewController implements Initializable
         return errorInfo;
     }
     
-    public String getEmptyFieldInfo()
+    public boolean getEmptyFieldInfo()
     {
         
-        String emptyField = "not empty";
-        if(txtTitle == null || txtFilepath == null || txtRating == null)
+        boolean emptyField = false;
+        if(txtTitle.getText().isEmpty() || txtFilepath.getText().isEmpty() || txtRating.getText().isEmpty())
         {
-            emptyField = null;
+            emptyField = true;
         }
         return emptyField;
     }

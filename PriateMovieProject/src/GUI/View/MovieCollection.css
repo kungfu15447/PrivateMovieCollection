@@ -155,6 +155,8 @@ and open the template in the editor.
     -fx-border-style: solid, segments(1, 1);
     -fx-border-radius: 0, 0;
     -fx-border-insets: 1 1 1 1, 0;
+    -fx-border-radius: 7 7 7 7;
+    -fx-border-background: 7 7 7 7;
 }
 
 .button:disabled, .button:default:disabled {
