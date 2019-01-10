@@ -14,8 +14,11 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -25,6 +28,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 /**
@@ -40,6 +44,7 @@ public class MoviePlayerViewController implements Initializable
     private MovieModel movieModel;
     private boolean playing = false;
     private boolean paused = false;
+    private Media media;
 
     @FXML
     private MediaView mediaView;
@@ -70,7 +75,7 @@ public class MoviePlayerViewController implements Initializable
     {
         if (!paused && !playing)
         {
-            Media media = new Media(filePath);
+            media = new Media(filePath);
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
 

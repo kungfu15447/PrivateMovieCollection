@@ -19,7 +19,9 @@ import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -34,8 +36,10 @@ import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  *
@@ -48,6 +52,7 @@ public class MovieViewController implements Initializable
     private String filePath;
     private final MovieModel movieModel;
     private final CategoryMovieModel cmm;
+    private MoviePlayerViewController mpvc;
 
     @FXML
     private TableView<Movie> tableView;
@@ -94,7 +99,7 @@ public class MovieViewController implements Initializable
     Temporary movie chooser.
      */
     @FXML
-    private void chooseFiles(ActionEvent event) throws IOException, MTDalException
+    private void playMovie(ActionEvent event) throws IOException, MTDalException
     {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         String filePath = movie.getFilepath();
@@ -111,6 +116,11 @@ public class MovieViewController implements Initializable
         stage.setTitle("Movie player");
         stage.setScene(new Scene(root));
         stage.show();
+        
+        stage.setOnCloseRequest((WindowEvent event1) ->
+        {
+            
+        });
     }
 
     /*
@@ -133,7 +143,7 @@ public class MovieViewController implements Initializable
 
         AddMovieViewController amvcontroller = loader.getController();
         amvcontroller.initializeModel(movieModel);
-        
+
         Stage stage = new Stage();
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
@@ -150,10 +160,9 @@ public class MovieViewController implements Initializable
             {
                 cmm.deleteMovieFromTable(movie);
                 movieModel.deleteMovie(movie);
-            }
-            else
+            } else
             {
-            getAlertBox();
+                getAlertBox();
             }
         } catch (MTBllException ex)
         {
@@ -200,20 +209,20 @@ public class MovieViewController implements Initializable
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     public void getAlertBox()
     {
-        
+
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Dialog");
         alert.setHeaderText("You have not chosen a movie");
         alert.setContentText("Please select a movie");
-        
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
         dialogPane.getStyleClass().add("dialogPane");
         dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
-        
+
         alert.showAndWait();
     }
 
@@ -230,14 +239,16 @@ public class MovieViewController implements Initializable
     }
 
     @FXML
-    private void filterMovieList(ActionEvent event) {
-        try {
+    private void filterMovieList(ActionEvent event)
+    {
+        try
+        {
             movieModel.fillCheckedCategoryList();
             tableView.setItems(movieModel.contextOfMovieList());
-        } catch (MTBllException ex) {
+        } catch (MTBllException ex)
+        {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
 
 }
