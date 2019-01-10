@@ -42,10 +42,11 @@ public class MovieModel
         categoryList.addAll(moma.getAllCategories());
     }
     
-    public void createMovie (String title, double rating, String filepath, int lastView) throws MTBllException
+    public Movie createMovie (String title, double rating, String filepath, int lastView) throws MTBllException
     {
         Movie movie = moma.createMovie(title, rating, filepath, lastView);
         movieList.add(movie);
+        return movie;
     }
     
     public void initializeFile()

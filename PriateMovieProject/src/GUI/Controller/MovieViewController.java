@@ -5,6 +5,8 @@
  */
 package GUI.Controller;
 
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
@@ -28,6 +30,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.DialogPane;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -35,6 +40,7 @@ import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -187,7 +193,7 @@ public class MovieViewController implements Initializable
 
         AddMovieViewController amvcontroller = loader.getController();
         amvcontroller.initializeModel(movieModel);
-
+        
         Stage stage = new Stage();
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
@@ -203,6 +209,10 @@ public class MovieViewController implements Initializable
             if(movie != null)
             {
             movieModel.deleteMovie(movie);
+            }
+            else
+            {
+            getAlertBox();
             }
         } catch (MTBllException ex)
         {
@@ -247,6 +257,22 @@ public class MovieViewController implements Initializable
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    
+    public void getAlertBox()
+    {
+        
+        Alert alert = new Alert(AlertType.ERROR);
+        alert.setTitle("Dialog");
+        alert.setHeaderText("You have not chosen a movie");
+        alert.setContentText("Please select a movie");
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
+        dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
+        
+        alert.showAndWait();
     }
 
 }
