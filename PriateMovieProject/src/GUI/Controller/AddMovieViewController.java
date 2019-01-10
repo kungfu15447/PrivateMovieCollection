@@ -154,7 +154,7 @@ public class AddMovieViewController implements Initializable
     public String getEmptyFieldInfo()
     {
         
-        String emptyField = null;
+        String emptyField = "not empty";
         if(txtTitle == null || txtFilepath == null || txtRating == null)
         {
             emptyField = null;
