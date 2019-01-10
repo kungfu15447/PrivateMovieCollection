@@ -47,20 +47,13 @@ public class CategoryViewController implements Initializable
      */
     
     public CategoryViewController() {
-        try
-        {
-            movieModel = new MovieModel();
-        } catch (MTBllException ex)
-        {
-            Logger.getLogger(CategoryViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+        tblCategory.setItems(movieModel.getCategories());
     }
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
         clmCateSelect.setCellValueFactory(new PropertyValueFactory<>("select"));
-        tblCategory.setItems(movieModel.getCategories());
     }    
 
     @FXML

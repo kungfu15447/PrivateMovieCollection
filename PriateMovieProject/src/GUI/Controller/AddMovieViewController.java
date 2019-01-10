@@ -31,7 +31,10 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.control.TableColumn;
+import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -50,8 +53,6 @@ public class AddMovieViewController implements Initializable
     private TextField txtFilepath;
     @FXML
     private AnchorPane rootPane;
-    @FXML
-    private TextField txtRating;
     @FXML
     private Slider ratingSlider;
     @FXML
@@ -89,7 +90,8 @@ public class AddMovieViewController implements Initializable
             String title = txtTitle.getText();
             double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
             String filepath = txtFilepath.getText();
-            movieModel.createMovie(title, rating, filepath, 0);
+            Movie movie = movieModel.createMovie(title, rating, filepath, 0);
+            movieModel.addCategoryToMovie(movie);
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.close();
             
