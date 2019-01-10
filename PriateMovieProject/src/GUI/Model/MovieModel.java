@@ -9,6 +9,7 @@ import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
+import DAL.Exception.MTDalException;
 import java.io.File;
 import java.util.ArrayList;
 import java.util.List;
@@ -123,6 +124,7 @@ public class MovieModel
             throw new MTBllException("Could not delete category from CategoryMovie table");
         }
     }
+
     public void setCheckedCategory(ObservableList<Category> catlist) {
         this.selectedCategoryList = catlist;
     }
@@ -145,6 +147,11 @@ public class MovieModel
             throw new MTBllException("Could not add categories to movie");
         }
     }
-    
+
+    public void updateLastView(Movie movie) throws MTDalException
+    {
+        moma.updateLastView(movie);
+    }
+
     
 }

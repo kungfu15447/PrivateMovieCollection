@@ -8,18 +8,15 @@ package GUI.Controller;
 import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
-import BLL.MovieManager;
+import DAL.Exception.MTDalException;
 import GUI.Model.MovieModel;
-import java.io.File;
 import java.io.IOException;
 import java.net.URL;
-import java.util.List;
+import java.util.Date;
 import java.util.Optional;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
-import javafx.beans.InvalidationListener;
-import javafx.beans.Observable;
 import javafx.beans.binding.Bindings;
 import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
@@ -30,11 +27,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListView;
 import javafx.scene.control.Slider;
@@ -46,7 +39,6 @@ import javafx.scene.input.MouseEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.util.Duration;
 
@@ -133,10 +125,17 @@ public class MovieViewController implements Initializable
     Temporary movie chooser.
      */
     @FXML
-    private void chooseFiles(ActionEvent event) throws IOException
+    private void chooseFiles(ActionEvent event) throws IOException, MTDalException
     {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         String filePath = movie.getFilepath();
+        
+        Date date = new Date();
+        long miliTime = date.getTime();
+        int days = (int) (miliTime /(60*60*24*1000));
+        movie.setLastview(days);
+        movieModel.updateLastView(movie);
+        
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
         Parent root = (Parent) loader.load();
 
@@ -149,7 +148,6 @@ public class MovieViewController implements Initializable
         stage.setScene(new Scene(root));
         stage.show();
     }
-
     /*
     Pauses the movie, pressing play will continue the movie.
      */
