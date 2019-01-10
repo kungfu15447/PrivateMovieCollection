@@ -129,11 +129,6 @@ public class MovieViewController implements Initializable
     {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         String filePath = movie.getFilepath();
-        
-        Date date = new Date();
-        long miliTime = date.getTime();
-        int days = (int) (miliTime /(60*60*24*1000));
-        movie.setLastview(days);
         movieModel.updateLastView(movie);
         
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
