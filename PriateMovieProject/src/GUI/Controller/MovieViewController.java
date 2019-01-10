@@ -67,13 +67,17 @@ public class MovieViewController implements Initializable
     @FXML
     private TableColumn<Movie, Double> clmImdbRating;
     @FXML
-    private ListView<Category> lstCategories;
-    @FXML
     private Button btnEditRating;
     @FXML
     private Button btnAddCate;
     @FXML
     private Button btnDeleteCate;
+    @FXML
+    private TableView<Category> tblCategory;
+    @FXML
+    private TableColumn<Category, String> clmCateTitle;
+    @FXML
+    private TableColumn<Category, String> clmCateCheck;
 
     public MovieViewController() throws MTBllException
     {
@@ -85,8 +89,10 @@ public class MovieViewController implements Initializable
     {
         clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
         tableView.setItems(movieModel.getMovies());
-        lstCategories.setItems(movieModel.getCategories());
+        tblCategory.setItems(movieModel.getCategories());
     }
 
     /*
@@ -229,7 +235,7 @@ public class MovieViewController implements Initializable
     {
         try
         {
-            Category category = lstCategories.getSelectionModel().getSelectedItem();
+            Category category = tblCategory.getSelectionModel().getSelectedItem();
             if (category != null)
             {
                 movieModel.deleteCategory(category);

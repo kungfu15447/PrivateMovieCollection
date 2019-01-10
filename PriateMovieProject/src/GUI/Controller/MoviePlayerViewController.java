@@ -42,8 +42,6 @@ public class MoviePlayerViewController implements Initializable
     private boolean paused = false;
 
     @FXML
-    private Label label;
-    @FXML
     private MediaView mediaView;
     @FXML
     private Slider durationSlider;
@@ -54,7 +52,9 @@ public class MoviePlayerViewController implements Initializable
     @FXML
     private Button playPauseButton;
     @FXML
-    private Label timer;
+    private Label lblVolume;
+    @FXML
+    private Label lblTimer;
 
     /**
      * Initializes the controller class.
@@ -84,12 +84,18 @@ public class MoviePlayerViewController implements Initializable
                 {
                     durationSlider.setValue(newValue.toSeconds());
                     durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
+                    
+                    timer();
+                    if(newValue == null) {
+                        lblTimer.setText("");
+                    }
                 }
             });
 
             mediaPlayer.play();
             playing = true;
             paused = false;
+            playPauseButton.setText("Pause");
         } else if (paused) {
            mediaPlayer.play();
            paused = false;
@@ -130,7 +136,9 @@ public class MoviePlayerViewController implements Initializable
         volumeSlider.valueProperty().addListener((Observable observable) ->
         {
             mediaPlayer.setVolume(volumeSlider.getValue() / 100);
+            lblVolume.setText(Math.round(volumeSlider.getValue()) + "");
         });
+        lblVolume.setText(Math.round(volumeSlider.getValue()) + "");
     }
 
     /**
@@ -149,8 +157,12 @@ public class MoviePlayerViewController implements Initializable
         this.filePath = filepath;
     }
     
-    private void labelTimer()
+    private void timer()
     {
+        int seconds = (int) durationSlider.getValue() % 60;
+        int minutes = (int) (durationSlider.getValue() / 60) % 60;
+        int hours = (int) (durationSlider.getValue() / 3600);
         
+        lblTimer.setText(hours + ":" + minutes + ":" + seconds + "");
     }
 }

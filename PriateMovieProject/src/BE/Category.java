@@ -5,6 +5,8 @@
  */
 package BE;
 
+import javafx.scene.control.CheckBox;
+
 /**
  *
  * @author Frederik Jensen
@@ -13,10 +15,12 @@ public class Category
 {
     private int id;
     private String category;
+    private CheckBox select;
     
     public Category(int id, String category) {
         this.id = id;
         this.category = category;
+        this.select = new CheckBox();
     }
 
     public int getId()
@@ -32,6 +36,14 @@ public class Category
     public void setCategory(String category)
     {
         this.category = category;
+    }
+    
+    public CheckBox getSelect() {
+        return select;
+    }
+    
+    public void setSelect(CheckBox select) {
+        this.select = select;
     }
     
     @Override

@@ -12,10 +12,7 @@ import DAL.CatMovieDAO;
 import DAL.CategoryDAO;
 import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
-import java.sql.SQLException;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -126,6 +123,26 @@ public class MovieManager
     public void updateLastView(Movie movie) throws MTDalException
     {
         mdao.updateLastView(movie);
+    }
+    
+    public List<Movie> getMoviesFromCats(List<Category> catlist) throws MTBllException {
+        try
+        {
+            return cmdao.getMoviesFromCats(catlist);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not get movies from selected categories");
+        }
+    }
+    
+    public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTBllException {
+        try
+        {
+            cmdao.addCategoryToMovie(catlist, movie);
+        } catch (MTDalException ex)
+        {
+            throw new MTBllException("Could not add categories to movie");
+        }
     }
     
 }
