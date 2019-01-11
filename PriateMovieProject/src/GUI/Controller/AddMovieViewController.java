@@ -29,6 +29,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.control.TextField;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -118,6 +119,10 @@ public class AddMovieViewController implements Initializable
         cwcontroller.initializeModel(cmm);
         
         Stage stage = new Stage();
+        Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("Movie collection");
+        
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
         stage.show();
@@ -145,6 +150,11 @@ public class AddMovieViewController implements Initializable
         alert.setTitle("Error dialog");
         alert.setHeaderText(null);
         alert.setContentText(ex.getMessage());
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
+        dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Keyboard.png").toString()));
 
         alert.showAndWait();
     }
@@ -162,7 +172,7 @@ public class AddMovieViewController implements Initializable
         }
         else if (txtFilepath.getText().isEmpty())
         {
-            errorInfo = "filepath";
+            errorInfo = "file";
         }
         else 
         {
@@ -205,6 +215,10 @@ public class AddMovieViewController implements Initializable
         dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
         dialogPane.getStyleClass().add("dialogPane");
         dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Keyboard.png").toString()));
+        
+        Image icon = new Image(this.getClass().getResourceAsStream("/mytunes/GUI/newicon.png"));
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(icon);
         
         alert.showAndWait();
     }
