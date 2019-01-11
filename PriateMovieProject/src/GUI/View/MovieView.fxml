@@ -40,6 +40,6 @@
       <Button fx:id="btnSortTitle" layoutX="302.0" layoutY="147.0" mnemonicParsing="false" onAction="#handlerSortTitle" prefHeight="38.0" prefWidth="81.0" text="Title" />
       <Label layoutX="309.0" layoutY="64.0" text="Sort by:" />
       <Button fx:id="btnSortRating" layoutX="302.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSortRating" prefHeight="38.0" prefWidth="81.0" text="Rating" />
-      <Button fx:id="btnSortNothing" layoutX="303.0" layoutY="96.0" mnemonicParsing="false" onAction="#handlerSortNoting" prefHeight="38.0" prefWidth="81.0" text="Nothing" />
+      <Button fx:id="btnSortId" layoutX="303.0" layoutY="96.0" mnemonicParsing="false" onAction="#handlerSortId" prefHeight="38.0" prefWidth="81.0" text="Id" />
     </children>
 </AnchorPane>

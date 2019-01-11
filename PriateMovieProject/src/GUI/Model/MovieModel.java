@@ -196,7 +196,7 @@ public class MovieModel
             case "movierating":
                 moso.sortMovieListRating(movieList);
                 break;
-            case "nothing":
+            case "id":
                 moso.sortMovieListId(movieList);
                 break;
         }
