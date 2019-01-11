@@ -145,6 +145,11 @@ public class AddMovieViewController implements Initializable
         alert.setTitle("Error dialog");
         alert.setHeaderText(null);
         alert.setContentText(ex.getMessage());
+        
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
+        dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Keyboard.png").toString()));
 
         alert.showAndWait();
     }

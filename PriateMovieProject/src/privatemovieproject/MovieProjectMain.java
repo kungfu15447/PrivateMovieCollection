@@ -22,7 +22,6 @@ public class MovieProjectMain extends Application
     public void start(Stage stage) throws Exception
     {
         Parent root = FXMLLoader.load(getClass().getResource("/GUI/View/MovieView.fxml"));
-        
         Scene scene = new Scene(root);
         
         stage.setTitle("Movie collection");
