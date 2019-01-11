@@ -95,6 +95,9 @@ public class MovieViewController implements Initializable
         tableView.setItems(movieModel.getMovies());
         tblCategory.setItems(movieModel.getCategories());
         tableView.getSelectionModel().setCellSelectionEnabled(true);
+        RunPopup();
+        
+        
     }
 
     /*
@@ -262,7 +265,7 @@ public class MovieViewController implements Initializable
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    public void popup() throws IOException
+    public void RunPopup() throws IOException
     {
         if (!movieModel.getCheckMovie().isEmpty())
         {
