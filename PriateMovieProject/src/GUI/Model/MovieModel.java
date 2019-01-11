@@ -122,22 +122,26 @@ public class MovieModel
         moma.updateLastView(movie);
     }
 
-    public void checkMovies(Movie movie)
+    public void checkMovies()
     {
         Date Date = new Date();
         long MiliTime = Date.getTime();
         int days = (int) (MiliTime / (60 * 60 * 24 * 1000));
-        int days2 = movie.getLastview();
-
-        int inBetween = (days - days2);
-
-        for (int i = 0; i > movieList.size(); i++)
+        for (Movie movie : movieList)
         {
-            if (inBetween > 730)
+            int days2 = movie.getLastview();
+            int inBetween = (days - days2);
+            if (inBetween > 0)
             {
                 movieCheck.add(movie);
             }
         }
+        
+    }
+    
+    public ObservableList<Movie> getCheckMovie()
+    {
+        return movieCheck;
     }
 
     public void searchMovies(String query) throws MTBllException
