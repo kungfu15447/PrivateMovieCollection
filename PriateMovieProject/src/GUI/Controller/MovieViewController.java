@@ -76,6 +76,12 @@ public class MovieViewController implements Initializable
     private TableColumn<Category, String> clmCateCheck;
     @FXML
     private TextField searchbar;
+    @FXML
+    private Button btnSortTitle;
+    @FXML
+    private Button btnSortRating;
+    @FXML
+    private Button btnSortNothing;
 
     public MovieViewController() throws MTBllException
     {
@@ -231,7 +237,7 @@ public class MovieViewController implements Initializable
     {
         try
         {
-            tableView.setItems(movieModel.searchMovies(movieModel.getMovies(), searchbar.getText().toLowerCase()));
+            movieModel.searchMovies(searchbar.getText().toLowerCase());
         } catch (MTBllException ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -244,7 +250,43 @@ public class MovieViewController implements Initializable
         try
         {
             movieModel.fillCheckedCategoryList();
-            tableView.setItems(movieModel.contextOfMovieList());
+            movieModel.contextOfMovieList();
+        } catch (MTBllException ex)
+        {
+            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void handlerSortTitle(ActionEvent event)
+    {
+        try
+        {
+            movieModel.sortMovieList("movietitle");
+        } catch (MTBllException ex)
+        {
+            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void handlerSortRating(ActionEvent event)
+    {
+        try
+        {
+            movieModel.sortMovieList("movierating");
+        } catch (MTBllException ex)
+        {
+            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    @FXML
+    private void handlerSortNoting(ActionEvent event)
+    {
+        try
+        {
+            movieModel.sortMovieList("nothing");
         } catch (MTBllException ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);

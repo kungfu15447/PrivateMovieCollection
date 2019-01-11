@@ -5,8 +5,10 @@
  */
 package BLL;
 
+import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
+import DAL.CatMovieDAO;
 import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.util.ArrayList;
@@ -19,24 +21,25 @@ import java.util.logging.Logger;
  * @author Frederik Jensen
  */
 public class MovieSearcher
-{
-    private final MovieManager movieManager;
-    public MovieSearcher() {
-        movieManager = new MovieManager();
-    }
-    
-    public List<Movie> searchMovies(List<Movie> searchBase, String query) throws MTBllException {
+{ 
+    public List<Movie> searchMovies(List<Movie> searchBase, List<Category> categoryList ,String query) throws MTBllException {
         try
         {
             MovieDAO modao = new MovieDAO();
+            CatMovieDAO catdao = new CatMovieDAO();
             List<Movie> searchList = new ArrayList<>();
-            List<Movie> movieList = modao.getAllMovies();
+            
             if (query.isEmpty())
             {
-                searchList = modao.getAllMovies();
+                if (categoryList.isEmpty()) {
+                    searchList = modao.getAllMovies();
+                }else {
+                    searchList = catdao.getMoviesFromCats(categoryList);
+                }
+                
             } else
             {
-                for (Movie movie : movieList)
+                for (Movie movie : searchBase)
                 {
                     if (movie.getName().toLowerCase().contains(query))
                     {

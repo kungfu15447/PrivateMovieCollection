@@ -10,8 +10,10 @@ import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieManager;
 import BLL.MovieSearcher;
+import BLL.MovieSorter;
 import DAL.Exception.MTDalException;
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;
@@ -31,12 +33,14 @@ public class MovieModel
     private final ObservableList<Category> checkedCategoryList;
     private final MovieManager moma;
     private final MovieSearcher mose;
+    private final MovieSorter moso;
     private String filePath;
 
     public MovieModel() throws MTBllException
     {
         moma = new MovieManager();
         mose = new MovieSearcher();
+        moso = new MovieSorter();
         movieList = FXCollections.observableArrayList();
         categoryList = FXCollections.observableArrayList();
         movieCheck = FXCollections.observableArrayList();
@@ -82,6 +86,7 @@ public class MovieModel
 
     /**
      * Returns the filepath of the movie
+     *
      * @return the movies filepath
      */
     public String getFilePath()
@@ -135,37 +140,62 @@ public class MovieModel
         }
     }
 
-    public ObservableList<Movie> searchMovies(List<Movie> searchBase, String query) throws MTBllException
+    public void searchMovies(String query) throws MTBllException
     {
-        ObservableList<Movie> searchedMovieList = FXCollections.observableArrayList();
-        searchedMovieList.addAll(mose.searchMovies(searchBase, query));
-        return searchedMovieList;
+        ObservableList<Movie> searchBase = FXCollections.observableArrayList();
+        searchBase.addAll(movieList);
+        movieList.clear();
+        movieList.addAll(mose.searchMovies(searchBase, checkedCategoryList, query));
     }
-    
-    public void fillCheckedCategoryList() {
+
+    public void fillCheckedCategoryList()
+    {
         checkedCategoryList.clear();
-        for (Category cate : categoryList) {
-            if (cate.getSelect().isSelected()) {
+        for (Category cate : categoryList)
+        {
+            if (cate.getSelect().isSelected())
+            {
                 checkedCategoryList.add(cate);
             }
         }
     }
-    
-    public ObservableList<Movie> getMoviesFromCats() throws MTBllException {
-        ObservableList<Movie> movies = FXCollections.observableArrayList();
+
+    private void getMoviesFromCats() throws MTBllException
+    {
+        movieList.clear();
         List<Movie> moviesFromCatsList = moma.getMoviesFromCats(checkedCategoryList);
-        for (Movie movie : moviesFromCatsList) {
-            movies.add(movie);
-        }
-        return movies;
-    }
-    
-    public ObservableList<Movie> contextOfMovieList() throws MTBllException {
-        if (checkedCategoryList.isEmpty()) {
-            return movieList;
-        } else {
-            return getMoviesFromCats();
+        for (Movie movie : moviesFromCatsList)
+        {
+            movieList.add(movie);
         }
     }
-    
+
+    public void contextOfMovieList() throws MTBllException
+    {
+        if (checkedCategoryList.isEmpty())
+        {
+            movieList.clear();
+            movieList.addAll(moma.getAllMovies());
+        } else
+        {
+            getMoviesFromCats();
+        }
+    }
+
+    public void sortMovieList(String sortingchoice) throws MTBllException
+    {
+        switch (sortingchoice)
+        {
+            case "movietitle":
+                moso.sortMovieListTitle(movieList);
+                break;
+            case "movierating":
+                moso.sortMovieListRating(movieList);
+                break;
+            case "nothing":
+                contextOfMovieList();
+                break;
+        }
+    }
+
 }

@@ -20,7 +20,7 @@
         </columns>
       </TableView>
       <Button layoutX="387.0" layoutY="810.0" mnemonicParsing="false" onAction="#addMovie" prefHeight="29.0" prefWidth="108.0" text="Add Movie" />
-      <TextField fx:id="searchbar" layoutX="441.0" layoutY="16.0" onKeyPressed="#writeSearch" prefHeight="31.0" prefWidth="232.0" />
+      <TextField fx:id="searchbar" layoutX="441.0" layoutY="16.0" onKeyReleased="#writeSearch" prefHeight="31.0" prefWidth="232.0" />
       <Label layoutX="389.0" layoutY="22.0" styleClass="label-bright" text="Search:">
          <font>
             <Font size="21.0" />
@@ -37,5 +37,9 @@
         </columns>
       </TableView>
       <Button layoutX="205.0" layoutY="33.0" mnemonicParsing="false" onAction="#filterMovieList" prefHeight="29.0" prefWidth="88.0" text="Filter" />
+      <Button fx:id="btnSortTitle" layoutX="302.0" layoutY="147.0" mnemonicParsing="false" onAction="#handlerSortTitle" prefHeight="38.0" prefWidth="81.0" text="Title" />
+      <Label layoutX="309.0" layoutY="64.0" text="Sort by:" />
+      <Button fx:id="btnSortRating" layoutX="302.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSortRating" prefHeight="38.0" prefWidth="81.0" text="Rating" />
+      <Button fx:id="btnSortNothing" layoutX="303.0" layoutY="96.0" mnemonicParsing="false" onAction="#handlerSortNoting" prefHeight="38.0" prefWidth="81.0" text="Nothing" />
     </children>
 </AnchorPane>
