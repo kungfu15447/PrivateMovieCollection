@@ -124,6 +124,12 @@ public class MoviePlayerViewController implements Initializable
         }
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.close();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+            public void handle(WindowEvent we)
+                {
+                    System.out.println("Stage is closing");
+                }
+        });
     }
 
     @FXML
@@ -175,4 +181,5 @@ public class MoviePlayerViewController implements Initializable
     {
         mediaPlayer.stop();
     }
+    
 }
