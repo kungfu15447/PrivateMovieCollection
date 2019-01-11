@@ -94,14 +94,20 @@ public class MovieViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
-        clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
-        clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
-        clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
-        tableView.setItems(movieModel.getMovies());
-        tblCategory.setItems(movieModel.getCategories());
-        tableView.getSelectionModel().setCellSelectionEnabled(true);
-        RunPopup();
+        try
+        {
+            clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+            clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+            clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
+            clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
+            tableView.setItems(movieModel.getMovies());
+            tblCategory.setItems(movieModel.getCategories());
+            tableView.getSelectionModel().setCellSelectionEnabled(true);
+            RunPopup();
+        } catch (IOException ex)
+        {
+            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
         
         
     }
