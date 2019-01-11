@@ -48,7 +48,6 @@ public class CatMovieDAO
                     sql = sql + "CategoryMovie.CategoryId = " + catlist.get(i).getId() + " AND ";
                 }
             }
-            System.out.println(sql);
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next())
@@ -116,4 +115,6 @@ public class CatMovieDAO
             throw new MTDalException("Could not delete categories from the CategoryMovie table.", ex);
         }
     }
+    
+    
 }

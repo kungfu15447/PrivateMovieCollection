@@ -11,7 +11,7 @@ import BE.Category;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import DAL.Exception.MTDalException;
-import GUI.Model.CategoryMovieModel;
+import GUI.Model.CategoryViewModel;
 import GUI.Model.MovieModel;
 import java.io.IOException;
 import java.net.URL;
@@ -53,7 +53,7 @@ public class MovieViewController implements Initializable
     private MediaPlayer mediaPlayer;
     private String filePath;
     private final MovieModel movieModel;
-    private final CategoryMovieModel cmm;
+    private final CategoryViewModel cvm;
     private MoviePlayerViewController mpvc;
 
     @FXML
@@ -88,7 +88,7 @@ public class MovieViewController implements Initializable
     public MovieViewController() throws MTBllException
     {
         movieModel = new MovieModel();
-        cmm = new CategoryMovieModel();
+        cvm = new CategoryViewModel();
     }
 
     @Override
@@ -185,7 +185,7 @@ public class MovieViewController implements Initializable
             Movie movie = tableView.getSelectionModel().getSelectedItem();
             if (movie != null)
             {
-                cmm.deleteMovieFromTable(movie);
+                cvm.deleteMovieFromTable(movie);
                 movieModel.deleteMovie(movie);
             } else
             {
@@ -225,7 +225,7 @@ public class MovieViewController implements Initializable
             Category category = tblCategory.getSelectionModel().getSelectedItem();
             if (category != null)
             {
-                cmm.deleteCategoryFromTable(category);
+                cvm.deleteCategoryFromTable(category);
                 movieModel.deleteCategory(category);
             } else
             {

@@ -6,7 +6,7 @@
 package GUI.Controller;
 
 import BE.Category;
-import GUI.Model.CategoryMovieModel;
+import GUI.Model.CategoryViewModel;
 import GUI.Model.MovieModel;
 import java.net.URL;
 import java.util.ResourceBundle;
@@ -26,7 +26,7 @@ import javafx.stage.Stage;
  */
 public class CategoryViewController implements Initializable
 {
-    private CategoryMovieModel cmm;
+    private CategoryViewModel cvm;
     @FXML
     private AnchorPane rootPane;
     @FXML
@@ -41,7 +41,7 @@ public class CategoryViewController implements Initializable
      */
     public CategoryViewController()
     {
-        cmm = new CategoryMovieModel();
+        cvm = new CategoryViewModel();
     }
 
     @Override
@@ -66,15 +66,15 @@ public class CategoryViewController implements Initializable
         stage.close();
     }
 
-    public void initializeModel(CategoryMovieModel cmm)
+    public void initializeModel(CategoryViewModel cvm)
     {
-        this.cmm = cmm;
+        this.cvm = cvm;
         setCategoryTable();
     }
 
     private void setCategoryTable()
     {
-        tblCategory.setItems(cmm.getCategories());
+        tblCategory.setItems(cvm.getCategories());
     }
 
 }

@@ -20,13 +20,13 @@ import javafx.collections.ObservableList;
  *
  * @author Frederik Jensen
  */
-public class CategoryMovieModel
+public class CategoryViewModel
 {
 
     MovieManager moma;
     ObservableList<Category> categoryList;
 
-    public CategoryMovieModel()
+    public CategoryViewModel()
     {
         try
         {
@@ -35,7 +35,7 @@ public class CategoryMovieModel
             categoryList.addAll(moma.getAllCategories());
         } catch (MTBllException ex)
         {
-            Logger.getLogger(CategoryMovieModel.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(CategoryViewModel.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 

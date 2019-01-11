@@ -8,12 +8,12 @@ package GUI.Controller;
 
 import BE.Movie;
 import BLL.Exception.MTBllException;
-import GUI.Model.CategoryMovieModel;
+import GUI.Model.CategoryViewModel;
 import GUI.Model.MovieModel;
 import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
-import java.net.URL;;
+import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
@@ -54,11 +54,11 @@ public class AddMovieViewController implements Initializable
     private Label lblRating;
 
     private MovieModel movieModel;
-    private CategoryMovieModel cmm;
+    private CategoryViewModel cvm;
     
     
     public AddMovieViewController() {
-        cmm = new CategoryMovieModel();
+        cvm = new CategoryViewModel();
     }
     /**
      * Initializes the controller class.
@@ -89,7 +89,7 @@ public class AddMovieViewController implements Initializable
             double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
             String filepath = txtFilepath.getText();
             Movie movie = movieModel.createMovie(title, rating, filepath, 0);
-            cmm.addCategoryToMovie(cmm.getCheckedCategory(), movie);
+            cvm.addCategoryToMovie(cvm.getCheckedCategory(), movie);
             Stage stage = (Stage) rootPane.getScene().getWindow();
             stage.close();
             
@@ -116,7 +116,7 @@ public class AddMovieViewController implements Initializable
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
         Parent root = (Parent) loader.load();
         CategoryViewController cwcontroller = loader.getController();
-        cwcontroller.initializeModel(cmm);
+        cwcontroller.initializeModel(cvm);
         
         Stage stage = new Stage();
         Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));

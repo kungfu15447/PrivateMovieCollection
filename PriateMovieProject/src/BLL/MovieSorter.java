@@ -43,4 +43,17 @@ public class MovieSorter
         };
         Collections.sort(catlist, movies);
     }
+    
+    public void sortMovieListId(List<Movie> catlist) {
+        Comparator<Movie> movies;
+        movies = new Comparator<Movie>()
+        {
+            @Override
+            public int compare(Movie t, Movie t1)
+            {
+                return Integer.compare(t.getId(), t1.getId());
+            }
+        };
+        Collections.sort(catlist, movies);
+    }
 }

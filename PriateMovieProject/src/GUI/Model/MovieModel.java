@@ -197,7 +197,7 @@ public class MovieModel
                 moso.sortMovieListRating(movieList);
                 break;
             case "nothing":
-                contextOfMovieList();
+                moso.sortMovieListId(movieList);
                 break;
         }
     }
