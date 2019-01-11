@@ -38,6 +38,7 @@ import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
+import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -249,6 +250,14 @@ public class MovieViewController implements Initializable
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+    public void popup() throws IOException
+    {
+        Popup popup = new Popup();
+        CheckMovieController controller = new CheckMovieController();
+        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
+        loader.setController(controller);
+        popup.getContent().add((Parent)loader.load());
     }
 
 }
