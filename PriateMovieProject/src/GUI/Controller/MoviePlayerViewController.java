@@ -16,9 +16,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
@@ -44,8 +42,7 @@ public class MoviePlayerViewController implements Initializable
     private MovieModel movieModel;
     private boolean playing = false;
     private boolean paused = false;
-    private Media media;
-
+    
     @FXML
     private MediaView mediaView;
     @FXML
@@ -60,6 +57,7 @@ public class MoviePlayerViewController implements Initializable
     private Label lblVolume;
     @FXML
     private Label lblTimer;
+    
 
     /**
      * Initializes the controller class.
@@ -75,7 +73,7 @@ public class MoviePlayerViewController implements Initializable
     {
         if (!paused && !playing)
         {
-            media = new Media(filePath);
+            Media media = new Media(filePath);
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
 
@@ -89,24 +87,24 @@ public class MoviePlayerViewController implements Initializable
                 {
                     durationSlider.setValue(newValue.toSeconds());
                     durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
-                    
+
                     timer();
-                    if(newValue == null) {
-                        lblTimer.setText("");
-                    }
                 }
+                
             });
 
             mediaPlayer.play();
             playing = true;
             paused = false;
             playPauseButton.setText("Pause");
-        } else if (paused) {
-           mediaPlayer.play();
-           paused = false;
-           playing = true;
-           playPauseButton.setText("Pause");
-        } else if (playing) {
+        } else if (paused)
+        {
+            mediaPlayer.play();
+            paused = false;
+            playing = true;
+            playPauseButton.setText("Pause");
+        } else if (playing)
+        {
             mediaPlayer.pause();
             paused = true;
             playing = false;
@@ -124,6 +122,25 @@ public class MoviePlayerViewController implements Initializable
         }
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.close();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+            public void handle(WindowEvent we)
+                {
+                    System.out.println("Stage is closing");
+                }
+        });
+    }
+
+    public void windowsExit()
+    {
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>()
+        {
+            @Override
+            public void handle(WindowEvent close)
+            {
+                
+            }
+        });
     }
 
     @FXML
@@ -161,18 +178,20 @@ public class MoviePlayerViewController implements Initializable
     {
         this.filePath = filepath;
     }
-    
+
     private void timer()
     {
         int seconds = (int) durationSlider.getValue() % 60;
         int minutes = (int) (durationSlider.getValue() / 60) % 60;
         int hours = (int) (durationSlider.getValue() / 3600);
-        
+
         lblTimer.setText(hours + ":" + minutes + ":" + seconds + "");
     }
+
     
     public void stopSound()
     {
         mediaPlayer.stop();
     }
+    
 }

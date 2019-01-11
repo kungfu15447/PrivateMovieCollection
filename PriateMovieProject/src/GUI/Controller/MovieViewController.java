@@ -122,11 +122,12 @@ public class MovieViewController implements Initializable
         stage.setTitle("Movie player");
         stage.setScene(new Scene(root));
         stage.show();
-        
-        stage.setOnCloseRequest((WindowEvent event1) ->
-        {
-            
-        });
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
+          public void handle(WindowEvent we) {
+              System.out.println("Stage lort");
+          }
+      });        
     }
 
     /*
