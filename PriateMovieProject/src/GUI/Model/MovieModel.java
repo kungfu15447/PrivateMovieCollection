@@ -13,7 +13,6 @@ import BLL.MovieSearcher;
 import BLL.MovieSorter;
 import DAL.Exception.MTDalException;
 import java.io.File;
-import java.util.ArrayList;
 import java.util.Date;
 import java.util.List;
 import javafx.collections.FXCollections;

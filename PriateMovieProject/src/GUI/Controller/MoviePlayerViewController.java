@@ -42,7 +42,7 @@ public class MoviePlayerViewController implements Initializable
     private MovieModel movieModel;
     private boolean playing = false;
     private boolean paused = false;
-    
+
     @FXML
     private MediaView mediaView;
     @FXML
@@ -57,7 +57,6 @@ public class MoviePlayerViewController implements Initializable
     private Label lblVolume;
     @FXML
     private Label lblTimer;
-    
 
     /**
      * Initializes the controller class.
@@ -65,7 +64,7 @@ public class MoviePlayerViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
+
     }
 
     @FXML
@@ -90,7 +89,7 @@ public class MoviePlayerViewController implements Initializable
 
                     timer();
                 }
-                
+
             });
 
             mediaPlayer.play();
@@ -122,11 +121,12 @@ public class MoviePlayerViewController implements Initializable
         }
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.close();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>(){
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>()
+        {
             public void handle(WindowEvent we)
-                {
-                    System.out.println("Stage is closing");
-                }
+            {
+                System.out.println("Stage is closing");
+            }
         });
     }
 
@@ -138,7 +138,7 @@ public class MoviePlayerViewController implements Initializable
             @Override
             public void handle(WindowEvent close)
             {
-                
+
             }
         });
     }
@@ -188,10 +188,9 @@ public class MoviePlayerViewController implements Initializable
         lblTimer.setText(hours + ":" + minutes + ":" + seconds + "");
     }
 
-    
-    public void stopSound()
+    public void stopMovie()
     {
         mediaPlayer.stop();
     }
-    
+
 }

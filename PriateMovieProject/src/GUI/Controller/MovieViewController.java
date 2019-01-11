@@ -131,7 +131,7 @@ public class MovieViewController implements Initializable {
 
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
-                System.out.println("Stage lort");
+                mpvcontroller.stopMovie();
             }
         });
     }
@@ -281,5 +281,6 @@ public class MovieViewController implements Initializable {
             popup.getContent().add((Parent) loader.load());
         }
     }
+    
 
 }
