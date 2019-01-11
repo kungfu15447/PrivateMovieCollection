@@ -34,6 +34,7 @@ import javafx.scene.control.TableView;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.cell.PropertyValueFactory;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.media.Media;
@@ -114,6 +115,10 @@ public class MovieViewController implements Initializable
         mpvcontroller.getFilePath(filePath);
 
         Stage stage = new Stage();
+        Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("Movie collection");
+        
         stage.setTitle("Movie player");
         stage.setScene(new Scene(root));
         stage.show();
@@ -144,8 +149,13 @@ public class MovieViewController implements Initializable
 
         AddMovieViewController amvcontroller = loader.getController();
         amvcontroller.initializeModel(movieModel);
+        
 
         Stage stage = new Stage();
+        Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
+        stage.getIcons().add(icon);
+        stage.setTitle("Movie collection");
+        
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
         stage.show();
