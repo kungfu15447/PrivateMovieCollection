@@ -263,11 +263,14 @@ public class MovieViewController implements Initializable
     }
     public void popup() throws IOException
     {
-        Popup popup = new Popup();
-        CheckMovieController controller = new CheckMovieController();
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
-        loader.setController(controller);
-        popup.getContent().add((Parent)loader.load());
+        if (!movieModel.getCheckMovie().isEmpty())
+        {
+            Popup popup = new Popup();
+            CheckMovieController controller = new CheckMovieController();
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
+            loader.setController(controller);
+            popup.getContent().add((Parent)loader.load());
+        }
     }
 
 }

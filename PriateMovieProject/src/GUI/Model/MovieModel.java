@@ -126,12 +126,17 @@ public class MovieModel
         {
             int days2 = movie.getLastview();
             int inBetween = (days - days2);
-            if (inBetween > 730)
+            if (inBetween > 0)
             {
                 movieCheck.add(movie);
             }
         }
         
+    }
+    
+    public ObservableList<Movie> getCheckMovie()
+    {
+        return movieCheck;
     }
 
     public ObservableList<Movie> searchMovies(List<Movie> searchBase, String query) throws MTBllException
