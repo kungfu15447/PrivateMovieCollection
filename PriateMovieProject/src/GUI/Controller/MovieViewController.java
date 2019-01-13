@@ -128,7 +128,7 @@ public class MovieViewController implements Initializable {
         stage.setTitle("Movie player");
         stage.setScene(new Scene(root));
         stage.show();
-
+        
         stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
             public void handle(WindowEvent we) {
                 mpvcontroller.stopMovie();
@@ -158,8 +158,7 @@ public class MovieViewController implements Initializable {
         Stage stage = new Stage();
         Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
         stage.getIcons().add(icon);
-        stage.setTitle("Movie collection");
-
+        
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
         stage.show();
@@ -175,7 +174,8 @@ public class MovieViewController implements Initializable {
             } else {
                 getAlertBox();
             }
-        } catch (MTBllException ex) {
+        } catch (MTBllException ex) 
+        {
 
         }
     }

@@ -20,6 +20,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
+import javafx.scene.image.ImageView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -57,6 +58,10 @@ public class MoviePlayerViewController implements Initializable
     private Label lblVolume;
     @FXML
     private Label lblTimer;
+    @FXML
+    private ImageView playButton;
+    @FXML
+    private ImageView pauseButton;
 
     /**
      * Initializes the controller class.
@@ -64,12 +69,13 @@ public class MoviePlayerViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-
+       
     }
+    
 
     @FXML
     private void play(ActionEvent event)
-    {
+    {/*
         if (!paused && !playing)
         {
             Media media = new Media(filePath);
@@ -109,7 +115,7 @@ public class MoviePlayerViewController implements Initializable
             playing = false;
             playPauseButton.setText("Play");
         }
-        controlSound();
+        controlSound();*/
     }
 
     @FXML
@@ -191,6 +197,68 @@ public class MoviePlayerViewController implements Initializable
     public void stopMovie()
     {
         mediaPlayer.stop();
+    }
+
+    @FXML
+    private void handlePlayButton(MouseEvent event) 
+    {
+        
+        if (!paused && !playing)
+        {
+            
+            Media media = new Media(filePath);
+            mediaPlayer = new MediaPlayer(media);
+            mediaView.setMediaPlayer(mediaPlayer);
+
+            DoubleProperty width = mediaView.fitWidthProperty();
+            DoubleProperty height = mediaView.fitHeightProperty();
+
+            mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>()
+            {
+                @Override
+                public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue)
+                {
+                    durationSlider.setValue(newValue.toSeconds());
+                    durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
+
+                    timer();
+                }
+
+            });
+            
+            mediaPlayer.play();
+            playing = true;
+            paused = false;
+            pauseButton.setVisible(true);
+            playButton.setVisible(false);
+            
+        } else if (paused)
+        {
+            mediaPlayer.play();
+            paused = false;
+            playing = true;
+            pauseButton.setVisible(true);
+            playButton.setVisible(false);
+        } 
+        else
+        {
+           pauseButton.setVisible(false);
+           playButton.setVisible(true); 
+        }
+        controlSound();
+    }
+
+    @FXML
+    private void handlePauseButton(MouseEvent event) 
+    {
+            if (playing)
+            {
+            mediaPlayer.pause();
+            paused = true;
+            playing = false;
+            pauseButton.setVisible(false);
+            playButton.setVisible(true);
+            }
     }
 
 }
