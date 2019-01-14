@@ -5,7 +5,6 @@
  */
 package GUI.Controller;
 
-
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import GUI.Model.CategoryViewModel;
@@ -55,11 +54,12 @@ public class AddMovieViewController implements Initializable
 
     private MovieModel movieModel;
     private CategoryViewModel cvm;
-    
-    
-    public AddMovieViewController() {
+
+    public AddMovieViewController()
+    {
         cvm = new CategoryViewModel();
     }
+
     /**
      * Initializes the controller class.
      */
@@ -68,7 +68,6 @@ public class AddMovieViewController implements Initializable
     {
         txtFilepath.setDisable(true);
     }
-    
 
     @FXML
     private void chooseFile(ActionEvent event)
@@ -81,24 +80,30 @@ public class AddMovieViewController implements Initializable
     private void saveMovie(ActionEvent event)
     {
         boolean emptyField = getEmptyFieldInfo();
-        if(!emptyField)
+        if (!emptyField)
         {
-        try
+            try
+            {
+                String title = txtTitle.getText();
+                double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
+                String filepath = txtFilepath.getText();
+                if (!movieModel.checkMovieTitles(title))
+                {
+                    Movie movie = movieModel.createMovie(title, rating, filepath, 0);
+                    cvm.addCategoryToMovie(cvm.getCheckedCategory(), movie);
+                    Stage stage = (Stage) rootPane.getScene().getWindow();
+                    stage.close();
+                } else
+                {
+                    changeTitleAlertBox();
+                }
+
+            } catch (MTBllException ex)
+            {
+                displayError(ex);
+            }
+        } else
         {
-            String title = txtTitle.getText();
-            double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
-            String filepath = txtFilepath.getText();
-            Movie movie = movieModel.createMovie(title, rating, filepath, 0);
-            cvm.addCategoryToMovie(cvm.getCheckedCategory(), movie);
-            Stage stage = (Stage) rootPane.getScene().getWindow();
-            stage.close();
-            
-        } catch (MTBllException ex)
-        {
-            displayError(ex);
-        }
-        }
-        else{
             getAlertBox();
         }
     }
@@ -109,7 +114,7 @@ public class AddMovieViewController implements Initializable
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
-    
+
     @FXML
     private void handleCategoryChooseBtn(ActionEvent event) throws IOException
     {
@@ -117,20 +122,20 @@ public class AddMovieViewController implements Initializable
         Parent root = (Parent) loader.load();
         CategoryViewController cwcontroller = loader.getController();
         cwcontroller.initializeModel(cvm);
-        
+
         Stage stage = new Stage();
         Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
         stage.getIcons().add(icon);
         stage.setTitle("Movie collection");
-        
+
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
         stage.show();
     }
-    
+
     /*
     *Dragging the slider will adjust the users rating.
-    */
+     */
     @FXML
     private void handleRating(MouseEvent event)
     {
@@ -139,9 +144,10 @@ public class AddMovieViewController implements Initializable
             lblRating.setText(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).toString());
         });
     }
-    
+
     /**
      * A popup window that displays the error that occured
+     *
      * @param ex the exception getting showened to the user
      */
     private void displayError(Exception ex)
@@ -150,7 +156,7 @@ public class AddMovieViewController implements Initializable
         alert.setTitle("Error dialog");
         alert.setHeaderText(null);
         alert.setContentText(ex.getMessage());
-        
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
         dialogPane.getStyleClass().add("dialogPane");
@@ -166,35 +172,33 @@ public class AddMovieViewController implements Initializable
     public String getErrorInfo()
     {
         String errorInfo;
-        if(txtTitle.getText().isEmpty())
+        if (txtTitle.getText().isEmpty())
         {
             errorInfo = "title";
-        }
-        else if (txtFilepath.getText().isEmpty())
+        } else if (txtFilepath.getText().isEmpty())
         {
             errorInfo = "file";
-        }
-        else 
+        } else
         {
             errorInfo = null;
         }
         return errorInfo;
     }
-    
+
     public boolean getEmptyFieldInfo()
     {
-        
+
         boolean emptyField = false;
-        if(txtTitle.getText().isEmpty() || txtFilepath.getText().isEmpty())
+        if (txtTitle.getText().isEmpty() || txtFilepath.getText().isEmpty())
         {
             emptyField = true;
         }
         return emptyField;
     }
-    
 
     /**
      * Initializes this class' moviemodel object
+     *
      * @param movieModel the movieModel this class' movieModel is getting
      * initialized with
      */
@@ -202,7 +206,7 @@ public class AddMovieViewController implements Initializable
     {
         this.movieModel = movieModel;
     }
-    
+
     public void getAlertBox()
     {
         String errorInfo = getErrorInfo();
@@ -210,16 +214,26 @@ public class AddMovieViewController implements Initializable
         alert.setTitle("Dialog");
         alert.setHeaderText("You have not chosen a " + errorInfo + " for the movie");
         alert.setContentText("Please select a " + errorInfo + " for the movie");
-        
+
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
         dialogPane.getStyleClass().add("dialogPane");
         dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Keyboard.png").toString()));
-        
+
         Image icon = new Image(this.getClass().getResourceAsStream("/mytunes/GUI/newicon.png"));
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);
-        
+
+        alert.showAndWait();
+    }
+
+    public void changeTitleAlertBox()
+    {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information Dialog");
+        alert.setHeaderText("Movie title " + txtTitle.getText() + " already taken");
+        alert.setContentText("Please find another title for this movie");
+
         alert.showAndWait();
     }
 }

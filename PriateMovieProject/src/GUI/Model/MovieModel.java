@@ -200,5 +200,15 @@ public class MovieModel
                 break;
         }
     }
+    public boolean checkMovieTitles(String movieTitle) throws MTBllException {
+        List<Movie> allmovies = moma.getAllMovies();
+        boolean existingTitle = false;
+        for (Movie movie : allmovies) {
+            if (movieTitle.toLowerCase().equals(movie.getName().toLowerCase())) {
+                existingTitle = true;
+            }
+        }
+        return existingTitle;
+    }
 
 }

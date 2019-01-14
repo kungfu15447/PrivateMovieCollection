@@ -38,8 +38,8 @@ public class CatMovieDAO
         try (Connection con = cb.getConnection())
         {
             String sql = "SELECT * FROM CategoryMovie INNER JOIN Movie ON MovieId = Movie.id";
-            Statement st = con.createStatement();
-            ResultSet rs = st.executeQuery(sql);
+            PreparedStatement pst = con.prepareStatement(sql);
+            ResultSet rs = pst.executeQuery(sql);
             while (rs.next())
             {
                 int id = rs.getInt("id");

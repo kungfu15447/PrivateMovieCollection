@@ -282,15 +282,4 @@ public class MovieViewController implements Initializable {
             popup.getContent().add((Parent) loader.load());
         }
     }
-
-    @FXML
-    private void handlerTEst(ActionEvent event)
-    {
-        Movie movie = tableView.getSelectionModel().getSelectedItem();
-        for (int j : movie.getList()) {
-            System.out.println(j);
-        }
-    }
-    
-
 }
