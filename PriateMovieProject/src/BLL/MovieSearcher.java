@@ -13,8 +13,6 @@ import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -34,7 +32,7 @@ public class MovieSearcher
                 if (categoryList.isEmpty()) {
                     searchList = modao.getAllMovies();
                 }else {
-                    searchList = catdao.getMoviesFromCats(categoryList);
+                    searchList = catdao.getMoviesFromCats();
                 }
                 
             } else

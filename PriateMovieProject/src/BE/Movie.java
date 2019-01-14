@@ -5,6 +5,9 @@
  */
 package BE;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  *
  * @author Frederik Jensen
@@ -16,6 +19,7 @@ public class Movie
     private double rating;
     private String filepath;
     private int lastview;
+    private List<Integer> categoryIdList;
     
     public Movie(int id, String name, double rating, String filepath, int lastview) {
         this.id = id;
@@ -23,6 +27,7 @@ public class Movie
         this.rating = rating;
         this.filepath = filepath;
         this.lastview = lastview;
+        categoryIdList = new ArrayList<>();
     }
 
     public int getId()
@@ -68,5 +73,9 @@ public class Movie
     public void setLastview(int lastview)
     {
         this.lastview = lastview;
+    }
+    
+    public List<Integer> getList() {
+        return categoryIdList;
     }
 }

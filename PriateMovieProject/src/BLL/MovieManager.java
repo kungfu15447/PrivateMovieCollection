@@ -128,11 +128,11 @@ public class MovieManager
         mdao.updateLastView(movie);
     }
 
-    public List<Movie> getMoviesFromCats(List<Category> catlist) throws MTBllException
+    public List<Movie> getMoviesFromCats() throws MTBllException
     {
         try
         {
-            return cmdao.getMoviesFromCats(catlist);
+            return cmdao.getMoviesFromCats();
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not get movies from selected categories");

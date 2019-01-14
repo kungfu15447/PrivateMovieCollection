@@ -32,22 +32,12 @@ public class CatMovieDAO
         cb = new ConnectionDAO();
     }
 
-    public List<Movie> getMoviesFromCats(List<Category> catlist) throws MTDalException
+    public List<Movie> getMoviesFromCats() throws MTDalException
     {
         List<Movie> categoryMovies = new ArrayList<>();
         try (Connection con = cb.getConnection())
         {
-            String sql = "SELECT * FROM CategoryMovie INNER JOIN Movie ON MovieId = Movie.id WHERE ";
-            for (int i = 0; i < catlist.size(); i++)
-            {
-                if (i == catlist.size() - 1)
-                {
-                    sql = sql + "CategoryMovie.CategoryId = " + catlist.get(i).getId() + ";";
-                } else
-                {
-                    sql = sql + "CategoryMovie.CategoryId = " + catlist.get(i).getId() + " AND ";
-                }
-            }
+            String sql = "SELECT * FROM CategoryMovie INNER JOIN Movie ON MovieId = Movie.id";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
             while (rs.next())
@@ -55,9 +45,11 @@ public class CatMovieDAO
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 double rating = rs.getDouble("rating");
-                String filepath = rs.getString("filePath");
+                String filepath = rs.getString("filepath");
                 int lastview = rs.getInt("lastview");
+                int categoryId = rs.getInt("CategoryId");
                 Movie movie = new Movie(id, name, rating, filepath, lastview);
+                movie.getList().add(categoryId);
                 categoryMovies.add(movie);
             }
             return categoryMovies;
