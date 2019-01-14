@@ -53,8 +53,6 @@ public class MoviePlayerViewController implements Initializable
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private Button playPauseButton;
-    @FXML
     private Label lblVolume;
     @FXML
     private Label lblTimer;
@@ -73,50 +71,7 @@ public class MoviePlayerViewController implements Initializable
     }
     
 
-    @FXML
-    private void play(ActionEvent event)
-    {/*
-        if (!paused && !playing)
-        {
-            Media media = new Media(filePath);
-            mediaPlayer = new MediaPlayer(media);
-            mediaView.setMediaPlayer(mediaPlayer);
 
-            DoubleProperty width = mediaView.fitWidthProperty();
-            DoubleProperty height = mediaView.fitHeightProperty();
-
-            mediaPlayer.currentTimeProperty().addListener(new ChangeListener<Duration>()
-            {
-                @Override
-                public void changed(ObservableValue<? extends Duration> observable, Duration oldValue, Duration newValue)
-                {
-                    durationSlider.setValue(newValue.toSeconds());
-                    durationSlider.maxProperty().bind(Bindings.createDoubleBinding(() -> mediaPlayer.getTotalDuration().toSeconds(), mediaPlayer.totalDurationProperty()));
-
-                    timer();
-                }
-
-            });
-
-            mediaPlayer.play();
-            playing = true;
-            paused = false;
-            playPauseButton.setText("Pause");
-        } else if (paused)
-        {
-            mediaPlayer.play();
-            paused = false;
-            playing = true;
-            playPauseButton.setText("Pause");
-        } else if (playing)
-        {
-            mediaPlayer.pause();
-            paused = true;
-            playing = false;
-            playPauseButton.setText("Play");
-        }
-        controlSound();*/
-    }
 
     @FXML
     private void exit(ActionEvent event)
@@ -202,7 +157,8 @@ public class MoviePlayerViewController implements Initializable
     @FXML
     private void handlePlayButton(MouseEvent event) 
     {
-        
+        playButton.setVisible(true);
+        pauseButton.setVisible(false);
         if (!paused && !playing)
         {
             
@@ -240,11 +196,6 @@ public class MoviePlayerViewController implements Initializable
             pauseButton.setVisible(true);
             playButton.setVisible(false);
         } 
-        else
-        {
-           pauseButton.setVisible(false);
-           playButton.setVisible(true); 
-        }
         controlSound();
     }
 
