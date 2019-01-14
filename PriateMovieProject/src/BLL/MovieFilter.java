@@ -32,7 +32,7 @@ public class MovieFilter
         modao = new MovieDAO();
     }
 
-    public List<Movie> searchMovies(List<Movie> searchBase, List<Category> categoryList, String query) throws MTBllException
+    public List<Movie> searchFilter(List<Movie> searchBase, List<Category> categoryList, String query) throws MTBllException
     {
         try
         {
@@ -45,7 +45,7 @@ public class MovieFilter
                     searchList = modao.getAllMovies();
                 } else
                 {
-                    searchList = genreFilter(categoryList);
+                    searchList = categoriFilter(categoryList);
                 }
 
             } else
@@ -66,7 +66,7 @@ public class MovieFilter
         }
     }
 
-    public List<Movie> genreFilter(List<Category> catlist) throws MTBllException
+    public List<Movie> categoriFilter(List<Category> catlist) throws MTBllException
     {
         try
         {

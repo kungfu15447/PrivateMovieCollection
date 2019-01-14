@@ -10,7 +10,6 @@ import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieFilter;
 import BLL.MovieManager;
-import BLL.MovieSearcher;
 import BLL.MovieSorter;
 import DAL.Exception.MTDalException;
 import java.io.File;
@@ -32,7 +31,6 @@ public class MovieModel
     private final ObservableList<Category> categoryList;
     private final ObservableList<Category> checkedCategoryList;
     private final MovieManager moma;
-    private final MovieSearcher mose;
     private final MovieSorter moso;
     private final MovieFilter mofi;
     private String filePath;
@@ -40,7 +38,6 @@ public class MovieModel
     public MovieModel() throws MTBllException
     {
         moma = new MovieManager();
-        mose = new MovieSearcher();
         moso = new MovieSorter();
         mofi = new MovieFilter();
         movieList = FXCollections.observableArrayList();
@@ -151,7 +148,7 @@ public class MovieModel
         ObservableList<Movie> searchBase = FXCollections.observableArrayList();
         searchBase.addAll(movieList);
         movieList.clear();
-        movieList.addAll(mofi.searchMovies(searchBase, checkedCategoryList, query));
+        movieList.addAll(mofi.searchFilter(searchBase, checkedCategoryList, query));
     }
 
     public void fillCheckedCategoryList()
@@ -169,7 +166,7 @@ public class MovieModel
     private void getMoviesFromCats() throws MTBllException
     {
         movieList.clear();
-        List<Movie> moviesFromCatsList = mofi.genreFilter(checkedCategoryList);
+        List<Movie> moviesFromCatsList = mofi.categoriFilter(checkedCategoryList);
         for (Movie movie : moviesFromCatsList)
         {
             movieList.add(movie);
