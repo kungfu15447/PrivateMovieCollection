@@ -128,37 +128,39 @@ public class MovieViewController implements Initializable
     private void playMovie(ActionEvent event) throws IOException, MTDalException
     {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
-        if(movie != null)
+        if (movie != null)
         {
-        String filePath = movie.getFilepath();
-        movieModel.updateLastView(movie);
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
-        Parent root = (Parent) loader.load();
+            String filePath = movie.getFilepath();
+            movieModel.updateLastView(movie);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
+            Parent root = (Parent) loader.load();
 
-        MoviePlayerViewController mpvcontroller = loader.getController();
-        mpvcontroller.initializeModel(movieModel);
-        mpvcontroller.getFilePath(filePath);
+            MoviePlayerViewController mpvcontroller = loader.getController();
+            mpvcontroller.initializeModel(movieModel);
+            mpvcontroller.getFilePath(filePath);
 
-        Stage stage = new Stage();
-        Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
-        stage.getIcons().add(icon);
-        stage.setTitle("Movie collection");
+            Stage stage = new Stage();
+            Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
+            stage.getIcons().add(icon);
+            stage.setTitle("Movie collection");
 
-        stage.setTitle("Movie player");
-        stage.setScene(new Scene(root));
-        stage.show();
-        stage.setFullScreen(true);
-        
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
-                mpvcontroller.stopMovie();
-            }
-        });
-        }
-        else {
+            stage.setTitle("Movie player");
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setFullScreen(true);
+
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>()
+            {
+                public void handle(WindowEvent we)
+                {
+                    mpvcontroller.stopMovie();
+                }
+            });
+        } else
+        {
             String header = "No movie has been selected";
             String content = "Please select a movie to play";
-            getAlertBox(header,content);
+            getAlertBox(header, content);
         }
     }
 
@@ -166,20 +168,22 @@ public class MovieViewController implements Initializable
     Exits the program.
      */
     @FXML
-    private void exit(ActionEvent event) {
-       Alert alert = new Alert(AlertType.CONFIRMATION);
-       alert.setTitle("Movie collection");
-       alert.setHeaderText("You are about to close the program");
-       alert.setContentText("Are you sure you want to exit?");
-       
-       DialogPane dialogPane = alert.getDialogPane();
-       dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
-       dialogPane.getStyleClass().add("dialogPane");
-       dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
-        
-       Optional<ButtonType> result = alert.showAndWait();
-       if (result.get() == ButtonType.OK){
-           System.exit(0);
+    private void exit(ActionEvent event)
+    {
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Movie collection");
+        alert.setHeaderText("You are about to close the program");
+        alert.setContentText("Are you sure you want to exit?");
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
+        dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+            System.exit(0);
         }
     }
 
@@ -217,6 +221,8 @@ public class MovieViewController implements Initializable
             {
                 cvm.deleteMovieFromTable(movie);
                 movieModel.deleteMovie(movie);
+            } else
+            {
                 String header = "No movie has been selected";
                 String content = "Please select a movie to be deleted";
                 getAlertBox(header, content);
@@ -262,11 +268,11 @@ public class MovieViewController implements Initializable
             {
                 cvm.deleteCategoryFromTable(category);
                 movieModel.deleteCategory(category);
-            } else {
+            } else
+            {
                 String header = "You have not chosen a category";
                 String content = "Please select a category to delete";
-                getAlertBox(header,content);
-
+                getAlertBox(header, content);
             }
         } catch (MTBllException ex)
         {
@@ -274,9 +280,8 @@ public class MovieViewController implements Initializable
         }
     }
 
-
-    public void getAlertBox(String header, String content) {
-
+    public void getAlertBox(String header, String content)
+    {
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Dialog");
@@ -290,7 +295,7 @@ public class MovieViewController implements Initializable
 
         alert.showAndWait();
     }
-    
+
     /**
      * uses the searchbar for input and then searches for at movie.
      */
@@ -321,7 +326,7 @@ public class MovieViewController implements Initializable
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Sorts the movie list for "movietitle".
      */
@@ -336,7 +341,7 @@ public class MovieViewController implements Initializable
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Sorts the movie list for "movierating".
      */
@@ -372,18 +377,19 @@ public class MovieViewController implements Initializable
      */
     public void runPopup() throws IOException
     {
-        
-            if (!movieModel.getCheckMovie().isEmpty()) {
+
+        if (!movieModel.getCheckMovie().isEmpty())
+        {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
             Parent root = (Parent) loader.load();
-            
+
             CheckMovieController cmcontroller = loader.getController();
-            
+
             Stage stage = new Stage();
-            
+
             stage.setTitle("Popup");
             stage.setScene(new Scene(root));
             stage.show();
-            }
-}
+        }
+    }
 }
