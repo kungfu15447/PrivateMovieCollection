@@ -58,7 +58,10 @@ public class MovieModel
         movieList.add(movie);
         return movie;
     }
-
+    
+    /**
+     * initializes the Filechooser.
+     */
     public void initializeFile()
     {
         FileChooser fileChooser = new FileChooser();
@@ -228,7 +231,7 @@ public class MovieModel
     }
     
     /**
-     * Sorts the movies into lists
+     * Sorts the movies into lists using a switch statement.
      */
     public void sortMovieList(String sortingchoice) throws MTBllException
     {
