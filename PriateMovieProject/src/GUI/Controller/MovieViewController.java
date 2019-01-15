@@ -28,6 +28,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,6 +45,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Pair;
 
 /**
  *
@@ -115,9 +119,10 @@ public class MovieViewController implements Initializable {
     @FXML
     private void playMovie(ActionEvent event) throws IOException, MTDalException {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
+        if(movie != null)
+        {
         String filePath = movie.getFilepath();
         movieModel.updateLastView(movie);
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
         Parent root = (Parent) loader.load();
 
@@ -140,6 +145,12 @@ public class MovieViewController implements Initializable {
                 mpvcontroller.stopMovie();
             }
         });
+        }
+        else {
+            String header = "No movie has been selected";
+            String content = "Please select a movie to play";
+            getAlertBox(header,content);
+        }
     }
 
     /*
@@ -147,7 +158,20 @@ public class MovieViewController implements Initializable {
      */
     @FXML
     private void exit(ActionEvent event) {
-        System.exit(0);
+       Alert alert = new Alert(AlertType.CONFIRMATION);
+       alert.setTitle("Movie collection");
+       alert.setHeaderText("You are about to close the program");
+       alert.setContentText("Are you sure you want to exit?");
+       
+       DialogPane dialogPane = alert.getDialogPane();
+       dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+       dialogPane.getStyleClass().add("dialogPane");
+       dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
+        
+       Optional<ButtonType> result = alert.showAndWait();
+       if (result.get() == ButtonType.OK){
+           System.exit(0);
+        }
     }
 
     /*
@@ -181,11 +205,12 @@ public class MovieViewController implements Initializable {
                 cvm.deleteMovieFromTable(movie);
                 movieModel.deleteMovie(movie);
             } else {
-                getAlertBox();
+                String header = "No movie has been selected";
+                String content = "Please select a movie to be deleted";
+                getAlertBox(header, content);
             }
         } catch (MTBllException ex) 
         {
-
         }
     }
 
@@ -219,22 +244,23 @@ public class MovieViewController implements Initializable {
                 cvm.deleteCategoryFromTable(category);
                 movieModel.deleteCategory(category);
             } else {
-
+                String header = "You have not chosen a category";
+                String content = "Please select a category to delete";
+                getAlertBox(header,content);
             }
         } catch (MTBllException ex) {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    /**
-     * Gets the alertbox for when no movie has been chosen.
-     */
-    public void getAlertBox() {
+
+    public void getAlertBox(String header, String content) {
+
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Dialog");
-        alert.setHeaderText("You have not chosen a movie");
-        alert.setContentText("Please select a movie");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
