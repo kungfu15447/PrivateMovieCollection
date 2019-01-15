@@ -47,7 +47,8 @@ import javafx.stage.WindowEvent;
  *
  * @author bonde
  */
-public class MovieViewController implements Initializable {
+public class MovieViewController implements Initializable
+{
 
     private MediaPlayer mediaPlayer;
     private String filePath;
@@ -63,8 +64,6 @@ public class MovieViewController implements Initializable {
     private TableColumn<Movie, Double> clmMyRating;
     @FXML
     private TableColumn<Movie, Double> clmImdbRating;
-    @FXML
-    private Button btnEditRating;
     @FXML
     private Button btnAddCate;
     @FXML
@@ -84,7 +83,8 @@ public class MovieViewController implements Initializable {
     @FXML
     private Button btnSortId;
 
-    public MovieViewController() throws MTBllException {
+    public MovieViewController() throws MTBllException
+    {
         movieModel = new MovieModel();
         cvm = new CategoryViewModel();
     }
@@ -93,19 +93,20 @@ public class MovieViewController implements Initializable {
      * initializes the columns and tables.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        try {
-            clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
-            clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
-            clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
-            clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
-            tableView.setItems(movieModel.getMovies());
-            tblCategory.setItems(movieModel.getCategories());
-            tableView.getSelectionModel().setCellSelectionEnabled(true);
-            RunPopup();
-        } catch (IOException ex) {
-            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void initialize(URL url, ResourceBundle rb)
+    {
+//        try {
+        clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
+        tableView.setItems(movieModel.getMovies());
+        tblCategory.setItems(movieModel.getCategories());
+        tableView.getSelectionModel().setCellSelectionEnabled(true);
+//            RunPopup();
+//        } catch (IOException ex) {
+//            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+//        }
 
     }
 
@@ -113,7 +114,8 @@ public class MovieViewController implements Initializable {
     Temporary movie chooser.
      */
     @FXML
-    private void playMovie(ActionEvent event) throws IOException, MTDalException {
+    private void playMovie(ActionEvent event) throws IOException, MTDalException
+    {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         String filePath = movie.getFilepath();
         movieModel.updateLastView(movie);
@@ -134,9 +136,11 @@ public class MovieViewController implements Initializable {
         stage.setScene(new Scene(root));
         stage.show();
         stage.setFullScreen(true);
-        
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>() {
-            public void handle(WindowEvent we) {
+
+        stage.setOnCloseRequest(new EventHandler<WindowEvent>()
+        {
+            public void handle(WindowEvent we)
+            {
                 mpvcontroller.stopMovie();
             }
         });
@@ -146,7 +150,8 @@ public class MovieViewController implements Initializable {
     Exits the program.
      */
     @FXML
-    private void exit(ActionEvent event) {
+    private void exit(ActionEvent event)
+    {
         System.exit(0);
     }
 
@@ -154,7 +159,8 @@ public class MovieViewController implements Initializable {
     Adds a movie
      */
     @FXML
-    private void addMovie(ActionEvent event) throws IOException {
+    private void addMovie(ActionEvent event) throws IOException
+    {
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/AddMovieView.fxml"));
         Parent root = (Parent) loader.load();
 
@@ -164,7 +170,7 @@ public class MovieViewController implements Initializable {
         Stage stage = new Stage();
         Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
         stage.getIcons().add(icon);
-        
+
         stage.setTitle("Movie collection");
         stage.setScene(new Scene(root));
         stage.show();
@@ -174,16 +180,20 @@ public class MovieViewController implements Initializable {
      * deletes a movie
      */
     @FXML
-    private void deleteMovie(ActionEvent event) {
-        try {
+    private void deleteMovie(ActionEvent event)
+    {
+        try
+        {
             Movie movie = tableView.getSelectionModel().getSelectedItem();
-            if (movie != null) {
+            if (movie != null)
+            {
                 cvm.deleteMovieFromTable(movie);
                 movieModel.deleteMovie(movie);
-            } else {
+            } else
+            {
                 getAlertBox();
             }
-        } catch (MTBllException ex) 
+        } catch (MTBllException ex)
         {
 
         }
@@ -193,16 +203,20 @@ public class MovieViewController implements Initializable {
      * Creates a category
      */
     @FXML
-    private void createCategory(ActionEvent event) {
+    private void createCategory(ActionEvent event)
+    {
 
         TextInputDialog dialog = new TextInputDialog("");
         dialog.setTitle("Creating category");
         dialog.setContentText("Category title:");
         Optional<String> result = dialog.showAndWait();
-        if (result.isPresent()) {
-            try {
+        if (result.isPresent())
+        {
+            try
+            {
                 movieModel.createCategory(result.get());
-            } catch (MTBllException ex) {
+            } catch (MTBllException ex)
+            {
 
             }
         }
@@ -212,16 +226,21 @@ public class MovieViewController implements Initializable {
      * Deletes a category
      */
     @FXML
-    private void deleteCategory(ActionEvent event) {
-        try {
+    private void deleteCategory(ActionEvent event)
+    {
+        try
+        {
             Category category = tblCategory.getSelectionModel().getSelectedItem();
-            if (category != null) {
+            if (category != null)
+            {
                 cvm.deleteCategoryFromTable(category);
                 movieModel.deleteCategory(category);
-            } else {
+            } else
+            {
 
             }
-        } catch (MTBllException ex) {
+        } catch (MTBllException ex)
+        {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -229,7 +248,8 @@ public class MovieViewController implements Initializable {
     /**
      * Gets the alertbox for when no movie has been chosen.
      */
-    public void getAlertBox() {
+    public void getAlertBox()
+    {
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Dialog");
@@ -243,15 +263,18 @@ public class MovieViewController implements Initializable {
 
         alert.showAndWait();
     }
-    
+
     /**
      * uses the searchbar for input and then searches for at movie.
      */
     @FXML
-    private void writeSearch(KeyEvent event) {
-        try {
+    private void writeSearch(KeyEvent event)
+    {
+        try
+        {
             movieModel.searchMovies(searchbar.getText().toLowerCase());
-        } catch (MTBllException ex) {
+        } catch (MTBllException ex)
+        {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -260,35 +283,44 @@ public class MovieViewController implements Initializable {
      * Filters the movie list
      */
     @FXML
-    private void filterMovieList(ActionEvent event) {
-        try {
+    private void filterMovieList(ActionEvent event)
+    {
+        try
+        {
             movieModel.fillCheckedCategoryList();
             movieModel.contextOfMovieList();
-        } catch (MTBllException ex) {
+        } catch (MTBllException ex)
+        {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Sorts the movie list for "movietitle".
      */
     @FXML
-    private void handlerSortTitle(ActionEvent event) {
-        try {
+    private void handlerSortTitle(ActionEvent event)
+    {
+        try
+        {
             movieModel.sortMovieList("movietitle");
-        } catch (MTBllException ex) {
+        } catch (MTBllException ex)
+        {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Sorts the movie list for "movierating".
      */
     @FXML
-    private void handlerSortRating(ActionEvent event) {
-        try {
+    private void handlerSortRating(ActionEvent event)
+    {
+        try
+        {
             movieModel.sortMovieList("movierating");
-        } catch (MTBllException ex) {
+        } catch (MTBllException ex)
+        {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
@@ -297,24 +329,74 @@ public class MovieViewController implements Initializable {
      * Sorts the movie list for "id".
      */
     @FXML
-    private void handlerSortId(ActionEvent event) {
-        try {
+    private void handlerSortId(ActionEvent event)
+    {
+        try
+        {
             movieModel.sortMovieList("id");
-        } catch (MTBllException ex) {
+        } catch (MTBllException ex)
+        {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
+    }
+
+    @FXML
+    private void editRating(ActionEvent event)
+    {
+        Movie movie = tableView.getSelectionModel().getSelectedItem();
+        int index = tableView.getSelectionModel().getSelectedIndex();
+        if (movie == null)
+        {
+            displayNoMovieWindow();
+        }else {
+            try {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditRatingView.fxml"));
+                Parent root = (Parent) loader.load();
+
+                EditRatingViewController ervcontroller = loader.getController();
+                ervcontroller.initializeModel(movieModel);
+                ervcontroller.initializeMovie(movie, index);
+                Stage stage = new Stage();
+                
+                stage.setTitle("Edit Movie");
+
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException ex) {
+                
+            }
+        }
+        
+    }
+    
+    /**
+     * A pop window that shows the user they havent selected a playlist
+     */
+    private void displayNoMovieWindow() {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information dialog");
+        alert.setHeaderText("You have not selected a movie");
+        alert.setContentText("Please select a movie");
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/privateMovieProject/GUI/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        alert.showAndWait();
     }
 
     /**
      * Some popup scheme.
      */
-    public void RunPopup() throws IOException 
-    {
-            Popup popup = new Popup();
-            CheckMovieController controller = new CheckMovieController();
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
-            loader.setController(controller);
-            popup.getContent().add((Parent) loader.load());
-        
-    }
+//    public void RunPopup() throws IOException 
+//    {
+//            Popup popup = new Popup();
+//            CheckMovieController controller = new CheckMovieController();
+//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
+//            loader.setController(controller);
+//            popup.getContent().add((Parent) loader.load());
+//        
+//    }
 }

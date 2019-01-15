@@ -15,6 +15,8 @@ import DAL.Exception.MTDalException;
 import java.io.File;
 import java.util.Date;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.stage.FileChooser;
@@ -114,6 +116,12 @@ public class MovieModel
         categoryList.remove(category);
         moma.deleteCategory(category);
 
+    }
+    
+    public void updateRating(Movie movie, int index) throws MTBllException
+    {
+            moma.updateRating(movie);
+            movieList.set(index, movie);
     }
 
     public void updateLastView(Movie movie) throws MTDalException
