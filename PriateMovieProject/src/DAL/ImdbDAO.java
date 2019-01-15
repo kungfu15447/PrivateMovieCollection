@@ -10,7 +10,6 @@ import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 import java.io.File;
 import java.io.FileInputStream;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -83,6 +82,24 @@ public class ImdbDAO
             }
         }
         return searchedMovies;
+    }
+    
+    public String getIMDBMovieRating(String movieId) {
+        TsvParserSettings settings = new TsvParserSettings();
+        settings.getFormat().setLineSeparator("\n");
+        TsvParser parser = new TsvParser(settings);
+        
+        String source = "data/rating.tsv";
+        File imdbMovies = new File(source);
+        
+        List<String[]> allrows = parser.parseAll(imdbMovies);
+        
+        for (String[] row : allrows) {
+            if (row[0].equals(movieId)) {
+                return row[1];
+            }
+        }
+        return "No rating found";
     }
     
     
