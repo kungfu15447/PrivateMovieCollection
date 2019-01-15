@@ -30,51 +30,81 @@ public class Movie
         categoryIdList = new ArrayList<>();
     }
 
+    /**
+     * returns id
+     */
     public int getId()
     {
         return id;
     }
 
+    /**
+     * returns name
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * returns rating
+     */
     public double getRating()
     {
         return rating;
     }
-
+    
+    /**
+     * returns filepath
+     */
     public String getFilepath()
     {
         return filepath;
     }
 
+    /**
+     * returns lastview
+     */
     public int getLastview()
     {
         return lastview;
     }
 
+    /**
+     * sets name
+     */
     public void setName(String name)
     {
         this.name = name;
     }
 
+    /**
+     * sets rating
+     */
     public void setRating(double rating)
     {
         this.rating = rating;
     }
 
+    /**
+     * sets filepath
+     */
     public void setFilepath(String filepath)
     {
         this.filepath = filepath;
     }
-
+    
+    /**
+     * sets lastview
+     */
     public void setLastview(int lastview)
     {
         this.lastview = lastview;
     }
     
+    /**
+     * returns categoryIdList
+     */
     public List<Integer> getList() {
         return categoryIdList;
     }
