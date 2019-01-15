@@ -28,6 +28,9 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonBar.ButtonData;
+import javafx.scene.control.ButtonType;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -42,6 +45,7 @@ import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
+import javafx.util.Pair;
 
 /**
  *
@@ -150,7 +154,20 @@ public class MovieViewController implements Initializable {
      */
     @FXML
     private void exit(ActionEvent event) {
-        System.exit(0);
+       Alert alert = new Alert(AlertType.CONFIRMATION);
+       alert.setTitle("Movie collection");
+       alert.setHeaderText("You are about to close the program");
+       alert.setContentText("Are you sure you want to exit?");
+       
+       DialogPane dialogPane = alert.getDialogPane();
+       dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+       dialogPane.getStyleClass().add("dialogPane");
+       dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
+        
+       Optional<ButtonType> result = alert.showAndWait();
+       if (result.get() == ButtonType.OK){
+           System.exit(0);
+        }
     }
 
     /*
