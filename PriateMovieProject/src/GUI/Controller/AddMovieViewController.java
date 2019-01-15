@@ -7,6 +7,7 @@ package GUI.Controller;
 
 import BE.Movie;
 import BLL.Exception.MTBllException;
+import BLL.MovieManager;
 import GUI.Model.CategoryViewModel;
 import GUI.Model.MovieModel;
 import java.io.IOException;
@@ -69,6 +70,9 @@ public class AddMovieViewController implements Initializable
         txtFilepath.setDisable(true);
     }
 
+    /**
+     * chooses the file
+     */
     @FXML
     private void chooseFile(ActionEvent event)
     {
@@ -76,9 +80,13 @@ public class AddMovieViewController implements Initializable
         txtFilepath.setText(movieModel.getFilePath());
     }
 
+    /**
+     * Creates a movie object and saves it with the given specifics
+     */
     @FXML
     private void saveMovie(ActionEvent event)
     {
+        
         boolean emptyField = getEmptyFieldInfo();
         if (!emptyField)
         {
@@ -108,6 +116,9 @@ public class AddMovieViewController implements Initializable
         }
     }
 
+    /**
+     * Closes the window
+     */
     @FXML
     private void cancelMovie(ActionEvent event)
     {
@@ -115,6 +126,9 @@ public class AddMovieViewController implements Initializable
         stage.close();
     }
 
+    /**
+     * Chooses the category for the movie
+     */
     @FXML
     private void handleCategoryChooseBtn(ActionEvent event) throws IOException
     {
@@ -132,7 +146,7 @@ public class AddMovieViewController implements Initializable
         stage.setScene(new Scene(root));
         stage.show();
     }
-
+    
     /*
     *Dragging the slider will adjust the users rating.
      */
@@ -144,7 +158,7 @@ public class AddMovieViewController implements Initializable
             lblRating.setText(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).toString());
         });
     }
-
+    
     /**
      * A popup window that displays the error that occured
      *
@@ -167,7 +181,7 @@ public class AddMovieViewController implements Initializable
 
     /**
      *
-     * @return
+     * @returns the error info
      */
     public String getErrorInfo()
     {
@@ -185,6 +199,9 @@ public class AddMovieViewController implements Initializable
         return errorInfo;
     }
 
+    /**
+     * returns the info from the empty field
+     */
     public boolean getEmptyFieldInfo()
     {
 
@@ -207,6 +224,9 @@ public class AddMovieViewController implements Initializable
         this.movieModel = movieModel;
     }
 
+    /**
+     * Retrieves the Alert Box to show the user, if the title has not been filled out
+     */
     public void getAlertBox()
     {
         String errorInfo = getErrorInfo();
@@ -220,13 +240,16 @@ public class AddMovieViewController implements Initializable
         dialogPane.getStyleClass().add("dialogPane");
         dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Keyboard.png").toString()));
 
-        Image icon = new Image(this.getClass().getResourceAsStream("/mytunes/GUI/newicon.png"));
+        Image icon = new Image(this.getClass().getResourceAsStream("/GUI/View/Icon.png"));
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);
 
         alert.showAndWait();
     }
 
+    /**
+     * Retrieves the Alert Box to show the user, if the user tries to change the title to a title that has already been chosen
+     */
     public void changeTitleAlertBox()
     {
         Alert alert = new Alert(AlertType.INFORMATION);

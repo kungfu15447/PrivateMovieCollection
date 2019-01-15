@@ -22,26 +22,40 @@ public class Category
         this.category = category;
         this.select = new CheckBox();
     }
-
+    
+    /**
+     * returns id
+     */
     public int getId()
     {
         return id;
     }
 
+    /**
+     * returns category
+     */
     public String getCategory()
     {
         return category;
     }
-
+    /**
+     * sets category
+     */
     public void setCategory(String category)
     {
         this.category = category;
     }
     
+    /**
+     * returns selected checkbox
+     */
     public CheckBox getSelect() {
         return select;
     }
     
+    /**
+     * selects checkbox
+     */
     public void setSelect(CheckBox select) {
         this.select = select;
     }

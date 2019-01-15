@@ -48,13 +48,20 @@ public class MovieModel
         categoryList.addAll(moma.getAllCategories());
     }
 
+    /**
+     * Creates movie and adds it to the movieList.
+     * returns Movie.
+     */
     public Movie createMovie(String title, double rating, String filepath, int lastView) throws MTBllException
     {
         Movie movie = moma.createMovie(title, rating, filepath, lastView);
         movieList.add(movie);
         return movie;
     }
-
+    
+    /**
+     * initializes the Filechooser.
+     */
     public void initializeFile()
     {
         FileChooser fileChooser = new FileChooser();
@@ -67,6 +74,9 @@ public class MovieModel
         }
     }
 
+    /**
+     * Deletes a movie
+     */
     public void deleteMovie(Movie movie) throws MTBllException
     {
         moma.deleteMovie(movie);
@@ -92,18 +102,28 @@ public class MovieModel
     {
         return filePath;
     }
-
+    /**
+     * returns the category list
+     *
+     * @return the categoryList
+     */
     public ObservableList<Category> getCategories()
     {
         return categoryList;
     }
-
+    
+    /**
+     * Creates a category
+     */
     public void createCategory(String title) throws MTBllException
     {
         Category cate = moma.createCategory(title);
         categoryList.add(cate);
     }
 
+    /**
+     * Deletes a category
+     */
     public void deleteCategory(Category category) throws MTBllException
     {
 
@@ -111,7 +131,10 @@ public class MovieModel
         moma.deleteCategory(category);
 
     }
-
+    
+    /**
+     * Updates the lastview date
+     */
     public void updateLastView(Movie movie) throws MTDalException
     {
         Date date = new Date();
@@ -120,7 +143,11 @@ public class MovieModel
         movie.setLastview(days);
         moma.updateLastView(movie);
     }
-
+    
+    /**
+     * Compares the lastview date from the database and the current local time.
+     * Checks if the difference between the dates are greater or lower than 2 years.
+     */
     public void checkMovies()
     {
         Date Date = new Date();
@@ -130,7 +157,7 @@ public class MovieModel
         {
             int days2 = movie.getLastview();
             int inBetween = (days - days2);
-            if (inBetween > 0)
+            if (inBetween > 730)
             {
                 movieCheck.add(movie);
             }
@@ -138,11 +165,19 @@ public class MovieModel
         
     }
     
+    /**
+     * returns the Observable list "movieCheck".
+     */
     public ObservableList<Movie> getCheckMovie()
     {
         return movieCheck;
     }
-
+    
+    /**
+     * Adds all movies from movieList to searchBase and then clears the movieList.
+     * Then we add all searchfiltered movies to the movieList.
+     * 
+     */
     public void searchMovies(String query) throws MTBllException
     {
         ObservableList<Movie> searchBase = FXCollections.observableArrayList();
@@ -151,6 +186,9 @@ public class MovieModel
         movieList.addAll(mofi.searchFilter(searchBase, checkedCategoryList, query));
     }
 
+    /**
+     * Clears the checkedCategoryList and adds the new checked categories.
+     */
     public void fillCheckedCategoryList()
     {
         checkedCategoryList.clear();
@@ -163,6 +201,9 @@ public class MovieModel
         }
     }
 
+    /**
+     * gets the movies from the checked categories.
+     */
     private void getMoviesFromCats() throws MTBllException
     {
         movieList.clear();
@@ -173,6 +214,10 @@ public class MovieModel
         }
     }
 
+    /**
+     * if there are no checked categories, then clears the movieList and then adds all movies again.
+     * if there are checked categories, then gets movies from the categories.
+     */
     public void contextOfMovieList() throws MTBllException
     {
         if (checkedCategoryList.isEmpty())
@@ -184,7 +229,10 @@ public class MovieModel
             getMoviesFromCats();
         }
     }
-
+    
+    /**
+     * Sorts the movies into lists using a switch statement.
+     */
     public void sortMovieList(String sortingchoice) throws MTBllException
     {
         switch (sortingchoice)
@@ -200,6 +248,10 @@ public class MovieModel
                 break;
         }
     }
+    
+    /**
+     * returns a boolean to whether a title exists or not.
+     */
     public boolean checkMovieTitles(String movieTitle) throws MTBllException {
         List<Movie> allmovies = moma.getAllMovies();
         boolean existingTitle = false;

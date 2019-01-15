@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Movie
 {
-    private int id;
+    private final int ID;
     private String name;
     private double rating;
     private String filepath;
@@ -22,7 +22,7 @@ public class Movie
     private List<Integer> categoryIdList;
     
     public Movie(int id, String name, double rating, String filepath, int lastview) {
-        this.id = id;
+        this.ID = id;
         this.name = name;
         this.rating = rating;
         this.filepath = filepath;
@@ -30,51 +30,81 @@ public class Movie
         categoryIdList = new ArrayList<>();
     }
 
+    /**
+     * returns id
+     */
     public int getId()
     {
-        return id;
+        return ID;
     }
 
+    /**
+     * returns name
+     */
     public String getName()
     {
         return name;
     }
 
+    /**
+     * returns rating
+     */
     public double getRating()
     {
         return rating;
     }
-
+    
+    /**
+     * returns filepath
+     */
     public String getFilepath()
     {
         return filepath;
     }
 
+    /**
+     * returns lastview
+     */
     public int getLastview()
     {
         return lastview;
     }
 
+    /**
+     * sets name
+     */
     public void setName(String name)
     {
         this.name = name;
     }
 
+    /**
+     * sets rating
+     */
     public void setRating(double rating)
     {
         this.rating = rating;
     }
 
+    /**
+     * sets filepath
+     */
     public void setFilepath(String filepath)
     {
         this.filepath = filepath;
     }
-
+    
+    /**
+     * sets lastview
+     */
     public void setLastview(int lastview)
     {
         this.lastview = lastview;
     }
     
+    /**
+     * returns categoryIdList
+     */
     public List<Integer> getList() {
         return categoryIdList;
     }
