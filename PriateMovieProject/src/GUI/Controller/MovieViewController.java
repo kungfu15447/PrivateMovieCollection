@@ -28,6 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -37,9 +38,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 
@@ -95,7 +94,6 @@ public class MovieViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-//        try {
         clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
         clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
         clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
@@ -103,10 +101,7 @@ public class MovieViewController implements Initializable
         tableView.setItems(movieModel.getMovies());
         tblCategory.setItems(movieModel.getCategories());
         tableView.getSelectionModel().setCellSelectionEnabled(true);
-//            RunPopup();
-//        } catch (IOException ex) {
-//            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
-//        }
+        runPopup();
 
     }
 
@@ -117,33 +112,40 @@ public class MovieViewController implements Initializable
     private void playMovie(ActionEvent event) throws IOException, MTDalException
     {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
-        String filePath = movie.getFilepath();
-        movieModel.updateLastView(movie);
-
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
-        Parent root = (Parent) loader.load();
-
-        MoviePlayerViewController mpvcontroller = loader.getController();
-        mpvcontroller.initializeModel(movieModel);
-        mpvcontroller.getFilePath(filePath);
-
-        Stage stage = new Stage();
-        Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
-        stage.getIcons().add(icon);
-        stage.setTitle("Movie collection");
-
-        stage.setTitle("Movie player");
-        stage.setScene(new Scene(root));
-        stage.show();
-        stage.setFullScreen(true);
-
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>()
+        if (movie != null)
         {
-            public void handle(WindowEvent we)
+            String filePath = movie.getFilepath();
+            movieModel.updateLastView(movie);
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
+            Parent root = (Parent) loader.load();
+
+            MoviePlayerViewController mpvcontroller = loader.getController();
+            mpvcontroller.initializeModel(movieModel);
+            mpvcontroller.getFilePath(filePath);
+
+            Stage stage = new Stage();
+            Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
+            stage.getIcons().add(icon);
+            stage.setTitle("Movie collection");
+
+            stage.setTitle("Movie player");
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setFullScreen(true);
+
+            stage.setOnCloseRequest(new EventHandler<WindowEvent>()
             {
-                mpvcontroller.stopMovie();
-            }
-        });
+                public void handle(WindowEvent we)
+                {
+                    mpvcontroller.stopMovie();
+                }
+            });
+        } else
+        {
+            String header = "No movie has been selected";
+            String content = "Please select a movie to play";
+            getAlertBox(header, content);
+        }
     }
 
     /*
@@ -152,7 +154,21 @@ public class MovieViewController implements Initializable
     @FXML
     private void exit(ActionEvent event)
     {
-        System.exit(0);
+        Alert alert = new Alert(AlertType.CONFIRMATION);
+        alert.setTitle("Movie collection");
+        alert.setHeaderText("You are about to close the program");
+        alert.setContentText("Are you sure you want to exit?");
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialogPane");
+        dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Mouse.png").toString()));
+
+        Optional<ButtonType> result = alert.showAndWait();
+        if (result.get() == ButtonType.OK)
+        {
+            System.exit(0);
+        }
     }
 
     /*
@@ -191,11 +207,12 @@ public class MovieViewController implements Initializable
                 movieModel.deleteMovie(movie);
             } else
             {
-                getAlertBox();
+                String header = "No movie has been selected";
+                String content = "Please select a movie to be deleted";
+                getAlertBox(header, content);
             }
         } catch (MTBllException ex)
         {
-
         }
     }
 
@@ -237,7 +254,9 @@ public class MovieViewController implements Initializable
                 movieModel.deleteCategory(category);
             } else
             {
-
+                String header = "You have not chosen a category";
+                String content = "Please select a category to delete";
+                getAlertBox(header, content);
             }
         } catch (MTBllException ex)
         {
@@ -248,13 +267,13 @@ public class MovieViewController implements Initializable
     /**
      * Gets the alertbox for when no movie has been chosen.
      */
-    public void getAlertBox()
+    public void getAlertBox(String header, String content)
     {
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Dialog");
-        alert.setHeaderText("You have not chosen a movie");
-        alert.setContentText("Please select a movie");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());
@@ -348,8 +367,10 @@ public class MovieViewController implements Initializable
         if (movie == null)
         {
             displayNoMovieWindow();
-        }else {
-            try {
+        } else
+        {
+            try
+            {
                 FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditRatingView.fxml"));
                 Parent root = (Parent) loader.load();
 
@@ -357,22 +378,50 @@ public class MovieViewController implements Initializable
                 ervcontroller.initializeModel(movieModel);
                 ervcontroller.initializeMovie(movie, index);
                 Stage stage = new Stage();
-                
+
                 stage.setTitle("Edit Movie");
 
                 stage.setScene(new Scene(root));
                 stage.show();
-            } catch (IOException ex) {
-                
+            } catch (IOException ex)
+            {
+
             }
         }
-        
     }
-    
+
+    /**
+     * Some popup scheme.
+     */
+    public void runPopup()
+    {
+
+        if (!movieModel.getCheckMovie().isEmpty())
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
+                Parent root = (Parent) loader.load();
+
+                CheckMovieController cmcontroller = loader.getController();
+
+                Stage stage = new Stage();
+
+                stage.setTitle("Popup");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException ex)
+            {
+                Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
+        }
+    }
+
     /**
      * A pop window that shows the user they havent selected a playlist
      */
-    private void displayNoMovieWindow() {
+    private void displayNoMovieWindow()
+    {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information dialog");
         alert.setHeaderText("You have not selected a movie");
@@ -386,17 +435,4 @@ public class MovieViewController implements Initializable
 
         alert.showAndWait();
     }
-
-    /**
-     * Some popup scheme.
-     */
-//    public void RunPopup() throws IOException 
-//    {
-//            Popup popup = new Popup();
-//            CheckMovieController controller = new CheckMovieController();
-//            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
-//            loader.setController(controller);
-//            popup.getContent().add((Parent) loader.load());
-//        
-//    }
 }

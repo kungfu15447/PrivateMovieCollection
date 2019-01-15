@@ -55,7 +55,6 @@ public class AddMovieViewController implements Initializable
 
     private MovieModel movieModel;
     private CategoryViewModel cvm;
-    private Movie movie;
 
     public AddMovieViewController()
     {
@@ -87,18 +86,18 @@ public class AddMovieViewController implements Initializable
     @FXML
     private void saveMovie(ActionEvent event)
     {
+        
         boolean emptyField = getEmptyFieldInfo();
         if (!emptyField)
         {
             try
             {
-                int lastview = movie.getLastview();
                 String title = txtTitle.getText();
                 double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
                 String filepath = txtFilepath.getText();
                 if (!movieModel.checkMovieTitles(title))
                 {
-                    Movie movie = movieModel.createMovie(title, rating, filepath, lastview );
+                    Movie movie = movieModel.createMovie(title, rating, filepath, 0);
                     cvm.addCategoryToMovie(cvm.getCheckedCategory(), movie);
                     Stage stage = (Stage) rootPane.getScene().getWindow();
                     stage.close();
@@ -241,7 +240,7 @@ public class AddMovieViewController implements Initializable
         dialogPane.getStyleClass().add("dialogPane");
         dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Keyboard.png").toString()));
 
-        Image icon = new Image(this.getClass().getResourceAsStream("/mytunes/GUI/newicon.png"));
+        Image icon = new Image(this.getClass().getResourceAsStream("/GUI/View/Icon.png"));
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);
 

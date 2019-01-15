@@ -14,7 +14,7 @@ import java.util.List;
  */
 public class Movie
 {
-    private int id;
+    private final int ID;
     private String name;
     private double rating;
     private String filepath;
@@ -22,7 +22,7 @@ public class Movie
     private List<Integer> categoryIdList;
     
     public Movie(int id, String name, double rating, String filepath, int lastview) {
-        this.id = id;
+        this.ID = id;
         this.name = name;
         this.rating = rating;
         this.filepath = filepath;
@@ -35,7 +35,7 @@ public class Movie
      */
     public int getId()
     {
-        return id;
+        return ID;
     }
 
     /**
