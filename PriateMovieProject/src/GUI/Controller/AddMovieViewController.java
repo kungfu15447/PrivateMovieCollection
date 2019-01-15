@@ -69,6 +69,9 @@ public class AddMovieViewController implements Initializable
         txtFilepath.setDisable(true);
     }
 
+    /**
+     * chooses the file
+     */
     @FXML
     private void chooseFile(ActionEvent event)
     {
@@ -76,6 +79,9 @@ public class AddMovieViewController implements Initializable
         txtFilepath.setText(movieModel.getFilePath());
     }
 
+    /**
+     * Creates a movie object and saves it with the given specifics
+     */
     @FXML
     private void saveMovie(ActionEvent event)
     {
@@ -108,6 +114,9 @@ public class AddMovieViewController implements Initializable
         }
     }
 
+    /**
+     * Closes the window
+     */
     @FXML
     private void cancelMovie(ActionEvent event)
     {
@@ -115,6 +124,9 @@ public class AddMovieViewController implements Initializable
         stage.close();
     }
 
+    /**
+     * Chooses the category for the movie
+     */
     @FXML
     private void handleCategoryChooseBtn(ActionEvent event) throws IOException
     {
@@ -167,7 +179,7 @@ public class AddMovieViewController implements Initializable
 
     /**
      *
-     * @return
+     * @returns the error info
      */
     public String getErrorInfo()
     {
@@ -185,6 +197,9 @@ public class AddMovieViewController implements Initializable
         return errorInfo;
     }
 
+    /**
+     * returns the info from the empty field
+     */
     public boolean getEmptyFieldInfo()
     {
 
@@ -207,6 +222,9 @@ public class AddMovieViewController implements Initializable
         this.movieModel = movieModel;
     }
 
+    /**
+     * Retrieves the Alert Box to show the user, if the title has not been filled out
+     */
     public void getAlertBox()
     {
         String errorInfo = getErrorInfo();
@@ -227,6 +245,9 @@ public class AddMovieViewController implements Initializable
         alert.showAndWait();
     }
 
+    /**
+     * Retrieves the Alert Box to show the user, if the user tries to change the title to a title that has already been chosen
+     */
     public void changeTitleAlertBox()
     {
         Alert alert = new Alert(AlertType.INFORMATION);

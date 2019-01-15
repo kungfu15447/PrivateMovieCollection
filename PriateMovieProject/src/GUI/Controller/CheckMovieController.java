@@ -44,12 +44,17 @@ public class CheckMovieController implements Initializable
     {
         
     }
-    
+    /**
+     * calls the checkMovies method from movieModel
+     */
     public void checkMovies(ActionEvent event)
     {
         movieModel.checkMovies();
     }
     
+    /**
+     * closes the window
+     */
     public void btnok(ActionEvent btnok)
     {
         Stage stage = (Stage) rootPane.getScene().getWindow();

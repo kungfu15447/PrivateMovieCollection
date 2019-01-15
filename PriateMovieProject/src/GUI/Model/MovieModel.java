@@ -92,7 +92,11 @@ public class MovieModel
     {
         return filePath;
     }
-
+    /**
+     * returns the category list
+     *
+     * @return the categoryList
+     */
     public ObservableList<Category> getCategories()
     {
         return categoryList;
@@ -120,7 +124,7 @@ public class MovieModel
         movie.setLastview(days);
         moma.updateLastView(movie);
     }
-
+    
     public void checkMovies()
     {
         Date Date = new Date();
@@ -130,7 +134,7 @@ public class MovieModel
         {
             int days2 = movie.getLastview();
             int inBetween = (days - days2);
-            if (inBetween > 0)
+            if (inBetween > 730)
             {
                 movieCheck.add(movie);
             }
