@@ -7,7 +7,6 @@ package GUI.Controller;
 
 import BE.Movie;
 import BLL.Exception.MTBllException;
-import BLL.MovieManager;
 import GUI.Model.CategoryViewModel;
 import GUI.Model.MovieModel;
 import java.io.IOException;
@@ -15,8 +14,11 @@ import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
+import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -33,14 +35,14 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
+import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
  *
  * @author bonde
  */
-public class AddMovieViewController implements Initializable
-{
+public class AddMovieViewController implements Initializable {
 
     @FXML
     private TextField txtTitle;
@@ -48,16 +50,16 @@ public class AddMovieViewController implements Initializable
     private TextField txtFilepath;
     @FXML
     private AnchorPane rootPane;
-    @FXML
     private Slider ratingSlider;
     @FXML
     private Label lblRating;
 
     private MovieModel movieModel;
-    private CategoryViewModel cvm;
+    private final CategoryViewModel cvm;
+    @FXML
+    private TextField txtRating;
 
-    public AddMovieViewController()
-    {
+    public AddMovieViewController() {
         cvm = new CategoryViewModel();
     }
 
@@ -65,17 +67,16 @@ public class AddMovieViewController implements Initializable
      * Initializes the controller class.
      */
     @Override
-    public void initialize(URL url, ResourceBundle rb)
-    {
+    public void initialize(URL url, ResourceBundle rb) {
         txtFilepath.setDisable(true);
+        txtRating.setDisable(true);
     }
 
     /**
      * chooses the file
      */
     @FXML
-    private void chooseFile(ActionEvent event)
-    {
+    private void chooseFile(ActionEvent event) {
         movieModel.initializeFile();
         txtFilepath.setText(movieModel.getFilePath());
     }
@@ -84,34 +85,27 @@ public class AddMovieViewController implements Initializable
      * Creates a movie object and saves it with the given specifics
      */
     @FXML
-    private void saveMovie(ActionEvent event)
-    {
-        
+    private void saveMovie(ActionEvent event) {
+
         boolean emptyField = getEmptyFieldInfo();
-        if (!emptyField)
-        {
-            try
-            {
+        if (!emptyField) {
+            try {
                 String title = txtTitle.getText();
                 double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
                 String filepath = txtFilepath.getText();
-                if (!movieModel.checkMovieTitles(title))
-                {
+                if (!movieModel.checkMovieTitles(title)) {
                     Movie movie = movieModel.createMovie(title, rating, filepath, 0);
                     cvm.addCategoryToMovie(cvm.getCheckedCategory(), movie);
                     Stage stage = (Stage) rootPane.getScene().getWindow();
                     stage.close();
-                } else
-                {
+                } else {
                     changeTitleAlertBox();
                 }
 
-            } catch (MTBllException ex)
-            {
+            } catch (MTBllException ex) {
                 displayError(ex);
             }
-        } else
-        {
+        } else {
             getAlertBox();
         }
     }
@@ -120,8 +114,7 @@ public class AddMovieViewController implements Initializable
      * Closes the window
      */
     @FXML
-    private void cancelMovie(ActionEvent event)
-    {
+    private void cancelMovie(ActionEvent event) {
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
@@ -130,42 +123,41 @@ public class AddMovieViewController implements Initializable
      * Chooses the category for the movie
      */
     @FXML
-    private void handleCategoryChooseBtn(ActionEvent event) throws IOException
-    {
-        FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
-        Parent root = (Parent) loader.load();
-        CategoryViewController cwcontroller = loader.getController();
-        cwcontroller.initializeModel(cvm);
+    private void handleCategoryChooseBtn(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
+            Parent root = (Parent) loader.load();
+            CategoryViewController cwcontroller = loader.getController();
+            cwcontroller.initializeModel(cvm);
 
-        Stage stage = new Stage();
-        Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
-        stage.getIcons().add(icon);
-        stage.setTitle("Movie collection");
+            Stage stage = new Stage();
+            Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
+            stage.getIcons().add(icon);
+            stage.setTitle("Movie collection");
 
-        stage.setTitle("Movie collection");
-        stage.setScene(new Scene(root));
-        stage.show();
+            stage.setScene(new Scene(root));
+            stage.show();
+        } catch (IOException ex) {
+            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
-    
+
     /*
     *Dragging the slider will adjust the users rating.
      */
-    @FXML
-    private void handleRating(MouseEvent event)
-    {
-        ratingSlider.valueProperty().addListener((Observable observable) ->
-        {
+    private void handleRating(MouseEvent event) {
+        ratingSlider.valueProperty().addListener((Observable observable)
+                -> {
             lblRating.setText(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).toString());
         });
     }
-    
+
     /**
      * A popup window that displays the error that occured
      *
      * @param ex the exception getting showened to the user
      */
-    private void displayError(Exception ex)
-    {
+    private void displayError(Exception ex) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Error dialog");
         alert.setHeaderText(null);
@@ -183,17 +175,13 @@ public class AddMovieViewController implements Initializable
      *
      * @returns the error info
      */
-    public String getErrorInfo()
-    {
+    public String getErrorInfo() {
         String errorInfo;
-        if (txtTitle.getText().isEmpty())
-        {
+        if (txtTitle.getText().isEmpty()) {
             errorInfo = "title";
-        } else if (txtFilepath.getText().isEmpty())
-        {
+        } else if (txtFilepath.getText().isEmpty()) {
             errorInfo = "file";
-        } else
-        {
+        } else {
             errorInfo = null;
         }
         return errorInfo;
@@ -202,12 +190,10 @@ public class AddMovieViewController implements Initializable
     /**
      * returns the info from the empty field
      */
-    public boolean getEmptyFieldInfo()
-    {
+    public boolean getEmptyFieldInfo() {
 
         boolean emptyField = false;
-        if (txtTitle.getText().isEmpty() || txtFilepath.getText().isEmpty())
-        {
+        if (txtTitle.getText().isEmpty() || txtFilepath.getText().isEmpty()) {
             emptyField = true;
         }
         return emptyField;
@@ -219,16 +205,15 @@ public class AddMovieViewController implements Initializable
      * @param movieModel the movieModel this class' movieModel is getting
      * initialized with
      */
-    public void initializeModel(MovieModel movieModel)
-    {
+    public void initializeModel(MovieModel movieModel) {
         this.movieModel = movieModel;
     }
 
     /**
-     * Retrieves the Alert Box to show the user, if the title has not been filled out
+     * Retrieves the Alert Box to show the user, if the title has not been
+     * filled out
      */
-    public void getAlertBox()
-    {
+    public void getAlertBox() {
         String errorInfo = getErrorInfo();
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Dialog");
@@ -248,10 +233,10 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     * Retrieves the Alert Box to show the user, if the user tries to change the title to a title that has already been chosen
+     * Retrieves the Alert Box to show the user, if the user tries to change the
+     * title to a title that has already been chosen
      */
-    public void changeTitleAlertBox()
-    {
+    public void changeTitleAlertBox() {
         Alert alert = new Alert(AlertType.INFORMATION);
         alert.setTitle("Information Dialog");
         alert.setHeaderText("Movie title " + txtTitle.getText() + " already taken");
@@ -259,4 +244,45 @@ public class AddMovieViewController implements Initializable
 
         alert.showAndWait();
     }
+
+    @FXML
+    private void handlerChooseRating(ActionEvent event) {
+        try {
+            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/IMDBRatingView.fxml"));
+            Parent root = (Parent) loader.load();
+            IMDBRatingViewController rvcontroller = loader.getController();
+            rvcontroller.initializeModel(movieModel);
+            rvcontroller.initializeTitle(txtTitle.getText());
+
+            Stage stage = new Stage();
+            stage.setTitle("IMDB ratings");
+
+            stage.setScene(new Scene(root));
+            stage.show();
+            stage.setOnHiding(event2 -> {
+                if (rvcontroller.getRating() == -1) {
+                    txtRating.setText("No rating given");
+                } else {
+                    txtRating.setText(Double.toString(rvcontroller.getRating()));
+                }
+            });
+        } catch (IOException ex) {
+            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+
+    private void updateIMDBDatabase(ActionEvent event) {
+        try {
+            movieModel.downloadIMDBDatabase();
+        } catch (MTBllException ex) {
+            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
+    /*
+    Kode der ikke må slettes! Skal bruges senere
+    ratingSlider.valueProperty().addListener((Observable observable) ->
+        {
+            lblRating.setText(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).toString());
+        });
+     */
 }

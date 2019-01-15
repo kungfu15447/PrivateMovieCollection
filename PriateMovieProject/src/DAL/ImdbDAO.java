@@ -80,7 +80,7 @@ public class ImdbDAO
         
         String[] row;
         while ((row = parser.parseNext()) != null) {
-            if (searchWord.toLowerCase().contains(row[3].toLowerCase())) {
+            if (row[3].toLowerCase().contains(searchWord.toLowerCase())) {
                 IMDBMovie movie = new IMDBMovie(row[0], row[3]);
                 searchedMovies.add(movie);
             }

@@ -45,5 +45,9 @@ public class IMDBMovie
         this.rating = rating;
     }
     
+    @Override
+    public String toString() {
+        return title;
+    }
     
 }

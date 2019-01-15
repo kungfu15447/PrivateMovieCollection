@@ -33,6 +33,7 @@ public class MovieModel
     private final ObservableList<Movie> movieList;
     private final ObservableList<Category> categoryList;
     private final ObservableList<Category> checkedCategoryList;
+    private final ObservableList<IMDBMovie> imdbMovieList;
     private final MovieManager moma;
     private final MovieSorter moso;
     private final MovieFilter mofi;
@@ -47,6 +48,7 @@ public class MovieModel
         categoryList = FXCollections.observableArrayList();
         movieCheck = FXCollections.observableArrayList();
         checkedCategoryList = FXCollections.observableArrayList();
+        imdbMovieList = FXCollections.observableArrayList();
         movieList.addAll(moma.getAllMovies());
         categoryList.addAll(moma.getAllCategories());
     }
@@ -54,6 +56,12 @@ public class MovieModel
     /**
      * Creates movie and adds it to the movieList.
      * returns Movie.
+     * @param title
+     * @param rating
+     * @param filepath
+     * @param lastView
+     * @return 
+     * @throws BLL.Exception.MTBllException
      */
     public Movie createMovie(String title, double rating, String filepath, int lastView) throws MTBllException
     {
@@ -176,6 +184,7 @@ public class MovieModel
     
     /**
      * returns the Observable list "movieCheck".
+     * @return 
      */
     public ObservableList<Movie> getCheckMovie()
     {
@@ -186,6 +195,8 @@ public class MovieModel
      * Adds all movies from movieList to searchBase and then clears the movieList.
      * Then we add all searchfiltered movies to the movieList.
      * 
+     * @param query
+     * @throws BLL.Exception.MTBllException
      */
     public void searchMovies(String query) throws MTBllException
     {
@@ -275,8 +286,10 @@ public class MovieModel
         return existingTitle;
     }
     
-    public List<IMDBMovie> getIMDBMovieTitles(String searchWord) {
-        return moma.getIMDBMovieTitles(searchWord);
+    public ObservableList<IMDBMovie> getIMDBMovieTitles(String searchWord) {
+        imdbMovieList.clear();
+        imdbMovieList.addAll(moma.getIMDBMovieTitles(searchWord));
+        return imdbMovieList;
     }
     
     public double getIMDBMovieRating(String movieId) {
