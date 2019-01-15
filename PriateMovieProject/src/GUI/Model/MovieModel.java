@@ -6,6 +6,7 @@
 package GUI.Model;
 
 import BE.Category;
+import BE.IMDBMovie;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import BLL.MovieFilter;
@@ -259,6 +260,9 @@ public class MovieModel
     
     /**
      * returns a boolean to whether a title exists or not.
+     * @param movieTitle
+     * @return 
+     * @throws BLL.Exception.MTBllException
      */
     public boolean checkMovieTitles(String movieTitle) throws MTBllException {
         List<Movie> allmovies = moma.getAllMovies();
@@ -270,5 +274,16 @@ public class MovieModel
         }
         return existingTitle;
     }
-
+    
+    public List<IMDBMovie> getIMDBMovieTitles(String searchWord) {
+        return moma.getIMDBMovieTitles(searchWord);
+    }
+    
+    public double getIMDBMovieRating(String movieId) {
+        return moma.getIMDBMovieRating(movieId);
+    }
+    
+    public void downloadIMDBDatabase() throws MTBllException {
+        moma.downloadIMDBDatabase();
+    }
 }

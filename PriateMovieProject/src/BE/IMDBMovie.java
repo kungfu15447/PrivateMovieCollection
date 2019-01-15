@@ -13,7 +13,7 @@ public class IMDBMovie
 {
     private final String ID;
     private String title;
-    private String rating;
+    private double rating;
     
     public IMDBMovie(String id, String title) {
         this.ID = id;
@@ -30,7 +30,7 @@ public class IMDBMovie
         return title;
     }
 
-    public String getRating()
+    public double getRating()
     {
         return rating;
     }
@@ -40,7 +40,7 @@ public class IMDBMovie
         this.title = title;
     }
 
-    public void setRating(String rating)
+    public void setRating(Double rating)
     {
         this.rating = rating;
     }

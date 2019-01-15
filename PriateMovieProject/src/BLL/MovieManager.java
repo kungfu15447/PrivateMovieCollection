@@ -6,13 +6,17 @@
 package BLL;
 
 import BE.Category;
+import BE.IMDBMovie;
 import BE.Movie;
 import BLL.Exception.MTBllException;
 import DAL.CatMovieDAO;
 import DAL.CategoryDAO;
 import DAL.Exception.MTDalException;
+import DAL.ImdbDAO;
 import DAL.MovieDAO;
 import java.util.List;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 
 /**
  *
@@ -24,12 +28,14 @@ public class MovieManager
     private final MovieDAO mdao;
     private final CategoryDAO cdao;
     private final CatMovieDAO cmdao;
+    private final ImdbDAO imdao;
 
     public MovieManager()
     {
         mdao = new MovieDAO();
         cdao = new CategoryDAO();
         cmdao = new CatMovieDAO();
+        imdao = new ImdbDAO();
     }
 
     public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
@@ -158,6 +164,22 @@ public class MovieManager
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not delete movie from CategoryMovie table");
+        }
+    }
+    
+    public List<IMDBMovie> getIMDBMovieTitles(String searchWord) {
+        return imdao.getIMDBMovieTitles(searchWord);
+    }
+    
+    public double getIMDBMovieRating(String movieId) {
+        return imdao.getIMDBMovieRating(movieId);
+    }
+    
+    public void downloadIMDBDatabase() throws MTBllException {
+        try {
+            imdao.downloadIMDBDatabase();
+        } catch (MTDalException ex) {
+            throw new MTBllException("Could not get files from the IMDB website");
         }
     }
     

@@ -6,6 +6,7 @@
 package DAL;
 
 import BE.IMDBMovie;
+import DAL.Exception.MTDalException;
 import com.univocity.parsers.tsv.TsvParser;
 import com.univocity.parsers.tsv.TsvParserSettings;
 import java.io.File;
@@ -28,7 +29,7 @@ import org.apache.commons.io.FileUtils;
 public class ImdbDAO
 {
 
-    public void unzipRating()
+    private void unzipRating()
     {
 
         String inputGZFile = "data/title.ratings.tsv.gz";
@@ -48,7 +49,7 @@ public class ImdbDAO
 
     }
 
-    public void unzipTitle()
+    private void unzipTitle()
     {
         String inputGZFile = "data/title.basics.tsv.gz";
         String outputFile = "data/data.tsv";
@@ -87,7 +88,7 @@ public class ImdbDAO
         return searchedMovies;
     }
     
-    public String getIMDBMovieRating(String movieId) {
+    public double getIMDBMovieRating(String movieId) {
         TsvParserSettings settings = new TsvParserSettings();
         settings.getFormat().setLineSeparator("\n");
         TsvParser parser = new TsvParser(settings);
@@ -99,13 +100,14 @@ public class ImdbDAO
         
         for (String[] row : allrows) {
             if (row[0].equals(movieId)) {
-                return row[1];
+                double rating = Double.parseDouble(row[1]);
+                return rating;
             }
         }
-        return "No rating found";
+        return -1;
     }
     
-    public void downloadIMDBDatabase() {
+    public void downloadIMDBDatabase() throws MTDalException {
         try {
             String imdbRatingsURL = "https://datasets.imdbws.com/title.ratings.tsv.gz";
             String localFile = "data/title.ratings.tsv.gz";
@@ -121,7 +123,7 @@ public class ImdbDAO
             URL url2 = new URL(imdbBasicsURL);
             File file2 = new File(localFile2);
             
-            FileUtils.copyURLToFile(url, file, 10000, 10000);
+            FileUtils.copyURLToFile(url2, file2, 10000, 10000);
             
             File deleteOldRating = new File("data/rating.tsv");
             File deleteOldTitle = new File("data/title.tsv");
@@ -138,12 +140,15 @@ public class ImdbDAO
             
             File data2 = new File("data/data.tsv");
             File title = new File("data/title.tsv");
+            data2.renameTo(title);
             
             File deleteBasicZip = new File("data/title.basics.tsv.gz");
             File deleteRatingZip = new File("data/title.ratings.tsv.gz");
+            deleteBasicZip.delete();
+            deleteRatingZip.delete();
             
         }  catch (IOException ex) {
-            Logger.getLogger(ImdbDAO.class.getName()).log(Level.SEVERE, null, ex);
+            throw new MTDalException("Could not get files from the IMDB website");
         }
     }
     
