@@ -69,9 +69,11 @@ public class MoviePlayerViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-
     }
-
+    /**
+     * Closes the window
+     * If the mediaplayer is playing, then the method will terminate it.
+     */
     @FXML
     private void exit(ActionEvent event)
     {
@@ -90,6 +92,9 @@ public class MoviePlayerViewController implements Initializable
         });
     }
 
+    /**
+     * Closes the window
+     */ 
     public void windowsExit()
     {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
@@ -103,6 +108,9 @@ public class MoviePlayerViewController implements Initializable
         });
     }
 
+    /**
+     * Skips to a chosen point in the movie, based on user interaction
+     */
     @FXML
     private void setDuration(MouseEvent event)
     {
@@ -134,11 +142,17 @@ public class MoviePlayerViewController implements Initializable
         this.movieModel = movieModel;
     }
 
+    /**
+     * Gets the filepath
+     */
     public void getFilePath(String filepath)
     {
         this.filePath = filepath;
     }
 
+    /**
+     * Shows the duration in seconds, minutes and hours, and displays them in a certain way.
+     */
     private void timer()
     {
         int seconds = (int) durationSlider.getValue() % 60;
@@ -148,11 +162,19 @@ public class MoviePlayerViewController implements Initializable
         lblTimer.setText(hours + ":" + minutes + ":" + seconds + "");
     }
 
+    /**
+     * Stops the mediaplayer
+     */
     public void stopMovie()
     {
         mediaPlayer.stop();
     }
 
+    /**
+     * Sets the playbutton to be visible and the pausebutton to be invisible.
+     * If the player is not paused or playing, then the player is open to a filepath.
+     * If the movie is playing the pause button is invisible and if the movie is paused, then the play button is invisible.
+     */
     @FXML
     private void handlePlayButton(MouseEvent event)
     {
@@ -197,6 +219,9 @@ public class MoviePlayerViewController implements Initializable
         controlSound();
     }
 
+    /**
+     * Uses user interaction to pause the movie, if the movie is playing.
+     */
     @FXML
     private void handlePauseButton(MouseEvent event)
     {

@@ -89,6 +89,9 @@ public class MovieViewController implements Initializable {
         cvm = new CategoryViewModel();
     }
 
+    /**
+     * initializes the columns and tables.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         try {
@@ -167,6 +170,9 @@ public class MovieViewController implements Initializable {
         stage.show();
     }
 
+    /**
+     * deletes a movie
+     */
     @FXML
     private void deleteMovie(ActionEvent event) {
         try {
@@ -183,6 +189,9 @@ public class MovieViewController implements Initializable {
         }
     }
 
+    /**
+     * Creates a category
+     */
     @FXML
     private void createCategory(ActionEvent event) {
 
@@ -199,6 +208,9 @@ public class MovieViewController implements Initializable {
         }
     }
 
+    /**
+     * Deletes a category
+     */
     @FXML
     private void deleteCategory(ActionEvent event) {
         try {
@@ -214,6 +226,9 @@ public class MovieViewController implements Initializable {
         }
     }
 
+    /**
+     * Gets the alertbox for when no movie has been chosen.
+     */
     public void getAlertBox() {
 
         Alert alert = new Alert(AlertType.ERROR);
@@ -228,7 +243,10 @@ public class MovieViewController implements Initializable {
 
         alert.showAndWait();
     }
-
+    
+    /**
+     * uses the searchbar for input and then searches for at movie.
+     */
     @FXML
     private void writeSearch(KeyEvent event) {
         try {
@@ -238,6 +256,9 @@ public class MovieViewController implements Initializable {
         }
     }
 
+    /**
+     * Filters the movie list
+     */
     @FXML
     private void filterMovieList(ActionEvent event) {
         try {
@@ -247,7 +268,10 @@ public class MovieViewController implements Initializable {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * Sorts the movie list for "movietitle".
+     */
     @FXML
     private void handlerSortTitle(ActionEvent event) {
         try {
@@ -256,7 +280,10 @@ public class MovieViewController implements Initializable {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-
+    
+    /**
+     * Sorts the movie list for "movierating".
+     */
     @FXML
     private void handlerSortRating(ActionEvent event) {
         try {
@@ -266,6 +293,9 @@ public class MovieViewController implements Initializable {
         }
     }
 
+    /**
+     * Sorts the movie list for "id".
+     */
     @FXML
     private void handlerSortId(ActionEvent event) {
         try {
@@ -275,13 +305,16 @@ public class MovieViewController implements Initializable {
         }
     }
 
-    public void RunPopup() throws IOException {
-        if (!movieModel.getCheckMovie().isEmpty()) {
+    /**
+     * Some popup scheme.
+     */
+    public void RunPopup() throws IOException 
+    {
             Popup popup = new Popup();
             CheckMovieController controller = new CheckMovieController();
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
             loader.setController(controller);
             popup.getContent().add((Parent) loader.load());
-        }
+        
     }
 }
