@@ -18,7 +18,6 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.Optional;
 import java.util.ResourceBundle;
-import java.util.concurrent.TimeUnit;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
@@ -29,9 +28,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBar.ButtonData;
 import javafx.scene.control.ButtonType;
-import javafx.scene.control.Dialog;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -41,12 +38,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
-import javafx.stage.Popup;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
-import javafx.util.Pair;
 
 /**
  *
@@ -69,8 +63,6 @@ public class MovieViewController implements Initializable
     private TableColumn<Movie, Double> clmMyRating;
     @FXML
     private TableColumn<Movie, Double> clmImdbRating;
-    @FXML
-    private Button btnEditRating;
     @FXML
     private Button btnAddCate;
     @FXML
@@ -102,22 +94,14 @@ public class MovieViewController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        {
-            try
-            {
-                clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
-                clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
-                clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
-                clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
-                tableView.setItems(movieModel.getMovies());
-                tblCategory.setItems(movieModel.getCategories());
-                tableView.getSelectionModel().setCellSelectionEnabled(true);
-                runPopup();
-            } catch (IOException ex)
-            {
-                Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
-            }
-        }
+        clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+        clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
+        clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
+        tableView.setItems(movieModel.getMovies());
+        tblCategory.setItems(movieModel.getCategories());
+        tableView.getSelectionModel().setCellSelectionEnabled(true);
+        runPopup();
 
     }
 
@@ -280,6 +264,9 @@ public class MovieViewController implements Initializable
         }
     }
 
+    /**
+     * Gets the alertbox for when no movie has been chosen.
+     */
     public void getAlertBox(String header, String content)
     {
 
@@ -372,24 +359,80 @@ public class MovieViewController implements Initializable
         }
     }
 
+    @FXML
+    private void editRating(ActionEvent event)
+    {
+        Movie movie = tableView.getSelectionModel().getSelectedItem();
+        int index = tableView.getSelectionModel().getSelectedIndex();
+        if (movie == null)
+        {
+            displayNoMovieWindow();
+        } else
+        {
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/EditRatingView.fxml"));
+                Parent root = (Parent) loader.load();
+
+                EditRatingViewController ervcontroller = loader.getController();
+                ervcontroller.initializeModel(movieModel);
+                ervcontroller.initializeMovie(movie, index);
+                Stage stage = new Stage();
+
+                stage.setTitle("Edit Movie");
+
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException ex)
+            {
+
+            }
+        }
+    }
+
     /**
      * Some popup scheme.
      */
-    public void runPopup() throws IOException
+    public void runPopup()
     {
 
         if (!movieModel.getCheckMovie().isEmpty())
         {
-            FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
-            Parent root = (Parent) loader.load();
+            try
+            {
+                FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CheckMovie.fxml"));
+                Parent root = (Parent) loader.load();
 
-            CheckMovieController cmcontroller = loader.getController();
+                CheckMovieController cmcontroller = loader.getController();
 
-            Stage stage = new Stage();
+                Stage stage = new Stage();
 
-            stage.setTitle("Popup");
-            stage.setScene(new Scene(root));
-            stage.show();
+                stage.setTitle("Popup");
+                stage.setScene(new Scene(root));
+                stage.show();
+            } catch (IOException ex)
+            {
+                Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
+    }
+
+    /**
+     * A pop window that shows the user they havent selected a playlist
+     */
+    private void displayNoMovieWindow()
+    {
+        Alert alert = new Alert(AlertType.INFORMATION);
+        alert.setTitle("Information dialog");
+        alert.setHeaderText("You have not selected a movie");
+        alert.setContentText("Please select a movie");
+
+        DialogPane dialogPane = alert.getDialogPane();
+        dialogPane.getStylesheets().add(getClass().getResource("/privateMovieProject/GUI/Dialogs.css").toExternalForm());
+        dialogPane.getStyleClass().add("dialog-pane");
+
+        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
+
+        alert.showAndWait();
     }
 }
