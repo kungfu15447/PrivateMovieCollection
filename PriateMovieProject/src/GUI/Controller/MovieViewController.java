@@ -37,6 +37,7 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.input.KeyEvent;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.media.MediaPlayer;
 import javafx.stage.Popup;
 import javafx.stage.Stage;
@@ -111,9 +112,10 @@ public class MovieViewController implements Initializable {
     @FXML
     private void playMovie(ActionEvent event) throws IOException, MTDalException {
         Movie movie = tableView.getSelectionModel().getSelectedItem();
+        if(movie != null)
+        {
         String filePath = movie.getFilepath();
         movieModel.updateLastView(movie);
-
         FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
         Parent root = (Parent) loader.load();
 
@@ -135,6 +137,12 @@ public class MovieViewController implements Initializable {
                 mpvcontroller.stopMovie();
             }
         });
+        }
+        else {
+            String header = "No movie has been selected";
+            String content = "Please select a movie to play";
+            getAlertBox(header,content);
+        }
     }
 
     /*
@@ -173,11 +181,12 @@ public class MovieViewController implements Initializable {
                 cvm.deleteMovieFromTable(movie);
                 movieModel.deleteMovie(movie);
             } else {
-                getAlertBox();
+                String header = "No movie has been selected";
+                String content = "Please select a movie to be deleted";
+                getAlertBox(header, content);
             }
         } catch (MTBllException ex) 
         {
-
         }
     }
 
@@ -205,19 +214,21 @@ public class MovieViewController implements Initializable {
                 cvm.deleteCategoryFromTable(category);
                 movieModel.deleteCategory(category);
             } else {
-
+                String header = "You have not chosen a category";
+                String content = "Please select a category to delete";
+                getAlertBox(header,content);
             }
         } catch (MTBllException ex) {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
-    public void getAlertBox() {
+    public void getAlertBox(String header, String content) {
 
         Alert alert = new Alert(AlertType.ERROR);
         alert.setTitle("Dialog");
-        alert.setHeaderText("You have not chosen a movie");
-        alert.setContentText("Please select a movie");
+        alert.setHeaderText(header);
+        alert.setContentText(content);
 
         DialogPane dialogPane = alert.getDialogPane();
         dialogPane.getStylesheets().add(getClass().getResource("/GUI/View/Dialogs.css").toExternalForm());

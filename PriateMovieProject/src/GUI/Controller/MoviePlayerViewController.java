@@ -99,7 +99,6 @@ public class MoviePlayerViewController implements Initializable
             @Override
             public void handle(WindowEvent close)
             {
-
             }
         });
     }
@@ -151,7 +150,9 @@ public class MoviePlayerViewController implements Initializable
 
     public void stopMovie()
     {
-        mediaPlayer.stop();
+        if (playing) {
+            mediaPlayer.stop();
+        }
     }
 
     @FXML

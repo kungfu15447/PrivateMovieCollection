@@ -220,7 +220,7 @@ public class AddMovieViewController implements Initializable
         dialogPane.getStyleClass().add("dialogPane");
         dialogPane.setGraphic(new ImageView(this.getClass().getResource("/GUI/View/Keyboard.png").toString()));
 
-        Image icon = new Image(this.getClass().getResourceAsStream("/mytunes/GUI/newicon.png"));
+        Image icon = new Image(this.getClass().getResourceAsStream("/GUI/View/Icon.png"));
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
         stage.getIcons().add(icon);
 
