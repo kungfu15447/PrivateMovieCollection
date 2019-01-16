@@ -45,8 +45,9 @@ public class Movie
     }
 
     /**
-     * returns id
-     * @return 
+
+     * returns the id
+     * @return ID
      */
     public int getId()
     {
@@ -54,8 +55,8 @@ public class Movie
     }
 
     /**
-     * returns name
-     * @return 
+     * returns the name
+     * @return name
      */
     public String getName()
     {
@@ -63,8 +64,8 @@ public class Movie
     }
 
     /**
-     * returns rating
-     * @return 
+     * returns the rating
+     * @return rating
      */
     public double getRating()
     {
@@ -72,8 +73,8 @@ public class Movie
     }
     
     /**
-     * returns filepath
-     * @return 
+     * returns the filepath
+     * @return filepath
      */
     public String getFilepath()
     {
@@ -81,8 +82,8 @@ public class Movie
     }
 
     /**
-     * returns lastview
-     * @return 
+     * returns the last viewed time
+     * @return lastview
      */
     public int getLastview()
     {
@@ -90,8 +91,9 @@ public class Movie
     }
 
     /**
-     * sets name
-     * @param name
+
+     * sets the name
+     * @param name 
      */
     public void setName(String name)
     {
@@ -99,8 +101,8 @@ public class Movie
     }
 
     /**
-     * sets rating
-     * @param rating
+     * sets the rating
+     * @param rating 
      */
     public void setRating(double rating)
     {
@@ -108,8 +110,8 @@ public class Movie
     }
 
     /**
-     * sets filepath
-     * @param filepath
+     * sets the filepath
+     * @param filepath 
      */
     public void setFilepath(String filepath)
     {
@@ -117,8 +119,8 @@ public class Movie
     }
     
     /**
-     * sets lastview
-     * @param lastview
+     * sets the lastview
+     * @param lastview 
      */
     public void setLastview(int lastview)
     {
@@ -126,8 +128,8 @@ public class Movie
     }
     
     /**
-     * returns categoryIdList
-     * @return 
+     * returns categoryIdLis
+     * @return categoryIdList
      */
     public List<Integer> getList() {
         return categoryIdList;

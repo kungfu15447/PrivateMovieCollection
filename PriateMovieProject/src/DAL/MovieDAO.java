@@ -24,11 +24,19 @@ public class MovieDAO
 
     private final ConnectionDAO cb;
 
+    /**
+     * MovieDAO constructor, connects to the database.
+     */
     public MovieDAO()
     {
         cb = new ConnectionDAO();
     }
 
+    /**
+     * Gets all the movies inserted.
+     * @return all the movies.
+     * @throws MTDalException 
+     */
     public List<Movie> getAllMovies() throws MTDalException
     {
         List<Movie> movies = new ArrayList<>();
@@ -55,6 +63,16 @@ public class MovieDAO
         return movies;
     }
 
+
+    /**
+     * Creates a movie.
+     * @param name
+     * @param rating
+     * @param filepath
+     * @param lastview
+     * @return The movie just created.
+     * @throws MTDalException 
+     */
     public Movie createMovie(String name, double rating, String filepath, int lastview, double imdbrating) throws MTDalException
     {
         try (Connection con = cb.getConnection())
@@ -85,6 +103,11 @@ public class MovieDAO
         }
     }
 
+    /**
+     * Deletes a movie.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void deleteMovie(Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())
@@ -98,6 +121,11 @@ public class MovieDAO
         }
     }
 
+    /**
+     * Updates the personal rating.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void updateRating(Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())
@@ -116,7 +144,11 @@ public class MovieDAO
         }
     }
     
-
+    /**
+     * Updates the last time you saw a specific movie.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void updateLastView(Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())

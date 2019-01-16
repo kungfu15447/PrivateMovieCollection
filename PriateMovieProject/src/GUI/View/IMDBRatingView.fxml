@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="400.0" prefWidth="425.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.IMDBRatingViewController">
+<AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="400.0" prefWidth="425.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.IMDBRatingViewController">
    <children>
       <ListView fx:id="lstImdbMovies" layoutX="14.0" layoutY="40.0" onMouseClicked="#handlerClickedMovie" prefHeight="302.0" prefWidth="298.0" />
       <Button fx:id="btnOk" layoutX="332.0" layoutY="141.0" mnemonicParsing="false" onAction="#saveRatingHandler" prefHeight="34.0" prefWidth="67.0" text="OK" />

@@ -38,14 +38,18 @@ public class CheckMovieController implements Initializable
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         
     }
+    
     /**
      * calls the checkMovies method from movieModel
+     * @param event 
      */
     public void checkMovies(ActionEvent event)
     {
@@ -54,6 +58,7 @@ public class CheckMovieController implements Initializable
     
     /**
      * closes the window
+     * @param btnok 
      */
     public void btnok(ActionEvent btnok)
     {

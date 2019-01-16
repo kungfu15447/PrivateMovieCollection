@@ -24,8 +24,8 @@ public class Category
     }
     
     /**
-     * returns id
-     * @return 
+     * returns the id
+     * @return id
      */
     public int getId()
     {
@@ -33,16 +33,16 @@ public class Category
     }
 
     /**
-     * returns category
-     * @return 
+     * returns the category
+     * @return category
      */
     public String getCategory()
     {
         return category;
     }
     /**
-     * sets category
-     * @param category
+     * sets the category
+     * @param category 
      */
     public void setCategory(String category)
     {
@@ -50,21 +50,26 @@ public class Category
     }
     
     /**
-     * returns selected checkbox
-     * @return 
+     * returns the selected checkbox
+     * @return select
      */
+    
     public CheckBox getSelect() {
         return select;
     }
     
     /**
      * selects checkbox
-     * @param select
+     * @param select 
      */
     public void setSelect(CheckBox select) {
         this.select = select;
     }
     
+    /**
+     * returns category as a string
+     * @return category
+     */
     @Override
     public String toString() {
         return category;
