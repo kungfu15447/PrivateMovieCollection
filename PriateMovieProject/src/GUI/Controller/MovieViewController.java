@@ -156,7 +156,7 @@ public class MovieViewController implements Initializable
     {
         Alert alert = new Alert(AlertType.CONFIRMATION);
         alert.setTitle("Movie collection");
-        alert.setHeaderText("You are about to close the program");
+        alert.setHeaderText("  You are about to close the program");
         alert.setContentText("Are you sure you want to exit?");
 
         DialogPane dialogPane = alert.getDialogPane();
