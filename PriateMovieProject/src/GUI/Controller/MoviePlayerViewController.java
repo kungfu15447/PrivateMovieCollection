@@ -17,7 +17,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
@@ -25,9 +25,11 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.stage.Stage;
 import javafx.stage.WindowEvent;
 import javafx.util.Duration;
@@ -64,17 +66,20 @@ public class MoviePlayerViewController implements Initializable
     private ImageView pauseButton;
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-       
     }
     
-
-
-
+    /**
+     * Closes the window
+     * If the mediaplayer is playing, then the method will terminate it
+     * @param event 
+     */
     @FXML
     private void exit(ActionEvent event)
     {
@@ -93,6 +98,10 @@ public class MoviePlayerViewController implements Initializable
         });
     }
 
+    
+    /**
+     * Closes the window
+     */
     public void windowsExit()
     {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
@@ -101,19 +110,22 @@ public class MoviePlayerViewController implements Initializable
             @Override
             public void handle(WindowEvent close)
             {
-
             }
         });
     }
 
+    /**
+     * Skips to a chosen point in the movie, based on user interaction
+     * @param event 
+     */
     @FXML
     private void setDuration(MouseEvent event)
     {
         mediaPlayer.seek(Duration.seconds(durationSlider.getValue()));
     }
 
-    /*
-    Sets the volume of the video to 100, but also allows changes to the volume by clicking it.
+    /**
+     * Sets the volume of the video to 100, but also allows changes to the volume by clicking it.
      */
     private void controlSound()
     {
@@ -137,11 +149,18 @@ public class MoviePlayerViewController implements Initializable
         this.movieModel = movieModel;
     }
 
+    /**
+     * Gets the filepath
+     * @param filepath 
+     */
     public void getFilePath(String filepath)
     {
         this.filePath = filepath;
     }
 
+    /**
+     * Shows the duration in seconds, minutes and hours, and displays them in a certain way.
+     */
     private void timer()
     {
         int seconds = (int) durationSlider.getValue() % 60;
@@ -151,19 +170,30 @@ public class MoviePlayerViewController implements Initializable
         lblTimer.setText(hours + ":" + minutes + ":" + seconds + "");
     }
 
+    /**
+     * Stops the mediaplayer
+     */
     public void stopMovie()
     {
-        mediaPlayer.stop();
+        if (playing) {
+            mediaPlayer.stop();
+        }
     }
 
+    /**
+     * Sets the playbutton to be visible and the pausebutton to be invisible.
+     * If the player is not paused or playing, then the player is open to a filepath.
+     * If the movie is playing the pause button is invisible and if the movie is paused, then the play button is invisible.
+     * @param event 
+     */
     @FXML
-    private void handlePlayButton(MouseEvent event) 
+    private void handlePlayButton(MouseEvent event)
     {
         playButton.setVisible(true);
         pauseButton.setVisible(false);
         if (!paused && !playing)
         {
-            
+
             Media media = new Media(filePath);
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
@@ -181,15 +211,14 @@ public class MoviePlayerViewController implements Initializable
 
                     timer();
                 }
-
             });
-            
+
             mediaPlayer.play();
             playing = true;
             paused = false;
             pauseButton.setVisible(true);
             playButton.setVisible(false);
-            
+
         } else if (paused)
         {
             mediaPlayer.play();
@@ -197,21 +226,60 @@ public class MoviePlayerViewController implements Initializable
             playing = true;
             pauseButton.setVisible(true);
             playButton.setVisible(false);
-        } 
+        }
         controlSound();
     }
 
+    /**
+     * Uses user interaction to pause the movie, if the movie is playing.
+     * @param event 
+     */
     @FXML
-    private void handlePauseButton(MouseEvent event) 
+    private void handlePauseButton(MouseEvent event)
     {
-            if (playing)
-            {
+        if (playing)
+        {
             mediaPlayer.pause();
             paused = true;
             playing = false;
             pauseButton.setVisible(false);
             playButton.setVisible(true);
+<<<<<<< HEAD
             }  
+=======
+        }
+    }
+
+    /**
+     * on mouseclick the movie will play or pause depending on what it is already doing.
+     *if you doubleclick the mediaView the stage will be fullscreen.
+     * @param doubleClicked 
+     */
+    public void mouseClick(MouseEvent doubleClicked)
+    {
+        Stage stage = (Stage) anchorPane.getScene().getWindow();
+        if (paused)
+        {
+            mediaPlayer.play();
+            paused = false;
+            playing = true;
+            pauseButton.setVisible(true);
+            playButton.setVisible(false);
+        }else 
+        if (playing)
+        {
+            mediaPlayer.pause();
+            paused = true;
+            playing = false;
+            pauseButton.setVisible(false);
+            playButton.setVisible(true);
+        }
+        
+        if (doubleClicked.getClickCount() == 2) 
+        {
+           stage.setFullScreen(true);
+        }
+>>>>>>> 4ffee52c0460378bb2f49743cdacbbcb6005c308
     }
 
 }

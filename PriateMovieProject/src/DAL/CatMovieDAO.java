@@ -15,8 +15,6 @@ import java.sql.SQLException;
 import java.sql.Statement;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -25,17 +23,25 @@ import java.util.logging.Logger;
 public class CatMovieDAO
 {
 
-    private final ConnectionDAO cb;
+    private final ConnectionDAO CB;
 
+    /**
+     * The constructor of CatMovieDAO, gets the connection.
+     */
     public CatMovieDAO()
     {
-        cb = new ConnectionDAO();
+        CB = new ConnectionDAO();
     }
-
+    
+    /**
+     * Get movies from categories.
+     * @return categoryMovies
+     * @throws MTDalException 
+     */
     public List<Movie> getMoviesFromCats() throws MTDalException
     {
         List<Movie> categoryMovies = new ArrayList<>();
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "SELECT * FROM CategoryMovie INNER JOIN Movie ON MovieId = Movie.id";
             PreparedStatement pst = con.prepareStatement(sql);
@@ -45,10 +51,11 @@ public class CatMovieDAO
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 double rating = rs.getDouble("rating");
+                double imdbRating = rs.getDouble("imdbrating");
                 String filepath = rs.getString("filepath");
                 int lastview = rs.getInt("lastview");
                 int categoryId = rs.getInt("CategoryId");
-                Movie movie = new Movie(id, name, rating, filepath, lastview);
+                Movie movie = new Movie(id, name, rating, imdbRating, filepath, lastview);
                 movie.getList().add(categoryId);
                 categoryMovies.add(movie);
             }
@@ -60,9 +67,15 @@ public class CatMovieDAO
         
     }
 
+    /**
+     * Adds a category to a movie.
+     * @param catlist
+     * @param movie
+     * @throws MTDalException 
+     */
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "INSERT INTO CategoryMovie (CategoryId, MovieId) VALUES (?,?)";
             PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -77,12 +90,16 @@ public class CatMovieDAO
         {
             throw new MTDalException("Could not add categories to the movie.", ex);
         }
-
     }
 
+    /**
+     * Deletes a movie in CatMovieTable if deleted in MovieTable.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void deleteMovieFromTable(Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "DELETE FROM CategoryMovie WHERE MovieId = ?";
             PreparedStatement pst = con.prepareStatement(sql);
@@ -94,9 +111,14 @@ public class CatMovieDAO
         }
     }
 
+    /**
+     * Deletes a category from CatMovieTable.
+     * @param category
+     * @throws MTDalException 
+     */
     public void deleteCategoryFromTable(Category category) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "DELETE FROM CategoryMovie WHERE CategoryId = ?";
             PreparedStatement pst = con.prepareStatement(sql);
@@ -107,6 +129,4 @@ public class CatMovieDAO
             throw new MTDalException("Could not delete categories from the CategoryMovie table.", ex);
         }
     }
-    
-    
 }

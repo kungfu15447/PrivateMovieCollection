@@ -44,6 +44,11 @@ public class CategoryViewController implements Initializable
         cvm = new CategoryViewModel();
     }
 
+    /**
+     * 
+     * @param url
+     * @param rb 
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
@@ -51,6 +56,10 @@ public class CategoryViewController implements Initializable
         clmCateSelect.setCellValueFactory(new PropertyValueFactory<>("select"));
     }
 
+    /**
+     * closes the window
+     * @param event 
+     */
     @FXML
     private void handleCancelBtn(ActionEvent event)
     {
@@ -58,6 +67,10 @@ public class CategoryViewController implements Initializable
         stage.close();
     }
 
+    /**
+     * closes the window
+     * @param event 
+     */
     @FXML
     private void handleOkBtn(ActionEvent event)
     {
@@ -66,12 +79,19 @@ public class CategoryViewController implements Initializable
         stage.close();
     }
 
+    /**
+     * initializes the model
+     * @param cvm
+     */
     public void initializeModel(CategoryViewModel cvm)
     {
         this.cvm = cvm;
         setCategoryTable();
     }
 
+    /**
+     * sets the table contents to the categories from CategoryViewModel
+     */
     private void setCategoryTable()
     {
         tblCategory.setItems(cvm.getCategories());

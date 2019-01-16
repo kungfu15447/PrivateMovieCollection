@@ -39,11 +39,21 @@ public class CategoryViewModel
         }
     }
 
+    /**
+     * Adds a category to a movie.
+     * @param catlist
+     * @param movie
+     * @throws MTBllException 
+     */
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTBllException
     {
         moma.addCategoryToMovie(catlist, movie);
     }
 
+    /**
+     * Adds a category to the checked categories list and then returns the checked category list.
+     * @return checkedCategoryList
+     */
     public List<Category> getCheckedCategory()
     {
         ArrayList<Category> checkedCategoryList = new ArrayList<>();
@@ -57,17 +67,30 @@ public class CategoryViewModel
         return checkedCategoryList;
     }
 
+    /**
+     * Returns the categoryList.
+     */
     public ObservableList<Category> getCategories()
     {
         return categoryList;
     }
 
+    /**
+     * Deletes a category from the table
+     * @param category
+     * @throws MTBllException 
+     */
     public void deleteCategoryFromTable(Category category) throws MTBllException
     {
         moma.deleteCategoryFromTable(category);
 
     }
-
+    
+    /**
+     * Deletes a movie from the table
+     * @param movie
+     * @throws MTBllException 
+     */
     public void deleteMovieFromTable(Movie movie) throws MTBllException
     {
         moma.deleteMovieFromTable(movie);

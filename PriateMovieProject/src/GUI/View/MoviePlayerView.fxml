@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Rectangle2D?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.Slider?>
@@ -8,23 +9,26 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="867.0" prefWidth="1233.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MoviePlayerViewController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MoviePlayerViewController">
     <children>
-      <ImageView fx:id="pauseButton" fitHeight="80.0" fitWidth="45.0" layoutX="595.0" layoutY="802.0" onMouseClicked="#handlePauseButton" pickOnBounds="true" preserveRatio="true" styleClass="button">
+      <MediaView fx:id="mediaView" fitHeight="1080.0" fitWidth="1920.0" layoutY="14.0" onMouseClicked="#mouseClick" AnchorPane.bottomAnchor="128.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="14.0">
+         <viewport>
+            <Rectangle2D />
+         </viewport></MediaView>
+        <Label fx:id="lblVolume" layoutX="122.0" layoutY="1195.0" minHeight="16" minWidth="69" AnchorPane.bottomAnchor="3.0" AnchorPane.leftAnchor="122.0" />
+      <Slider fx:id="durationSlider" layoutX="17.0" layoutY="1147.0" onMouseClicked="#setDuration" prefHeight="32.0" prefWidth="1200.0" styleClass="button-sliders" AnchorPane.bottomAnchor="43.0" AnchorPane.leftAnchor="17.0" AnchorPane.rightAnchor="16.0" />
+      <Slider fx:id="volumeSlider" layoutX="64.0" layoutY="1175.0" prefHeight="18.0" prefWidth="184.0" styleClass="button-sliders" AnchorPane.bottomAnchor="29.0" AnchorPane.leftAnchor="64.0" />
+      <Label fx:id="lblTimer" layoutX="35.0" layoutY="1123.0" prefHeight="24.0" prefWidth="79.0" AnchorPane.bottomAnchor="75.0" AnchorPane.leftAnchor="35.0" />
+      <ImageView fx:id="pauseButton" fitHeight="80.0" fitWidth="45.0" layoutX="955.0" layoutY="1170.0" onMouseClicked="#handlePauseButton" pickOnBounds="true" preserveRatio="true" styleClass="button" AnchorPane.bottomAnchor="6.732143402099609" AnchorPane.leftAnchor="955.0" AnchorPane.rightAnchor="953.0">
          <image>
             <Image url="@PauseButton.png" />
          </image>
       </ImageView>
-        <Label fx:id="lblVolume" layoutX="224.0" layoutY="833.0" minHeight="16" minWidth="69" />
-      <Button layoutX="1147.0" layoutY="808.0" mnemonicParsing="false" onAction="#exit" text="Back" />
-      <MediaView fx:id="mediaView" fitHeight="725.0" fitWidth="1200.0" layoutX="17.0" layoutY="14.0" />
-      <Slider fx:id="durationSlider" layoutX="17.0" layoutY="771.0" onMouseClicked="#setDuration" prefHeight="32.0" prefWidth="1200.0" styleClass="button-sliders" />
-      <Slider fx:id="volumeSlider" layoutX="166.0" layoutY="815.0" prefHeight="18.0" prefWidth="184.0" styleClass="button-sliders" />
-      <Label fx:id="lblTimer" layoutX="24.0" layoutY="747.0" prefHeight="24.0" prefWidth="79.0" />
-      <ImageView fx:id="playButton" fitHeight="80.0" fitWidth="45.0" layoutX="595.0" layoutY="803.0" onMouseClicked="#handlePlayButton" pickOnBounds="true" preserveRatio="true" styleClass="button">
+      <ImageView fx:id="playButton" fitHeight="80.0" fitWidth="45.0" layoutX="955.0" layoutY="1171.0" onMouseClicked="#handlePlayButton" pickOnBounds="true" preserveRatio="true" styleClass="button" AnchorPane.bottomAnchor="6.732143402099609" AnchorPane.leftAnchor="955.0" AnchorPane.rightAnchor="953.0">
          <image>
             <Image url="@PlayButton.png" />
          </image>
       </ImageView>
+      <Button layoutX="1866.0" layoutY="1179.0" mnemonicParsing="false" onAction="#exit" text="Back" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="24.0" />
     </children>
 </AnchorPane>

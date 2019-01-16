@@ -27,9 +27,9 @@
          </font>
       </Label>
       <Button layoutX="603.0" layoutY="810.0" mnemonicParsing="false" onAction="#deleteMovie" prefHeight="29.0" prefWidth="108.0" text="Delete Movie" AnchorPane.bottomAnchor="50.0" AnchorPane.rightAnchor="156.0" />
-      <Button fx:id="btnEditRating" layoutX="387.0" layoutY="846.0" mnemonicParsing="false" prefHeight="29.0" prefWidth="108.0" text="Edit rating" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="372.0" />
-      <Button fx:id="btnAddCate" layoutX="39.0" layoutY="809.0" mnemonicParsing="false" onAction="#createCategory" prefHeight="29.0" prefWidth="123.0" text="Add Category" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="39.0" />
-      <Button fx:id="btnDeleteCate" layoutX="170.0" layoutY="809.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete Category" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="170.0" />
+      <Button layoutX="387.0" layoutY="846.0" mnemonicParsing="false" onAction="#editRating" prefHeight="29.0" prefWidth="108.0" text="Edit rating" AnchorPane.bottomAnchor="14.0" AnchorPane.rightAnchor="372.0" />
+      <Button layoutX="39.0" layoutY="809.0" mnemonicParsing="false" onAction="#createCategory" prefHeight="29.0" prefWidth="123.0" text="Add Category" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="39.0" />
+      <Button layoutX="170.0" layoutY="809.0" mnemonicParsing="false" onAction="#deleteCategory" text="Delete Category" AnchorPane.bottomAnchor="51.0" AnchorPane.leftAnchor="170.0" />
       <TableView fx:id="tblCategory" layoutX="26.0" layoutY="64.0" maxWidth="1000.0" prefHeight="738.0" prefWidth="271.0" AnchorPane.bottomAnchor="87.0" AnchorPane.leftAnchor="26.0" AnchorPane.topAnchor="64.0">
         <columns>
           <TableColumn fx:id="clmCateTitle" prefWidth="175.0" text="Category" />
@@ -37,9 +37,9 @@
         </columns>
       </TableView>
       <Button layoutX="205.0" layoutY="33.0" mnemonicParsing="false" onAction="#filterMovieList" prefHeight="29.0" prefWidth="88.0" text="Filter" AnchorPane.leftAnchor="205.0" AnchorPane.topAnchor="33.0" />
-      <Button fx:id="btnSortTitle" layoutX="302.0" layoutY="147.0" mnemonicParsing="false" onAction="#handlerSortTitle" prefHeight="38.0" prefWidth="81.0" text="Title" AnchorPane.leftAnchor="302.0" AnchorPane.topAnchor="147.0" />
+      <Button layoutX="302.0" layoutY="147.0" mnemonicParsing="false" onAction="#handlerSortTitle" prefHeight="38.0" prefWidth="81.0" text="Title" AnchorPane.leftAnchor="302.0" AnchorPane.topAnchor="147.0" />
       <Label layoutX="309.0" layoutY="64.0" text="Sort by:" AnchorPane.leftAnchor="309.0" AnchorPane.topAnchor="64.0" />
-      <Button fx:id="btnSortRating" layoutX="302.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSortRating" prefHeight="38.0" prefWidth="81.0" text="Rating" AnchorPane.leftAnchor="302.0" AnchorPane.topAnchor="198.0" />
-      <Button fx:id="btnSortId" layoutX="303.0" layoutY="96.0" mnemonicParsing="false" onAction="#handlerSortId" prefHeight="38.0" prefWidth="81.0" text="Id" AnchorPane.leftAnchor="303.0" AnchorPane.topAnchor="96.0" />
+      <Button layoutX="302.0" layoutY="198.0" mnemonicParsing="false" onAction="#handlerSortRating" prefHeight="38.0" prefWidth="81.0" text="Rating" AnchorPane.leftAnchor="302.0" AnchorPane.topAnchor="198.0" />
+      <Button layoutX="303.0" layoutY="96.0" mnemonicParsing="false" onAction="#handlerSortId" prefHeight="38.0" prefWidth="81.0" text="Id" AnchorPane.leftAnchor="303.0" AnchorPane.topAnchor="96.0" />
     </children>
 </AnchorPane>
