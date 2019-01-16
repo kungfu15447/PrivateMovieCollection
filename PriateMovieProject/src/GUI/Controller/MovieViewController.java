@@ -105,8 +105,11 @@ public class MovieViewController implements Initializable
 
     }
 
-    /*
-    Temporary movie chooser.
+    /**
+     * 
+     * @param event
+     * @throws IOException
+     * @throws MTDalException 
      */
     @FXML
     private void playMovie(ActionEvent event) throws IOException, MTDalException
@@ -147,9 +150,10 @@ public class MovieViewController implements Initializable
             getAlertBox(header, content);
         }
     }
-
-    /*
-    Exits the program.
+    
+    /**
+     * Exits the program.
+     * @param event 
      */
     @FXML
     private void exit(ActionEvent event)
