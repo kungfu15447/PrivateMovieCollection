@@ -77,6 +77,7 @@ public class CategoryViewController implements Initializable
 
     /**
      * initializes the model
+     * @param cvm
      */
     public void initializeModel(CategoryViewModel cvm)
     {

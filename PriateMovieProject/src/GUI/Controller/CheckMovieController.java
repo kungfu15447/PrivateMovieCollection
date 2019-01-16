@@ -13,6 +13,7 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
+import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
@@ -28,12 +29,11 @@ public class CheckMovieController implements Initializable
     @FXML
     private TableView<Movie> tableCheck;
     @FXML
-    private TableView<Movie> tableTitle;
+    private TableColumn<Movie, String> tableTitle;
     @FXML
-    private TableView<Movie> tableRating;
+    private TableColumn<Movie, Double> tableRating;
     @FXML
     private Button btnok;
-    @FXML
     private AnchorPane rootPane;
 
     /**
