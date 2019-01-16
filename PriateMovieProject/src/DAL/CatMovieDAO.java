@@ -23,14 +23,14 @@ import java.util.List;
 public class CatMovieDAO
 {
 
-    private final ConnectionDAO cb;
+    private final ConnectionDAO CB;
 
     /**
      * The constructor of CatMovieDAO, gets the connection.
      */
     public CatMovieDAO()
     {
-        cb = new ConnectionDAO();
+        CB = new ConnectionDAO();
     }
     
     /**
@@ -41,7 +41,7 @@ public class CatMovieDAO
     public List<Movie> getMoviesFromCats() throws MTDalException
     {
         List<Movie> categoryMovies = new ArrayList<>();
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "SELECT * FROM CategoryMovie INNER JOIN Movie ON MovieId = Movie.id";
             PreparedStatement pst = con.prepareStatement(sql);
@@ -75,7 +75,7 @@ public class CatMovieDAO
      */
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "INSERT INTO CategoryMovie (CategoryId, MovieId) VALUES (?,?)";
             PreparedStatement pst = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
@@ -99,7 +99,7 @@ public class CatMovieDAO
      */
     public void deleteMovieFromTable(Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "DELETE FROM CategoryMovie WHERE MovieId = ?";
             PreparedStatement pst = con.prepareStatement(sql);
@@ -118,7 +118,7 @@ public class CatMovieDAO
      */
     public void deleteCategoryFromTable(Category category) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "DELETE FROM CategoryMovie WHERE CategoryId = ?";
             PreparedStatement pst = con.prepareStatement(sql);

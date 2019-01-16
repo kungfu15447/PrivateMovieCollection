@@ -30,10 +30,6 @@ public class IMDBRatingViewController implements Initializable {
 
     @FXML
     private ListView<IMDBMovie> lstImdbMovies;
-    @FXML
-    private Button btnOk;
-    @FXML
-    private Button btnCancel;
     private String movieTitle;
     private double movieRating;
     MovieModel momo;

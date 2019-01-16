@@ -23,17 +23,17 @@ import java.util.List;
 public class MovieManager
 {
 
-    private final MovieDAO mdao;
-    private final CategoryDAO cdao;
-    private final CatMovieDAO cmdao;
-    private final ImdbDAO imdao;
+    private final MovieDAO MDAO;
+    private final CategoryDAO CDAO;
+    private final CatMovieDAO CMDAO;
+    private final ImdbDAO IMDAO;
 
     public MovieManager()
     {
-        mdao = new MovieDAO();
-        cdao = new CategoryDAO();
-        cmdao = new CatMovieDAO();
-        imdao = new ImdbDAO();
+        MDAO = new MovieDAO();
+        CDAO = new CategoryDAO();
+        CMDAO = new CatMovieDAO();
+        IMDAO = new ImdbDAO();
     }
 
 
@@ -52,7 +52,11 @@ public class MovieManager
     {
         try
         {
+<<<<<<< HEAD
+            return MDAO.createMovie(name, rating, filepath, lastview);
+=======
             return mdao.createMovie(name, rating, filepath, lastview, imdbrating);
+>>>>>>> b2cdbe2b009936e4e7a7bd7325683481f9a76fb6
         } catch (MTDalException ex)
         {
             throw new MTBllException("" + ex.getMessage());
@@ -68,7 +72,7 @@ public class MovieManager
     {
         try
         {
-            return mdao.getAllMovies();
+            return MDAO.getAllMovies();
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not read all songs. " + ex.getMessage());
@@ -84,7 +88,7 @@ public class MovieManager
     {
         try
         {
-            mdao.deleteMovie(movie);
+            MDAO.deleteMovie(movie);
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not delete movie. " + ex.getMessage());
@@ -100,7 +104,7 @@ public class MovieManager
     {
         try
         {
-            mdao.updateRating(movie);
+            MDAO.updateRating(movie);
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not update movie. " + ex.getMessage());
@@ -116,7 +120,7 @@ public class MovieManager
     {
         try
         {
-            return cdao.getAllCategories();
+            return CDAO.getAllCategories();
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not get a ll categories");
@@ -134,7 +138,7 @@ public class MovieManager
     {
         try
         {
-            return cdao.createCategory(name);
+            return CDAO.createCategory(name);
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not create category");
@@ -150,7 +154,7 @@ public class MovieManager
     {
         try
         {
-            cdao.deleteCategory(category);
+            CDAO.deleteCategory(category);
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not delete category");
@@ -166,7 +170,7 @@ public class MovieManager
     {
         try
         {
-            cmdao.deleteCategoryFromTable(category);
+            CMDAO.deleteCategoryFromTable(category);
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not delete category from the CategoryMovie table");
@@ -180,7 +184,7 @@ public class MovieManager
      */
     public void updateLastView(Movie movie) throws MTDalException
     {
-        mdao.updateLastView(movie);
+        MDAO.updateLastView(movie);
     }
 
     /**
@@ -192,7 +196,7 @@ public class MovieManager
     {
         try
         {
-            return cmdao.getMoviesFromCats();
+            return CMDAO.getMoviesFromCats();
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not get movies from selected categories");
@@ -209,7 +213,7 @@ public class MovieManager
     {
         try
         {
-            cmdao.addCategoryToMovie(catlist, movie);
+            CMDAO.addCategoryToMovie(catlist, movie);
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not add categories to movie");
@@ -225,7 +229,7 @@ public class MovieManager
     {
         try
         {
-            cmdao.deleteMovieFromTable(movie);
+            CMDAO.deleteMovieFromTable(movie);
         } catch (MTDalException ex)
         {
             throw new MTBllException("Could not delete movie from CategoryMovie table");
@@ -238,7 +242,7 @@ public class MovieManager
      * @return return imdao.getIMDBMovieTitles(searchWord)
      */
     public List<IMDBMovie> getIMDBMovieTitles(String searchWord) {
-        return imdao.getIMDBMovieTitles(searchWord);
+        return IMDAO.getIMDBMovieTitles(searchWord);
     }
     
     /**
@@ -247,7 +251,7 @@ public class MovieManager
      * @return return imdao.getIMDBMovieRating(movieId)
      */
     public double getIMDBMovieRating(String movieId) {
-        return imdao.getIMDBMovieRating(movieId);
+        return IMDAO.getIMDBMovieRating(movieId);
     }
     
     /**
@@ -256,7 +260,7 @@ public class MovieManager
      */
     public void downloadIMDBDatabase() throws MTBllException {
         try {
-            imdao.downloadIMDBDatabase();
+            IMDAO.downloadIMDBDatabase();
         } catch (MTDalException ex) {
             throw new MTBllException("Could not get files from the IMDB website");
         }

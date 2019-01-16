@@ -22,14 +22,14 @@ import java.util.List;
 public class MovieDAO
 {
 
-    private final ConnectionDAO cb;
+    private final ConnectionDAO CB;
 
     /**
      * MovieDAO constructor, connects to the database.
      */
     public MovieDAO()
     {
-        cb = new ConnectionDAO();
+        CB = new ConnectionDAO();
     }
 
     /**
@@ -41,7 +41,7 @@ public class MovieDAO
     {
         List<Movie> movies = new ArrayList<>();
 
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Movie;");
@@ -75,7 +75,7 @@ public class MovieDAO
      */
     public Movie createMovie(String name, double rating, String filepath, int lastview, double imdbrating) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "INSERT INTO Movie (name, rating, filepath, lastview, imdbrating) VALUES(?,?,?,?,?);";
             
@@ -110,7 +110,7 @@ public class MovieDAO
      */
     public void deleteMovie(Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "DELETE FROM Movie WHERE id = ?;";
             PreparedStatement statement = con.prepareStatement(sql);
@@ -130,7 +130,7 @@ public class MovieDAO
      */
     public void updateRating(Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "UPDATE Movie SET rating = ? WHERE id = ?;";
             
@@ -153,7 +153,7 @@ public class MovieDAO
      */
     public void updateLastView(Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "UPDATE Movie SET lastview = ? WHERE id = ?;";
             
