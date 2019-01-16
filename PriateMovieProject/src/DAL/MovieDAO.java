@@ -112,9 +112,11 @@ public class MovieDAO
     {
         try (Connection con = cb.getConnection())
         {
-            Statement statement = con.createStatement();
-            String sql = "DELETE FROM Movie WHERE id = " + movie.getId() + ";";
-            statement.executeUpdate(sql);
+            String sql = "DELETE FROM Movie WHERE id = ?;";
+            PreparedStatement statement = con.prepareStatement(sql);
+            
+            statement.setInt(1, movie.getId());
+            statement.executeUpdate();
         } catch (SQLException ex)
         {
             throw new MTDalException("Could not delete movie. " + ex.getMessage());

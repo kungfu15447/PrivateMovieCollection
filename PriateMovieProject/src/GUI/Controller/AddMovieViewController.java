@@ -95,7 +95,7 @@ public class AddMovieViewController implements Initializable {
             try {
                 String title = txtTitle.getText();
                 double imdbrating;
-                if (txtRating.getText().equals("No rating given")) {
+                if (txtRating.getText().equals("No rating given") || txtRating.getText().isEmpty()) {
                     imdbrating = -1;
                 }else {
                     imdbrating = Double.parseDouble(txtRating.getText());

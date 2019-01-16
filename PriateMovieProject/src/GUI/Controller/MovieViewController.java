@@ -89,6 +89,7 @@ public class MovieViewController implements Initializable
 
     /**
      * initializes the columns and tables.
+     *
      * @param url
      * @param rb
      */
@@ -102,17 +103,16 @@ public class MovieViewController implements Initializable
         clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
         tableView.setItems(movieModel.getMovies());
         tblCategory.setItems(movieModel.getCategories());
-        movieModel.checkMovies();
         runPopup();
-
     }
 
     /**
-     * Chooses a movie from the tableview which then sends the filepath
-     * to the movieplayer. Also makes sure that sounds stops when closing the window.
+     * Chooses a movie from the tableview which then sends the filepath to the
+     * movieplayer. Also makes sure that sounds stops when closing the window.
+     *
      * @param event
      * @throws IOException
-     * @throws MTDalException 
+     * @throws MTDalException
      */
     @FXML
     private void playMovie(ActionEvent event) throws IOException, MTDalException
@@ -150,10 +150,11 @@ public class MovieViewController implements Initializable
             getAlertBox(header, content);
         }
     }
-    
+
     /**
      * Exits the program.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void exit(ActionEvent event)
@@ -177,8 +178,9 @@ public class MovieViewController implements Initializable
 
     /**
      * Adds a movie.
+     *
      * @param event
-     * @throws IOException 
+     * @throws IOException
      */
     @FXML
     private void addMovie(ActionEvent event) throws IOException
@@ -200,7 +202,8 @@ public class MovieViewController implements Initializable
 
     /**
      * Deletes a movie.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void deleteMovie(ActionEvent event)
@@ -225,7 +228,8 @@ public class MovieViewController implements Initializable
 
     /**
      * Creates a category.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void createCategory(ActionEvent event)
@@ -249,7 +253,8 @@ public class MovieViewController implements Initializable
 
     /**
      * Deletes a category.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void deleteCategory(ActionEvent event)
@@ -275,8 +280,9 @@ public class MovieViewController implements Initializable
 
     /**
      * Gets the alertbox for when no movie has been chosen.
+     *
      * @param header
-     * @param content 
+     * @param content
      */
     public void getAlertBox(String header, String content)
     {
@@ -296,7 +302,8 @@ public class MovieViewController implements Initializable
 
     /**
      * Uses the searchbar for input and then searches for at movie.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void writeSearch(KeyEvent event)
@@ -312,15 +319,18 @@ public class MovieViewController implements Initializable
 
     /**
      * Filters the movie list.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void filterMovieList(ActionEvent event)
     {
         try
         {
+            if (!movieModel.getMovies().isEmpty()) {
             movieModel.fillCheckedCategoryList();
             movieModel.contextOfMovieList();
+            }
         } catch (MTBllException ex)
         {
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
@@ -329,7 +339,8 @@ public class MovieViewController implements Initializable
 
     /**
      * Sorts the movie list for "movietitle".
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handlerSortTitle(ActionEvent event)
@@ -345,7 +356,8 @@ public class MovieViewController implements Initializable
 
     /**
      * Sorts the movie list for "movierating".
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handlerSortRating(ActionEvent event)
@@ -361,7 +373,8 @@ public class MovieViewController implements Initializable
 
     /**
      * Sorts the movie list for "id".
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handlerSortId(ActionEvent event)
@@ -374,10 +387,11 @@ public class MovieViewController implements Initializable
             Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
-    
+
     /**
      * Set the rating of a movie.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void editRating(ActionEvent event)
@@ -386,7 +400,10 @@ public class MovieViewController implements Initializable
         int index = tableView.getSelectionModel().getSelectedIndex();
         if (movie == null)
         {
-            displayNoMovieWindow();
+            String header = "No movie was selected";
+            String content = "Please select a movie in order to edit its rating";
+            getAlertBox(header, content);
+            
         } else
         {
             try
@@ -415,6 +432,7 @@ public class MovieViewController implements Initializable
      */
     public void runPopup()
     {
+        movieModel.checkMovies();
         if (!movieModel.getCheckMovie().isEmpty())
         {
             try
@@ -428,32 +446,22 @@ public class MovieViewController implements Initializable
                 stage.setTitle("Popup");
                 stage.setScene(new Scene(root));
                 stage.show();
-                stage.setOnHiding(event2 -> {
-                
-            });
+                stage.setOnHiding(event2 ->
+                {
+                    if (cmcontroller.deleteMovies()) {
+                        try
+                        {
+                            movieModel.deleteCheckMoviesFromList();
+                        } catch (MTBllException ex)
+                        {
+                            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+                        }
+                    }
+                });
             } catch (IOException ex)
             {
                 Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
             }
         }
-    }
-
-    /**
-     * A popup window that shows the user they havent selected a playlist
-     */
-    private void displayNoMovieWindow()
-    {
-        Alert alert = new Alert(AlertType.INFORMATION);
-        alert.setTitle("Information dialog");
-        alert.setHeaderText("You have not selected a movie");
-        alert.setContentText("Please select a movie");
-
-        DialogPane dialogPane = alert.getDialogPane();
-        dialogPane.getStylesheets().add(getClass().getResource("/privateMovieProject/GUI/Dialogs.css").toExternalForm());
-        dialogPane.getStyleClass().add("dialog-pane");
-
-        Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
-
-        alert.showAndWait();
     }
 }

@@ -52,14 +52,14 @@ public class MovieModel
     }
 
     /**
-     * Creates movie and adds it to the movieList.
-     * returns Movie.
+     * Creates movie and adds it to the movieList. returns Movie.
+     *
      * @param title
      * @param rating
      * @param filepath
      * @param lastView
      * @param imdbrating
-     * @return 
+     * @return
      * @throws BLL.Exception.MTBllException
      */
     public Movie createMovie(String title, double rating, String filepath, int lastView, double imdbrating) throws MTBllException
@@ -68,7 +68,7 @@ public class MovieModel
         movieList.add(movie);
         return movie;
     }
-    
+
     /**
      * initializes the Filechooser
      */
@@ -86,12 +86,14 @@ public class MovieModel
 
     /**
      * Deletes a movie
+     *
      * @param movie
-     * @throws MTBllException 
+     * @throws MTBllException
      */
     public void deleteMovie(Movie movie) throws MTBllException
     {
         moma.deleteMovie(movie);
+        moma.deleteMovieFromTable(movie);
         movieList.remove(movie);
     }
 
@@ -114,6 +116,7 @@ public class MovieModel
     {
         return filePath;
     }
+
     /**
      * returns the category list
      *
@@ -123,9 +126,10 @@ public class MovieModel
     {
         return categoryList;
     }
-    
+
     /**
      * Creates a category
+     *
      * @param title
      * @throws BLL.Exception.MTBllException
      */
@@ -137,33 +141,37 @@ public class MovieModel
 
     /**
      * Deletes a category
+     *
      * @param category
-     * @throws MTBllException 
+     * @throws MTBllException
      */
     public void deleteCategory(Category category) throws MTBllException
     {
 
         categoryList.remove(category);
         moma.deleteCategory(category);
+        moma.deleteCategoryFromTable(category);
 
     }
-    
+
     /**
      * updates the movie rating
+     *
      * @param movie
      * @param index
-     * @throws MTBllException 
+     * @throws MTBllException
      */
     public void updateRating(Movie movie, int index) throws MTBllException
     {
-            moma.updateRating(movie);
-            movieList.set(index, movie);
+        moma.updateRating(movie);
+        movieList.set(index, movie);
     }
 
     /**
      * Updates the lastview date
+     *
      * @param movie
-     * @throws MTDalException 
+     * @throws MTDalException
      */
     public void updateLastView(Movie movie) throws MTDalException
     {
@@ -173,41 +181,44 @@ public class MovieModel
         movie.setLastview(days);
         moma.updateLastView(movie);
     }
-    
+
     /**
      * Compares the lastview date from the database and the current local time.
-     * Checks if the difference between the dates are greater or lower than 2 years.
+     * Checks if the difference between the dates are greater or lower than 2
+     * years.
      */
     public void checkMovies()
     {
         Date Date = new Date();
         long MiliTime = Date.getTime();
         int days = (int) (MiliTime / (60 * 60 * 24 * 1000));
+        int twoYearsInDays = 730;
         for (Movie movie : movieList)
         {
             int days2 = movie.getLastview();
             int inBetween = (days - days2);
-            if (inBetween > -1)
+            if (inBetween > twoYearsInDays)
             {
                 movieCheck.add(movie);
             }
         }
-        
+
     }
-    
+
     /**
      * returns the Observable list "movieCheck".
+     *
      * @return movieCheck
      */
     public ObservableList<Movie> getCheckMovie()
     {
         return movieCheck;
     }
-    
+
     /**
-     * Adds all movies from movieList to searchBase and then clears the movieList.
-     * Then we add all searchfiltered movies to the movieList.
-     * 
+     * Adds all movies from movieList to searchBase and then clears the
+     * movieList. Then we add all searchfiltered movies to the movieList.
+     *
      * @param query
      * @throws BLL.Exception.MTBllException
      */
@@ -236,7 +247,8 @@ public class MovieModel
 
     /**
      * gets the movies from the checked categories.
-     * @throws MTBllException 
+     *
+     * @throws MTBllException
      */
     private void getMoviesFromCats() throws MTBllException
     {
@@ -249,9 +261,11 @@ public class MovieModel
     }
 
     /**
-     * if there are no checked categories, then clears the movieList and then adds all movies again.
-     * if there are checked categories, then gets movies from the categories.
-     * @throws MTBllException 
+     * if there are no checked categories, then clears the movieList and then
+     * adds all movies again. if there are checked categories, then gets movies
+     * from the categories.
+     *
+     * @throws MTBllException
      */
     public void contextOfMovieList() throws MTBllException
     {
@@ -264,11 +278,12 @@ public class MovieModel
             getMoviesFromCats();
         }
     }
-    
+
     /**
      * Sorts the movies into lists using a switch statement.
+     *
      * @param sortingchoice
-     * @throws MTBllException 
+     * @throws MTBllException
      */
     public void sortMovieList(String sortingchoice) throws MTBllException
     {
@@ -285,58 +300,69 @@ public class MovieModel
                 break;
         }
     }
-    
+
     /**
      * returns a boolean to whether a title exists or not.
+     *
      * @param movieTitle
-     * @return 
+     * @return
      * @throws BLL.Exception.MTBllException
      */
-    public boolean checkMovieTitles(String movieTitle) throws MTBllException {
+    public boolean checkMovieTitles(String movieTitle) throws MTBllException
+    {
         List<Movie> allmovies = moma.getAllMovies();
         boolean existingTitle = false;
-        for (Movie movie : allmovies) {
-            if (movieTitle.toLowerCase().equals(movie.getName().toLowerCase())) {
+        for (Movie movie : allmovies)
+        {
+            if (movieTitle.toLowerCase().equals(movie.getName().toLowerCase()))
+            {
                 existingTitle = true;
             }
         }
         return existingTitle;
     }
+
     /**
-     * clears the imdb movie list and adds adds all movies with the correct search word
+     * clears the imdb movie list and adds adds all movies with the correct
+     * search word
+     *
      * @param searchWord
      * @return imdbMovieList
      */
-    public ObservableList<IMDBMovie> getIMDBMovieTitles(String searchWord) {
+    public ObservableList<IMDBMovie> getIMDBMovieTitles(String searchWord)
+    {
         imdbMovieList.clear();
         imdbMovieList.addAll(moma.getIMDBMovieTitles(searchWord));
         return imdbMovieList;
     }
-    
+
     /**
      * reutns the imdb movie rating based on the movieId
+     *
      * @param movieId
      * @return moma.getIMDBMovieRating(movieId)
      */
-    public double getIMDBMovieRating(String movieId) {
+    public double getIMDBMovieRating(String movieId)
+    {
         return moma.getIMDBMovieRating(movieId);
     }
-    
+
     /**
      * downloads the IMDB movie database
-     * @throws MTBllException 
+     *
+     * @throws MTBllException
      */
-    public void downloadIMDBDatabase() throws MTBllException {
+    public void downloadIMDBDatabase() throws MTBllException
+    {
         moma.downloadIMDBDatabase();
     }
-    
-    public void deleteCheckMoviesFromList() throws MTBllException {
+
+    public void deleteCheckMoviesFromList() throws MTBllException
+    {
         for (Movie movie : movieCheck) {
-            if (movieList.contains(movie)) {
-                moma.deleteMovie(movie);
-                moma.deleteMovieFromTable(movie);
-                movieList.remove(movie);
-            }
+            moma.deleteMovieFromTable(movie);
+            moma.deleteMovie(movie);
+            movieList.remove(movie);
         }
     }
 }

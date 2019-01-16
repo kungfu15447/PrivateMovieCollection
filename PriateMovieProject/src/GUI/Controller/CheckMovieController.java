@@ -36,6 +36,7 @@ public class CheckMovieController implements Initializable
     private TableColumn<Movie, String> tableTitle;
     @FXML
     private TableColumn<Movie, Double> tableRating;
+    @FXML
     private AnchorPane rootPane;
     private boolean deleteMovies;
     @FXML
@@ -69,7 +70,7 @@ public class CheckMovieController implements Initializable
     @FXML
     private void handlerYesButton(ActionEvent event)
     {
-        //deleteMovies = true;
+        deleteMovies = true;
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
@@ -77,7 +78,7 @@ public class CheckMovieController implements Initializable
     @FXML
     private void handlerNoButton(ActionEvent event)
     {
-        //deleteMovies = false;
+        deleteMovies = false;
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
