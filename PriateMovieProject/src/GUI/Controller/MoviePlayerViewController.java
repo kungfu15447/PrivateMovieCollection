@@ -21,6 +21,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -209,7 +211,7 @@ public class MoviePlayerViewController implements Initializable
             playing = false;
             pauseButton.setVisible(false);
             playButton.setVisible(true);
-            }
+            }  
     }
 
 }
