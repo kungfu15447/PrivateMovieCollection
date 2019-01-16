@@ -252,10 +252,9 @@ public class MoviePlayerViewController implements Initializable
             paused = true;
             playing = false;
             pauseButton.setVisible(false);
-            playButton.setVisible(true);  
+            playButton.setVisible(true);
+            }  
         }
-    }
-
     /**
      * on mouseclick the movie will play or pause depending on what it is
      * already doing. if you doubleclick the mediaView the stage will be
