@@ -21,6 +21,8 @@ import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.StackPane;
@@ -251,6 +253,9 @@ public class MoviePlayerViewController implements Initializable
             playing = false;
             pauseButton.setVisible(false);
             playButton.setVisible(true);
+<<<<<<< HEAD
+            }  
+=======
         }
     }
 
@@ -284,6 +289,7 @@ public class MoviePlayerViewController implements Initializable
         {
             stage.setFullScreen(true);
         }
+>>>>>>> 4ffee52c0460378bb2f49743cdacbbcb6005c308
     }
 
 }
