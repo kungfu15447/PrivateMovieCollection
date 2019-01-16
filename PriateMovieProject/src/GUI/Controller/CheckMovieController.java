@@ -6,15 +6,19 @@
 package GUI.Controller;
 
 import BE.Movie;
+import BLL.Exception.MTBllException;
 import GUI.Model.MovieModel;
 import java.net.URL;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
+import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
@@ -32,10 +36,22 @@ public class CheckMovieController implements Initializable
     private TableColumn<Movie, String> tableTitle;
     @FXML
     private TableColumn<Movie, Double> tableRating;
-    @FXML
-    private Button btnok;
     private AnchorPane rootPane;
+    private boolean deleteMovies;
+    @FXML
+    private Button btnYes;
+    @FXML
+    private Button btnNo;
 
+    public CheckMovieController() {
+        try
+        {
+            movieModel = new MovieModel();
+        } catch (MTBllException ex)
+        {
+            Logger.getLogger(CheckMovieController.class.getName()).log(Level.SEVERE, null, ex);
+        }
+    }
     /**
      * Initializes the controller class.
      * @param url
@@ -44,26 +60,30 @@ public class CheckMovieController implements Initializable
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
-        
-    }
-    
-    /**
-     * calls the checkMovies method from movieModel
-     * @param event 
-     */
-    public void checkMovies(ActionEvent event)
-    {
+        tableTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
+        tableRating.setCellValueFactory(new PropertyValueFactory<>("stringRating"));
         movieModel.checkMovies();
+        tableCheck.setItems(movieModel.getCheckMovie());
     }
-    
-    /**
-     * closes the window
-     * @param btnok 
-     */
-    public void btnok(ActionEvent btnok)
+
+    @FXML
+    private void handlerYesButton(ActionEvent event)
     {
+        //deleteMovies = true;
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
+    }
+
+    @FXML
+    private void handlerNoButton(ActionEvent event)
+    {
+        //deleteMovies = false;
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
+    }
+    
+    public boolean deleteMovies() {
+        return deleteMovies;
     }
     
 }

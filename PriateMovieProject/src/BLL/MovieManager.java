@@ -15,8 +15,6 @@ import DAL.Exception.MTDalException;
 import DAL.ImdbDAO;
 import DAL.MovieDAO;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -89,7 +87,7 @@ public class MovieManager
             mdao.deleteMovie(movie);
         } catch (MTDalException ex)
         {
-            throw new MTBllException("Could not delete song. " + ex.getMessage());
+            throw new MTBllException("Could not delete movie. " + ex.getMessage());
         }
     }
 

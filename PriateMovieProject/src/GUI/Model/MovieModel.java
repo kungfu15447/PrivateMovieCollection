@@ -187,7 +187,7 @@ public class MovieModel
         {
             int days2 = movie.getLastview();
             int inBetween = (days - days2);
-            if (inBetween > 730)
+            if (inBetween > -1)
             {
                 movieCheck.add(movie);
             }
@@ -328,5 +328,15 @@ public class MovieModel
      */
     public void downloadIMDBDatabase() throws MTBllException {
         moma.downloadIMDBDatabase();
+    }
+    
+    public void deleteCheckMoviesFromList() throws MTBllException {
+        for (Movie movie : movieCheck) {
+            if (movieList.contains(movie)) {
+                moma.deleteMovie(movie);
+                moma.deleteMovieFromTable(movie);
+                movieList.remove(movie);
+            }
+        }
     }
 }

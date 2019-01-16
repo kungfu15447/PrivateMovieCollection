@@ -21,7 +21,6 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -103,7 +102,7 @@ public class MovieViewController implements Initializable
         clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
         tableView.setItems(movieModel.getMovies());
         tblCategory.setItems(movieModel.getCategories());
-        tableView.getSelectionModel().setCellSelectionEnabled(true);
+        movieModel.checkMovies();
         runPopup();
 
     }
@@ -121,14 +120,14 @@ public class MovieViewController implements Initializable
         Movie movie = tableView.getSelectionModel().getSelectedItem();
         if (movie != null)
         {
-            String filePath = movie.getFilepath();
+            String filepath = movie.getFilepath();
             movieModel.updateLastView(movie);
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/MoviePlayerView.fxml"));
             Parent root = (Parent) loader.load();
 
             MoviePlayerViewController mpvcontroller = loader.getController();
             mpvcontroller.initializeModel(movieModel);
-            mpvcontroller.getFilePath(filePath);
+            mpvcontroller.getFilePath(filepath);
 
             Stage stage = new Stage();
             Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
@@ -140,12 +139,9 @@ public class MovieViewController implements Initializable
             stage.show();
             stage.setFullScreen(true);
 
-            stage.setOnCloseRequest(new EventHandler<WindowEvent>()
+            stage.setOnCloseRequest((WindowEvent we) ->
             {
-                public void handle(WindowEvent we)
-                {
-                    mpvcontroller.stopMovie();
-                }
+                mpvcontroller.stopMovie();
             });
         } else
         {
@@ -427,12 +423,14 @@ public class MovieViewController implements Initializable
                 Parent root = (Parent) loader.load();
 
                 CheckMovieController cmcontroller = loader.getController();
-
                 Stage stage = new Stage();
 
                 stage.setTitle("Popup");
                 stage.setScene(new Scene(root));
                 stage.show();
+                stage.setOnHiding(event2 -> {
+                
+            });
             } catch (IOException ex)
             {
                 Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
