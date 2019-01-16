@@ -244,9 +244,7 @@ public class MoviePlayerViewController implements Initializable
             playing = false;
             pauseButton.setVisible(false);
             playButton.setVisible(true);
-<<<<<<< HEAD
             }  
-=======
         }
     }
 
@@ -279,7 +277,7 @@ public class MoviePlayerViewController implements Initializable
         {
            stage.setFullScreen(true);
         }
->>>>>>> 4ffee52c0460378bb2f49743cdacbbcb6005c308
+
     }
 
 }

@@ -54,12 +54,12 @@ public class AddMovieViewController implements Initializable {
     private Label lblRating;
 
     private MovieModel movieModel;
-    private final CategoryViewModel cvm;
+    private final CategoryViewModel CVM;
     @FXML
     private TextField txtRating;
 
     public AddMovieViewController() {
-        cvm = new CategoryViewModel();
+        CVM = new CategoryViewModel();
     }
 
     /**
@@ -108,7 +108,7 @@ public class AddMovieViewController implements Initializable {
                 String filepath = txtFilepath.getText();
                 if (!movieModel.checkMovieTitles(title)) {
                     Movie movie = movieModel.createMovie(title, personalRating, filepath, lastview, imdbrating);
-                    cvm.addCategoryToMovie(cvm.getCheckedCategory(), movie);
+                    CVM.addCategoryToMovie(CVM.getCheckedCategory(), movie);
                     Stage stage = (Stage) rootPane.getScene().getWindow();
                     stage.close();
                 } else {
@@ -143,7 +143,7 @@ public class AddMovieViewController implements Initializable {
             FXMLLoader loader = new FXMLLoader(getClass().getResource("/GUI/View/CategoryView.fxml"));
             Parent root = (Parent) loader.load();
             CategoryViewController cwcontroller = loader.getController();
-            cwcontroller.initializeModel(cvm);
+            cwcontroller.initializeModel(CVM);
 
             Stage stage = new Stage();
             Image icon = new Image(getClass().getResourceAsStream("/GUI/View/Icon.png"));
