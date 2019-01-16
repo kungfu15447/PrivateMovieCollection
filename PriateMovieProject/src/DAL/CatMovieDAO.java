@@ -27,11 +27,19 @@ public class CatMovieDAO
 
     private final ConnectionDAO cb;
 
+    /**
+     * The constructor of CatMovieDAO, gets the connection.
+     */
     public CatMovieDAO()
     {
         cb = new ConnectionDAO();
     }
-
+    
+    /**
+     * Get movies from categories.
+     * @return categoryMovies
+     * @throws MTDalException 
+     */
     public List<Movie> getMoviesFromCats() throws MTDalException
     {
         List<Movie> categoryMovies = new ArrayList<>();
@@ -60,6 +68,12 @@ public class CatMovieDAO
         
     }
 
+    /**
+     * Adds a category to a movie.
+     * @param catlist
+     * @param movie
+     * @throws MTDalException 
+     */
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())
@@ -77,9 +91,13 @@ public class CatMovieDAO
         {
             throw new MTDalException("Could not add categories to the movie.", ex);
         }
-
     }
 
+    /**
+     * Deletes a movie in CatMovieTable if deleted in MovieTable.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void deleteMovieFromTable(Movie movie) throws MTDalException
     {
         try (Connection con = cb.getConnection())
@@ -94,6 +112,11 @@ public class CatMovieDAO
         }
     }
 
+    /**
+     * Deletes a category from CatMovieTable.
+     * @param category
+     * @throws MTDalException 
+     */
     public void deleteCategoryFromTable(Category category) throws MTDalException
     {
         try (Connection con = cb.getConnection())
@@ -107,6 +130,4 @@ public class CatMovieDAO
             throw new MTDalException("Could not delete categories from the CategoryMovie table.", ex);
         }
     }
-    
-    
 }
