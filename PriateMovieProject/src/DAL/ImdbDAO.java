@@ -13,7 +13,6 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
@@ -28,10 +27,11 @@ import org.apache.commons.io.FileUtils;
  */
 public class ImdbDAO
 {
-
+    /**
+     * Unzips the rating zip-files.
+     */
     private void unzipRating()
     {
-
         String inputGZFile = "data/title.ratings.tsv.gz";
         String outputFile = "data/data.tsv";
         byte[] buffer = new byte[1024];
@@ -49,6 +49,9 @@ public class ImdbDAO
 
     }
 
+    /**
+     * Unzips the title zip-file.
+     */
     private void unzipTitle()
     {
         String inputGZFile = "data/title.basics.tsv.gz";
@@ -67,6 +70,11 @@ public class ImdbDAO
         }
     }
     
+    /**
+     * Gets the movie titles from IMDB.
+     * @param searchWord
+     * @return The movie titles.
+     */
     public List<IMDBMovie> getIMDBMovieTitles(String searchWord) {
         TsvParserSettings settings = new TsvParserSettings();
         settings.getFormat().setLineSeparator("\n");
@@ -88,6 +96,11 @@ public class ImdbDAO
         return searchedMovies;
     }
     
+    /**
+     * Gets the rating from IMDB.
+     * @param movieId
+     * @return 
+     */
     public double getIMDBMovieRating(String movieId) {
         TsvParserSettings settings = new TsvParserSettings();
         settings.getFormat().setLineSeparator("\n");
@@ -107,6 +120,10 @@ public class ImdbDAO
         return -1;
     }
     
+    /**
+     * Downloads the IMDB database.
+     * @throws MTDalException 
+     */
     public void downloadIMDBDatabase() throws MTDalException {
         try {
             String imdbRatingsURL = "https://datasets.imdbws.com/title.ratings.tsv.gz";
