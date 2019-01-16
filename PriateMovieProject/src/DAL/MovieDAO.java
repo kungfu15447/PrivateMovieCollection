@@ -22,18 +22,18 @@ import java.util.List;
 public class MovieDAO
 {
 
-    private final ConnectionDAO cb;
+    private final ConnectionDAO CB;
 
     public MovieDAO()
     {
-        cb = new ConnectionDAO();
+        CB = new ConnectionDAO();
     }
 
     public List<Movie> getAllMovies() throws MTDalException
     {
         List<Movie> movies = new ArrayList<>();
 
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             Statement statement = con.createStatement();
             ResultSet rs = statement.executeQuery("SELECT * FROM Movie;");
@@ -56,7 +56,7 @@ public class MovieDAO
 
     public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "INSERT INTO Movie (name, rating, filepath, lastview) VALUES(?,?,?,?);";
             
@@ -85,7 +85,7 @@ public class MovieDAO
 
     public void deleteMovie(Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             Statement statement = con.createStatement();
             String sql = "DELETE FROM Movie WHERE id = " + movie.getId() + ";";
@@ -98,7 +98,7 @@ public class MovieDAO
 
     public void updateRating(Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "UPDATE Movie SET rating = ? WHERE id = ?;";
             
@@ -117,7 +117,7 @@ public class MovieDAO
 
     public void updateLastView(Movie movie) throws MTDalException
     {
-        try (Connection con = cb.getConnection())
+        try (Connection con = CB.getConnection())
         {
             String sql = "UPDATE Movie SET lastview = ? WHERE id = ?;";
             

@@ -9,7 +9,7 @@
 
 <AnchorPane id="AnchorPane" prefHeight="651.0" prefWidth="557.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.CheckMovieController">
    <children>
-      <Button fx:id="btnok" layoutX="461.0" layoutY="592.0" mnemonicParsing="false" text="imgey" />
+      <Button layoutX="461.0" layoutY="592.0" mnemonicParsing="false" text="imgey" />
       <TableView fx:id="tableCheck" layoutX="44.0" layoutY="71.0" prefHeight="510.0" prefWidth="474.0">
         <columns>
           <TableColumn fx:id="tableTitle" prefWidth="75.0" text="Title" />

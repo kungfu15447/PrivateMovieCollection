@@ -32,8 +32,6 @@ public class CheckMovieController implements Initializable
     private TableColumn<Movie, String> tableTitle;
     @FXML
     private TableColumn<Movie, Double> tableRating;
-    @FXML
-    private Button btnok;
     private AnchorPane rootPane;
 
     /**

@@ -21,16 +21,16 @@ import java.util.List;
  */
 public class CategoryDAO
 {
-    private final ConnectionDAO cb;
+    private final ConnectionDAO CB;
     
     public CategoryDAO() {
-        cb = new ConnectionDAO();
+        CB = new ConnectionDAO();
     }
     
     public List<Category> getAllCategories() throws MTDalException {
         List<Category> catList = new ArrayList<>();
         
-        try (Connection con = cb.getConnection()) {
+        try (Connection con = CB.getConnection()) {
             String sql = "SELECT * FROM Category;";
             Statement st = con.createStatement();
             ResultSet rs = st.executeQuery(sql);
@@ -49,7 +49,7 @@ public class CategoryDAO
     }
     
     public Category createCategory(String name) throws MTDalException {
-        try (Connection con = cb.getConnection()) {
+        try (Connection con = CB.getConnection()) {
             String sql = "INSERT INTO Category (name) VALUES (?);";
             PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
             st.setString(1, name);
@@ -70,7 +70,7 @@ public class CategoryDAO
     }
     
     public void deleteCategory(Category category) throws MTDalException {
-        try (Connection con = cb.getConnection()) {
+        try (Connection con = CB.getConnection()) {
             Statement st = con.createStatement();
             String sql = "DELETE FROM Category WHERE id = " + category.getId() + ";";
             st.executeUpdate(sql);
