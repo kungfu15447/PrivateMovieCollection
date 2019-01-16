@@ -67,18 +67,20 @@ public class MoviePlayerViewController implements Initializable
 
     /**
      * Initializes the controller class
+     *
      * @param url
-     * @param rb 
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
     }
-    
+
     /**
-     * Closes the window
-     * If the mediaplayer is playing, then the method will terminate it
-     * @param event 
+     * Closes the window If the mediaplayer is playing, then the method will
+     * terminate it
+     *
+     * @param event
      */
     @FXML
     private void exit(ActionEvent event)
@@ -98,7 +100,6 @@ public class MoviePlayerViewController implements Initializable
         });
     }
 
-    
     /**
      * Closes the window
      */
@@ -116,7 +117,8 @@ public class MoviePlayerViewController implements Initializable
 
     /**
      * Skips to a chosen point in the movie, based on user interaction
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void setDuration(MouseEvent event)
@@ -125,7 +127,8 @@ public class MoviePlayerViewController implements Initializable
     }
 
     /**
-     * Sets the volume of the video to 100, but also allows changes to the volume by clicking it.
+     * Sets the volume of the video to 100, but also allows changes to the
+     * volume by clicking it.
      */
     private void controlSound()
     {
@@ -151,7 +154,8 @@ public class MoviePlayerViewController implements Initializable
 
     /**
      * Gets the filepath
-     * @param filepath 
+     *
+     * @param filepath
      */
     public void getFilePath(String filepath)
     {
@@ -159,7 +163,8 @@ public class MoviePlayerViewController implements Initializable
     }
 
     /**
-     * Shows the duration in seconds, minutes and hours, and displays them in a certain way.
+     * Shows the duration in seconds, minutes and hours, and displays them in a
+     * certain way.
      */
     private void timer()
     {
@@ -175,16 +180,19 @@ public class MoviePlayerViewController implements Initializable
      */
     public void stopMovie()
     {
-        if (playing) {
+        if (playing)
+        {
             mediaPlayer.stop();
         }
     }
 
     /**
-     * Sets the playbutton to be visible and the pausebutton to be invisible.
-     * If the player is not paused or playing, then the player is open to a filepath.
-     * If the movie is playing the pause button is invisible and if the movie is paused, then the play button is invisible.
-     * @param event 
+     * Sets the playbutton to be visible and the pausebutton to be invisible. If
+     * the player is not paused or playing, then the player is open to a
+     * filepath. If the movie is playing the pause button is invisible and if
+     * the movie is paused, then the play button is invisible.
+     *
+     * @param event
      */
     @FXML
     private void handlePlayButton(MouseEvent event)
@@ -232,7 +240,8 @@ public class MoviePlayerViewController implements Initializable
 
     /**
      * Uses user interaction to pause the movie, if the movie is playing.
-     * @param event 
+     *
+     * @param event
      */
     @FXML
     private void handlePauseButton(MouseEvent event)
@@ -246,12 +255,12 @@ public class MoviePlayerViewController implements Initializable
             playButton.setVisible(true);
             }  
         }
-    }
-
     /**
-     * on mouseclick the movie will play or pause depending on what it is already doing.
-     *if you doubleclick the mediaView the stage will be fullscreen.
-     * @param doubleClicked 
+     * on mouseclick the movie will play or pause depending on what it is
+     * already doing. if you doubleclick the mediaView the stage will be
+     * fullscreen.
+     *
+     * @param doubleClicked
      */
     public void mouseClick(MouseEvent doubleClicked)
     {
@@ -263,8 +272,7 @@ public class MoviePlayerViewController implements Initializable
             playing = true;
             pauseButton.setVisible(true);
             playButton.setVisible(false);
-        }else 
-        if (playing)
+        } else if (playing)
         {
             mediaPlayer.pause();
             paused = true;
@@ -272,12 +280,11 @@ public class MoviePlayerViewController implements Initializable
             pauseButton.setVisible(false);
             playButton.setVisible(true);
         }
-        
-        if (doubleClicked.getClickCount() == 2) 
-        {
-           stage.setFullScreen(true);
-        }
 
+        if (doubleClicked.getClickCount() == 2)
+        {
+            stage.setFullScreen(true);
+        }
     }
 
 }
