@@ -202,7 +202,6 @@ public class MovieModel
                 movieCheck.add(movie);
             }
         }
-
     }
 
     /**
@@ -359,7 +358,8 @@ public class MovieModel
 
     public void deleteCheckMoviesFromList() throws MTBllException
     {
-        for (Movie movie : movieCheck) {
+        for (Movie movie : movieCheck)
+        {
             moma.deleteMovieFromTable(movie);
             moma.deleteMovie(movie);
             movieList.remove(movie);
