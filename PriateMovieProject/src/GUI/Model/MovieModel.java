@@ -60,12 +60,13 @@ public class MovieModel
      * @param rating
      * @param filepath
      * @param lastView
+     * @param imdbrating
      * @return 
      * @throws BLL.Exception.MTBllException
      */
-    public Movie createMovie(String title, double rating, String filepath, int lastView) throws MTBllException
+    public Movie createMovie(String title, double rating, String filepath, int lastView, double imdbrating) throws MTBllException
     {
-        Movie movie = moma.createMovie(title, rating, filepath, lastView);
+        Movie movie = moma.createMovie(title, rating, filepath, lastView, imdbrating);
         movieList.add(movie);
         return movie;
     }
@@ -87,6 +88,8 @@ public class MovieModel
 
     /**
      * Deletes a movie
+     * @param movie
+     * @throws BLL.Exception.MTBllException
      */
     public void deleteMovie(Movie movie) throws MTBllException
     {
@@ -125,6 +128,8 @@ public class MovieModel
     
     /**
      * Creates a category
+     * @param title
+     * @throws BLL.Exception.MTBllException
      */
     public void createCategory(String title) throws MTBllException
     {
@@ -134,6 +139,8 @@ public class MovieModel
 
     /**
      * Deletes a category
+     * @param category
+     * @throws BLL.Exception.MTBllException
      */
     public void deleteCategory(Category category) throws MTBllException
     {

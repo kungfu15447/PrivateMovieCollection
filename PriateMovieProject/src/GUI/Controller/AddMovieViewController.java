@@ -13,12 +13,12 @@ import java.io.IOException;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.net.URL;
+import java.util.Date;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
@@ -35,7 +35,6 @@ import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 
 /**
  * FXML Controller class
@@ -91,10 +90,20 @@ public class AddMovieViewController implements Initializable {
         if (!emptyField) {
             try {
                 String title = txtTitle.getText();
-                double rating = new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue();
+                double imdbrating;
+                if (txtRating.getText().equals("No rating given")) {
+                    imdbrating = -1;
+                }else {
+                    imdbrating = Double.parseDouble(txtRating.getText());
+                }
+                Date Date = new Date();
+                long MiliTime = Date.getTime();
+                int days = (int) (MiliTime / (60 * 60 * 24 * 1000));
+                int lastview = days;
+                double personalRating = -1;
                 String filepath = txtFilepath.getText();
                 if (!movieModel.checkMovieTitles(title)) {
-                    Movie movie = movieModel.createMovie(title, rating, filepath, 0);
+                    Movie movie = movieModel.createMovie(title, personalRating, filepath, lastview, imdbrating);
                     cvm.addCategoryToMovie(cvm.getCheckedCategory(), movie);
                     Stage stage = (Stage) rootPane.getScene().getWindow();
                     stage.close();

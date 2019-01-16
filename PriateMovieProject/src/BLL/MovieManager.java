@@ -38,11 +38,11 @@ public class MovieManager
         imdao = new ImdbDAO();
     }
 
-    public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
+    public Movie createMovie(String name, double rating, String filepath, int lastview, double imdbrating) throws MTBllException
     {
         try
         {
-            return mdao.createMovie(name, rating, filepath, lastview);
+            return mdao.createMovie(name, rating, filepath, lastview, imdbrating);
         } catch (MTDalException ex)
         {
             throw new MTBllException("" + ex.getMessage());

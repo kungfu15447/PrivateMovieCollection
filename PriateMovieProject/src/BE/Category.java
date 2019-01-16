@@ -25,6 +25,7 @@ public class Category
     
     /**
      * returns id
+     * @return 
      */
     public int getId()
     {
@@ -33,6 +34,7 @@ public class Category
 
     /**
      * returns category
+     * @return 
      */
     public String getCategory()
     {
@@ -40,6 +42,7 @@ public class Category
     }
     /**
      * sets category
+     * @param category
      */
     public void setCategory(String category)
     {
@@ -48,6 +51,7 @@ public class Category
     
     /**
      * returns selected checkbox
+     * @return 
      */
     public CheckBox getSelect() {
         return select;
@@ -55,6 +59,7 @@ public class Category
     
     /**
      * selects checkbox
+     * @param select
      */
     public void setSelect(CheckBox select) {
         this.select = select;

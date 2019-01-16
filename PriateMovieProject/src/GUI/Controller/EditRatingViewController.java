@@ -57,7 +57,7 @@ public class EditRatingViewController implements Initializable
     public void initializeMovie(Movie movie, int index)
     {
         ratingSlider.setValue(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue());
-        oldMovie = new Movie(movie.getId(), movie.getName(), movie.getRating(), movie.getFilepath(), movie.getLastview());
+        oldMovie = new Movie(movie.getId(), movie.getName(), movie.getRating(), movie.getImdbRating(), movie.getFilepath(), movie.getLastview());
         this.index = index;
     }
     
@@ -75,7 +75,10 @@ public class EditRatingViewController implements Initializable
     private void saveMovie(ActionEvent event) throws MTBllException
     {
         oldMovie.setRating(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue());
+        oldMovie.setStringRating(Double.toString(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue()));
         movieModel.updateRating(oldMovie, index);
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
     @FXML

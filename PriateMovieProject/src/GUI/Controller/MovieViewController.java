@@ -60,9 +60,9 @@ public class MovieViewController implements Initializable
     @FXML
     private TableColumn<Movie, String> clmTitle;
     @FXML
-    private TableColumn<Movie, Double> clmMyRating;
+    private TableColumn<Movie, String> clmMyRating;
     @FXML
-    private TableColumn<Movie, Double> clmImdbRating;
+    private TableColumn<Movie, String> clmImdbRating;
     @FXML
     private Button btnAddCate;
     @FXML
@@ -90,12 +90,15 @@ public class MovieViewController implements Initializable
 
     /**
      * initializes the columns and tables.
+     * @param url
+     * @param rb
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
         clmTitle.setCellValueFactory(new PropertyValueFactory<>("name"));
-        clmMyRating.setCellValueFactory(new PropertyValueFactory<>("rating"));
+        clmMyRating.setCellValueFactory(new PropertyValueFactory<>("stringRating"));
+        clmImdbRating.setCellValueFactory(new PropertyValueFactory<>("stringImdbRating"));
         clmCateTitle.setCellValueFactory(new PropertyValueFactory<>("category"));
         clmCateCheck.setCellValueFactory(new PropertyValueFactory<>("select"));
         tableView.setItems(movieModel.getMovies());

@@ -45,10 +45,11 @@ public class CatMovieDAO
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 double rating = rs.getDouble("rating");
+                double imdbRating = rs.getDouble("imdbrating");
                 String filepath = rs.getString("filepath");
                 int lastview = rs.getInt("lastview");
                 int categoryId = rs.getInt("CategoryId");
-                Movie movie = new Movie(id, name, rating, filepath, lastview);
+                Movie movie = new Movie(id, name, rating, imdbRating, filepath, lastview);
                 movie.getList().add(categoryId);
                 categoryMovies.add(movie);
             }
