@@ -64,15 +64,19 @@ public class MoviePlayerViewController implements Initializable
     private ImageView pauseButton;
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
     {
     }
+    
     /**
      * Closes the window
-     * If the mediaplayer is playing, then the method will terminate it.
+     * If the mediaplayer is playing, then the method will terminate it
+     * @param event 
      */
     @FXML
     private void exit(ActionEvent event)
@@ -92,9 +96,10 @@ public class MoviePlayerViewController implements Initializable
         });
     }
 
+    
     /**
      * Closes the window
-     */ 
+     */
     public void windowsExit()
     {
         Stage stage = (Stage) anchorPane.getScene().getWindow();
@@ -109,6 +114,7 @@ public class MoviePlayerViewController implements Initializable
 
     /**
      * Skips to a chosen point in the movie, based on user interaction
+     * @param event 
      */
     @FXML
     private void setDuration(MouseEvent event)
@@ -116,8 +122,8 @@ public class MoviePlayerViewController implements Initializable
         mediaPlayer.seek(Duration.seconds(durationSlider.getValue()));
     }
 
-    /*
-    Sets the volume of the video to 100, but also allows changes to the volume by clicking it.
+    /**
+     * Sets the volume of the video to 100, but also allows changes to the volume by clicking it.
      */
     private void controlSound()
     {
@@ -143,6 +149,7 @@ public class MoviePlayerViewController implements Initializable
 
     /**
      * Gets the filepath
+     * @param filepath 
      */
     public void getFilePath(String filepath)
     {
@@ -175,6 +182,7 @@ public class MoviePlayerViewController implements Initializable
      * Sets the playbutton to be visible and the pausebutton to be invisible.
      * If the player is not paused or playing, then the player is open to a filepath.
      * If the movie is playing the pause button is invisible and if the movie is paused, then the play button is invisible.
+     * @param event 
      */
     @FXML
     private void handlePlayButton(MouseEvent event)
@@ -222,6 +230,7 @@ public class MoviePlayerViewController implements Initializable
 
     /**
      * Uses user interaction to pause the movie, if the movie is playing.
+     * @param event 
      */
     @FXML
     private void handlePauseButton(MouseEvent event)
@@ -236,10 +245,11 @@ public class MoviePlayerViewController implements Initializable
         }
     }
 
-    /*
-    *on mouseclick the movie will play or pause depending on what it is already doing.
-    *if you doubleclick the mediaView the stage will be fullscreen.
-    */
+    /**
+     * on mouseclick the movie will play or pause depending on what it is already doing.
+     *if you doubleclick the mediaView the stage will be fullscreen.
+     * @param doubleClicked 
+     */
     public void mouseClick(MouseEvent doubleClicked)
     {
         Stage stage = (Stage) anchorPane.getScene().getWindow();

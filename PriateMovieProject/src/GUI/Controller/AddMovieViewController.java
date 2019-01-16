@@ -65,6 +65,8 @@ public class AddMovieViewController implements Initializable {
 
     /**
      * Initializes the controller class.
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -74,6 +76,7 @@ public class AddMovieViewController implements Initializable {
 
     /**
      * chooses the file
+     * @param event 
      */
     @FXML
     private void chooseFile(ActionEvent event) {
@@ -83,6 +86,7 @@ public class AddMovieViewController implements Initializable {
 
     /**
      * Creates a movie object and saves it with the given specifics
+     * @param event 
      */
     @FXML
     private void saveMovie(ActionEvent event) {
@@ -112,6 +116,7 @@ public class AddMovieViewController implements Initializable {
 
     /**
      * Closes the window
+     * @param event 
      */
     @FXML
     private void cancelMovie(ActionEvent event) {
@@ -121,6 +126,7 @@ public class AddMovieViewController implements Initializable {
 
     /**
      * Chooses the category for the movie
+     * @param event 
      */
     @FXML
     private void handleCategoryChooseBtn(ActionEvent event) {
@@ -142,8 +148,9 @@ public class AddMovieViewController implements Initializable {
         }
     }
 
-    /*
-    *Dragging the slider will adjust the users rating.
+    /**
+     * Dragging the slider will adjust the users rating.
+     * @param event 
      */
     private void handleRating(MouseEvent event) {
         ratingSlider.valueProperty().addListener((Observable observable)
@@ -172,8 +179,8 @@ public class AddMovieViewController implements Initializable {
     }
 
     /**
-     *
-     * @returns the error info
+     * returns the error info
+     * @return errorInfo
      */
     public String getErrorInfo() {
         String errorInfo;
@@ -189,6 +196,7 @@ public class AddMovieViewController implements Initializable {
 
     /**
      * returns the info from the empty field
+     * @return emptyField
      */
     public boolean getEmptyFieldInfo() {
 
@@ -245,6 +253,10 @@ public class AddMovieViewController implements Initializable {
         alert.showAndWait();
     }
 
+    /**
+     * 
+     * @param event 
+     */
     @FXML
     private void handlerChooseRating(ActionEvent event) {
         try {
@@ -271,6 +283,10 @@ public class AddMovieViewController implements Initializable {
         }
     }
 
+    /**
+     * 
+     * @param event 
+     */
     private void updateIMDBDatabase(ActionEvent event) {
         try {
             movieModel.downloadIMDBDatabase();

@@ -38,6 +38,15 @@ public class MovieManager
         imdao = new ImdbDAO();
     }
 
+    /**
+     * returns the created movie with the designated parameters
+     * @param name
+     * @param rating
+     * @param filepath
+     * @param lastview
+     * @return mdao.createMovie(name, rating, filepath, lastview)
+     * @throws MTBllException 
+     */
     public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTBllException
     {
         try
@@ -49,8 +58,10 @@ public class MovieManager
         }
     }
 
-    /*
-    Gets all movies.
+    /**
+     * Gets all movies
+     * @return mdao.getAllMovies()
+     * @throws MTBllException 
      */
     public List<Movie> getAllMovies() throws MTBllException
     {
@@ -63,6 +74,11 @@ public class MovieManager
         }
     }
 
+    /**
+     * Deletes the selected movie
+     * @param movie
+     * @throws MTBllException 
+     */
     public void deleteMovie(Movie movie) throws MTBllException
     {
         try
@@ -74,6 +90,11 @@ public class MovieManager
         }
     }
 
+    /**
+     * Updates the rating for the selected movie
+     * @param movie
+     * @throws MTBllException 
+     */
     public void updateRating(Movie movie) throws MTBllException
     {
         try
@@ -85,6 +106,11 @@ public class MovieManager
         }
     }
 
+    /**
+     * gets all categories
+     * @return cdao.getAllCategories
+     * @throws MTBllException 
+     */
     public List<Category> getAllCategories() throws MTBllException
     {
         try
@@ -95,7 +121,13 @@ public class MovieManager
             throw new MTBllException("Could not get a ll categories");
         }
     }
-
+    
+    /**
+     * returns the created category with the chosen name
+     * @param name
+     * @returncdao.createCategory(name)
+     * @throws MTBllException 
+     */
     public Category createCategory(String name) throws MTBllException
     {
         try
@@ -107,6 +139,11 @@ public class MovieManager
         }
     }
 
+    /**
+     * deletes the selected category
+     * @param category
+     * @throws MTBllException 
+     */
     public void deleteCategory(Category category) throws MTBllException
     {
         try
@@ -118,6 +155,11 @@ public class MovieManager
         }
     }
 
+    /**
+     * deletes the selected category from from the table
+     * @param category
+     * @throws MTBllException 
+     */
     public void deleteCategoryFromTable(Category category) throws MTBllException
     {
         try
@@ -129,11 +171,21 @@ public class MovieManager
         }
     }
 
+    /**
+     * updates the last time the movie was viewed
+     * @param movie
+     * @throws MTDalException 
+     */
     public void updateLastView(Movie movie) throws MTDalException
     {
         mdao.updateLastView(movie);
     }
 
+    /**
+     * gets all movies from the selected category
+     * @return cmdao.getMoviesFromCats()
+     * @throws MTBllException 
+     */
     public List<Movie> getMoviesFromCats() throws MTBllException
     {
         try
@@ -145,6 +197,12 @@ public class MovieManager
         }
     }
 
+    /**
+     * adds the selected category to the chosen movie
+     * @param catlist
+     * @param movie
+     * @throws MTBllException 
+     */
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTBllException
     {
         try
@@ -156,6 +214,11 @@ public class MovieManager
         }
     }
 
+    /**
+     * deletes the selected movie from the table
+     * @param movie
+     * @throws MTBllException 
+     */
     public void deleteMovieFromTable(Movie movie) throws MTBllException
     {
         try
@@ -167,14 +230,28 @@ public class MovieManager
         }
     }
     
+    /**
+     * returns the IMDB movie titles
+     * @param searchWord
+     * @return return imdao.getIMDBMovieTitles(searchWord)
+     */
     public List<IMDBMovie> getIMDBMovieTitles(String searchWord) {
         return imdao.getIMDBMovieTitles(searchWord);
     }
     
+    /**
+     * retirns the IMDB movie rating
+     * @param movieId
+     * @return return imdao.getIMDBMovieRating(movieId)
+     */
     public double getIMDBMovieRating(String movieId) {
         return imdao.getIMDBMovieRating(movieId);
     }
     
+    /**
+     * downloads the IMDB database
+     * @throws MTBllException 
+     */
     public void downloadIMDBDatabase() throws MTBllException {
         try {
             imdao.downloadIMDBDatabase();
