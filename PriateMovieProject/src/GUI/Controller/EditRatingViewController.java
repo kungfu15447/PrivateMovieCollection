@@ -41,7 +41,9 @@ public class EditRatingViewController implements Initializable
     private Label lblRating;
 
     /**
-     * Initializes the controller class.
+     * Initializes the controller class
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -57,7 +59,7 @@ public class EditRatingViewController implements Initializable
     public void initializeMovie(Movie movie, int index)
     {
         ratingSlider.setValue(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue());
-        oldMovie = new Movie(movie.getId(), movie.getName(), movie.getRating(), movie.getFilepath(), movie.getLastview());
+        oldMovie = new Movie(movie.getId(), movie.getName(), movie.getRating(), movie.getImdbRating(), movie.getFilepath(), movie.getLastview());
         this.index = index;
     }
     
@@ -71,13 +73,25 @@ public class EditRatingViewController implements Initializable
         this.movieModel = movieModel;
     }
 
+    /**
+     * Updates the rating and calls the updateRating method from movieModel
+     * @param event
+     * @throws MTBllException 
+     */
     @FXML
     private void saveMovie(ActionEvent event) throws MTBllException
     {
         oldMovie.setRating(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue());
+        oldMovie.setStringRating(Double.toString(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).doubleValue()));
         movieModel.updateRating(oldMovie, index);
+        Stage stage = (Stage) rootPane.getScene().getWindow();
+        stage.close();
     }
 
+    /**
+     * closes the window
+     * @param event 
+     */
     @FXML
     private void cancelMovie(ActionEvent event)
     {
@@ -85,8 +99,9 @@ public class EditRatingViewController implements Initializable
         stage.close();
     }
     
-    /*
-    *Dragging the slider will adjust the users rating.
+    /**
+     * Dragging the slider will adjust the users rating.
+     * @param event 
      */
     @FXML
     private void handleRating(MouseEvent event)

@@ -27,11 +27,19 @@ public class CatMovieDAO
 
     private final ConnectionDAO CB;
 
+    /**
+     * The constructor of CatMovieDAO, gets the connection.
+     */
     public CatMovieDAO()
     {
         CB = new ConnectionDAO();
     }
-
+    
+    /**
+     * Get movies from categories.
+     * @return categoryMovies
+     * @throws MTDalException 
+     */
     public List<Movie> getMoviesFromCats() throws MTDalException
     {
         List<Movie> categoryMovies = new ArrayList<>();
@@ -45,10 +53,11 @@ public class CatMovieDAO
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 double rating = rs.getDouble("rating");
+                double imdbRating = rs.getDouble("imdbrating");
                 String filepath = rs.getString("filepath");
                 int lastview = rs.getInt("lastview");
                 int categoryId = rs.getInt("CategoryId");
-                Movie movie = new Movie(id, name, rating, filepath, lastview);
+                Movie movie = new Movie(id, name, rating, imdbRating, filepath, lastview);
                 movie.getList().add(categoryId);
                 categoryMovies.add(movie);
             }
@@ -60,6 +69,12 @@ public class CatMovieDAO
         
     }
 
+    /**
+     * Adds a category to a movie.
+     * @param catlist
+     * @param movie
+     * @throws MTDalException 
+     */
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTDalException
     {
         try (Connection con = CB.getConnection())
@@ -77,9 +92,13 @@ public class CatMovieDAO
         {
             throw new MTDalException("Could not add categories to the movie.", ex);
         }
-
     }
 
+    /**
+     * Deletes a movie in CatMovieTable if deleted in MovieTable.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void deleteMovieFromTable(Movie movie) throws MTDalException
     {
         try (Connection con = CB.getConnection())
@@ -94,6 +113,11 @@ public class CatMovieDAO
         }
     }
 
+    /**
+     * Deletes a category from CatMovieTable.
+     * @param category
+     * @throws MTDalException 
+     */
     public void deleteCategoryFromTable(Category category) throws MTDalException
     {
         try (Connection con = CB.getConnection())
@@ -107,6 +131,4 @@ public class CatMovieDAO
             throw new MTDalException("Could not delete categories from the CategoryMovie table.", ex);
         }
     }
-    
-    
 }

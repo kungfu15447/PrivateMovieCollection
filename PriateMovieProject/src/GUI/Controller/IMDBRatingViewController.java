@@ -45,6 +45,10 @@ public class IMDBRatingViewController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
     }    
 
+    /**
+     * selects the selected item, gets the rating and closes the window
+     * @param event 
+     */
     @FXML
     private void saveRatingHandler(ActionEvent event) {
         lstImdbMovies.getSelectionModel().getSelectedItem();
@@ -53,6 +57,10 @@ public class IMDBRatingViewController implements Initializable {
         stage.close();
     }
 
+    /**
+     * sets movie to null, gets rating and closes teh window
+     * @param event 
+     */
     @FXML
     private void cancelHandler(ActionEvent event) {
         movie = null;
@@ -61,19 +69,35 @@ public class IMDBRatingViewController implements Initializable {
         stage.close();
     }
     
+    /**
+     * initializes the model
+     * @param model 
+     */
     public void initializeModel(MovieModel model) {
         this.momo = model;
     }
     
+    /**
+     * initializes the title
+     * @param title 
+     */
     public void initializeTitle(String title) {
         this.movieTitle = title;
     }
 
+    /**
+     * gets the movie titles from imdb
+     * @param event 
+     */
     @FXML
     private void handlerGetMovies(ActionEvent event) {
         lstImdbMovies.setItems(momo.getIMDBMovieTitles(movieTitle));
     }
 
+    /**
+     * downloads the imdb movie database
+     * @param event 
+     */
     @FXML
     private void handlerDownloadIMDBDatabase(ActionEvent event) {
         try {
@@ -83,6 +107,11 @@ public class IMDBRatingViewController implements Initializable {
         }
     }
     
+    /**
+     * Downloads the movie data from the imdb database
+     * sets the return output to -, if there is no movie title for the movie.
+     * @return movieRating
+     */
     public double getRating() {
         if (movie == null) {
             movieRating = -1;
@@ -92,6 +121,10 @@ public class IMDBRatingViewController implements Initializable {
         return movieRating;
     }
 
+    /**
+     * Selects the selected movie from the user mouse input
+     * @param event 
+     */
     @FXML
     private void handlerClickedMovie(MouseEvent event) {
         movie = lstImdbMovies.getSelectionModel().getSelectedItem();

@@ -23,10 +23,18 @@ public class CategoryDAO
 {
     private final ConnectionDAO CB;
     
+    /**
+     * Constructor, connects to database.
+     */
     public CategoryDAO() {
         CB = new ConnectionDAO();
     }
     
+    /**
+     * Gets all categories.
+     * @return the category list
+     * @throws MTDalException 
+     */
     public List<Category> getAllCategories() throws MTDalException {
         List<Category> catList = new ArrayList<>();
         
@@ -48,6 +56,12 @@ public class CategoryDAO
         return catList;
     }
     
+    /**
+     * Creates a category.
+     * @param name
+     * @return the category
+     * @throws MTDalException 
+     */
     public Category createCategory(String name) throws MTDalException {
         try (Connection con = CB.getConnection()) {
             String sql = "INSERT INTO Category (name) VALUES (?);";
@@ -69,6 +83,11 @@ public class CategoryDAO
         }
     }
     
+    /**
+     * Deletes a category.
+     * @param category
+     * @throws MTDalException 
+     */
     public void deleteCategory(Category category) throws MTDalException {
         try (Connection con = CB.getConnection()) {
             Statement st = con.createStatement();

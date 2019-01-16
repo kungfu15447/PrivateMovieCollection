@@ -46,6 +46,8 @@ public class CategoryViewController implements Initializable
 
     /**
      * 
+     * @param url
+     * @param rb 
      */
     @Override
     public void initialize(URL url, ResourceBundle rb)
@@ -56,6 +58,7 @@ public class CategoryViewController implements Initializable
 
     /**
      * closes the window
+     * @param event 
      */
     @FXML
     private void handleCancelBtn(ActionEvent event)
@@ -66,6 +69,7 @@ public class CategoryViewController implements Initializable
 
     /**
      * closes the window
+     * @param event 
      */
     @FXML
     private void handleOkBtn(ActionEvent event)

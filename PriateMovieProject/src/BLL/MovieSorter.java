@@ -17,6 +17,10 @@ import java.util.List;
 public class MovieSorter
 {
 
+    /**
+     * 
+     * @param catlist 
+     */
     public void sortMovieListTitle(List<Movie> catlist)
     {
         Comparator<Movie> movies;
@@ -31,6 +35,10 @@ public class MovieSorter
         Collections.sort(catlist, movies);
     }
     
+    /**
+     * 
+     * @param catlist 
+     */
     public void sortMovieListRating(List<Movie> catlist) {
         Comparator<Movie> movies;
         movies = new Comparator<Movie>()
@@ -44,6 +52,10 @@ public class MovieSorter
         Collections.sort(catlist, movies);
     }
     
+    /**
+     * 
+     * @param catlist 
+     */
     public void sortMovieListId(List<Movie> catlist) {
         Comparator<Movie> movies;
         movies = new Comparator<Movie>()

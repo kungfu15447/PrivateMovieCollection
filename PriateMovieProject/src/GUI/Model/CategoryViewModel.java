@@ -41,6 +41,9 @@ public class CategoryViewModel
 
     /**
      * Adds a category to a movie.
+     * @param catlist
+     * @param movie
+     * @throws MTBllException 
      */
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTBllException
     {
@@ -49,6 +52,7 @@ public class CategoryViewModel
 
     /**
      * Adds a category to the checked categories list and then returns the checked category list.
+     * @return checkedCategoryList
      */
     public List<Category> getCheckedCategory()
     {
@@ -72,7 +76,9 @@ public class CategoryViewModel
     }
 
     /**
-     * Deletes a category from the table.
+     * Deletes a category from the table
+     * @param category
+     * @throws MTBllException 
      */
     public void deleteCategoryFromTable(Category category) throws MTBllException
     {
@@ -81,7 +87,9 @@ public class CategoryViewModel
     }
     
     /**
-     * Deletes a movie from the table.
+     * Deletes a movie from the table
+     * @param movie
+     * @throws MTBllException 
      */
     public void deleteMovieFromTable(Movie movie) throws MTBllException
     {

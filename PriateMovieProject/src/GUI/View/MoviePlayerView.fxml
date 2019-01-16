@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.media.MediaView?>
 
-<AnchorPane id="AnchorPane" fx:id="anchorPane" prefHeight="867.0" prefWidth="1233.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MoviePlayerViewController">
+<AnchorPane id="AnchorPane" fx:id="anchorPane" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.MoviePlayerViewController">
     <children>
       <MediaView fx:id="mediaView" fitHeight="1080.0" fitWidth="1920.0" layoutY="14.0" onMouseClicked="#mouseClick" AnchorPane.bottomAnchor="128.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="33.0" AnchorPane.topAnchor="14.0">
          <viewport>

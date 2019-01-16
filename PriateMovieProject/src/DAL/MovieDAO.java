@@ -24,11 +24,19 @@ public class MovieDAO
 
     private final ConnectionDAO CB;
 
+    /**
+     * MovieDAO constructor, connects to the database.
+     */
     public MovieDAO()
     {
         CB = new ConnectionDAO();
     }
 
+    /**
+     * Gets all the movies inserted.
+     * @return all the movies.
+     * @throws MTDalException 
+     */
     public List<Movie> getAllMovies() throws MTDalException
     {
         List<Movie> movies = new ArrayList<>();
@@ -42,9 +50,10 @@ public class MovieDAO
                 int id = rs.getInt("id");
                 String name = rs.getString("name");
                 double rating = rs.getDouble("rating");
+                double imdbRating = rs.getDouble("imdbrating");
                 String filepath = rs.getString("filePath");
                 int lastview = rs.getInt("lastview");
-                Movie movie = new Movie(id, name, rating, filepath, lastview);
+                Movie movie = new Movie(id, name, rating, imdbRating, filepath, lastview);
                 movies.add(movie);
             }
         } catch (SQLException ex)
@@ -54,11 +63,21 @@ public class MovieDAO
         return movies;
     }
 
-    public Movie createMovie(String name, double rating, String filepath, int lastview) throws MTDalException
+
+    /**
+     * Creates a movie.
+     * @param name
+     * @param rating
+     * @param filepath
+     * @param lastview
+     * @return The movie just created.
+     * @throws MTDalException 
+     */
+    public Movie createMovie(String name, double rating, String filepath, int lastview, double imdbrating) throws MTDalException
     {
         try (Connection con = CB.getConnection())
         {
-            String sql = "INSERT INTO Movie (name, rating, filepath, lastview) VALUES(?,?,?,?);";
+            String sql = "INSERT INTO Movie (name, rating, filepath, lastview, imdbrating) VALUES(?,?,?,?,?);";
             
             PreparedStatement st = con.prepareStatement(sql, Statement.RETURN_GENERATED_KEYS);
 
@@ -66,6 +85,7 @@ public class MovieDAO
             st.setDouble(2, rating);
             st.setString(3, filepath);
             st.setInt(4, lastview);
+            st.setDouble(5, imdbrating);
 
             int rowsAffected = st.executeUpdate();
 
@@ -75,7 +95,7 @@ public class MovieDAO
             {
                 id = rs.getInt(1);
             }
-            Movie movie = new Movie(id, name, rating, filepath, lastview);
+            Movie movie = new Movie(id, name, rating, imdbrating, filepath, lastview);
             return movie;
         } catch (SQLException ex)
         {
@@ -83,6 +103,11 @@ public class MovieDAO
         }
     }
 
+    /**
+     * Deletes a movie.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void deleteMovie(Movie movie) throws MTDalException
     {
         try (Connection con = CB.getConnection())
@@ -96,6 +121,11 @@ public class MovieDAO
         }
     }
 
+    /**
+     * Updates the personal rating.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void updateRating(Movie movie) throws MTDalException
     {
         try (Connection con = CB.getConnection())
@@ -114,7 +144,11 @@ public class MovieDAO
         }
     }
     
-
+    /**
+     * Updates the last time you saw a specific movie.
+     * @param movie
+     * @throws MTDalException 
+     */
     public void updateLastView(Movie movie) throws MTDalException
     {
         try (Connection con = CB.getConnection())

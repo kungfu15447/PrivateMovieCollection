@@ -26,12 +26,21 @@ public class MovieFilter
     MovieDAO modao;
     CatMovieDAO catdao;
 
+    
     public MovieFilter()
     {
         catdao = new CatMovieDAO();
         modao = new MovieDAO();
     }
 
+    /**
+     * 
+     * @param searchBase
+     * @param categoryList
+     * @param query
+     * @return SearchList
+     * @throws MTBllException 
+     */
     public List<Movie> searchFilter(List<Movie> searchBase, List<Category> categoryList, String query) throws MTBllException
     {
         try
@@ -66,6 +75,12 @@ public class MovieFilter
         }
     }
 
+    /**
+     * 
+     * @param catlist
+     * @return
+     * @throws MTBllException 
+     */
     public List<Movie> categoriFilter(List<Category> catlist) throws MTBllException
     {
         try
