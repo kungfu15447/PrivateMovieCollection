@@ -9,14 +9,14 @@
 <AnchorPane id="AnchorPane" fx:id="rootPane" prefHeight="400.0" prefWidth="425.0" styleClass="background" stylesheets="@MovieCollection.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="GUI.Controller.IMDBRatingViewController">
    <children>
       <ListView fx:id="lstImdbMovies" layoutX="14.0" layoutY="40.0" onMouseClicked="#handlerClickedMovie" prefHeight="302.0" prefWidth="298.0" />
-      <Button layoutX="332.0" layoutY="141.0" mnemonicParsing="false" onAction="#saveRatingHandler" prefHeight="34.0" prefWidth="67.0" text="OK" />
-      <Button layoutX="332.0" layoutY="183.0" mnemonicParsing="false" onAction="#cancelHandler" prefHeight="34.0" prefWidth="67.0" text="Cancel" />
-      <Button layoutX="14.0" layoutY="352.0" mnemonicParsing="false" onAction="#handlerGetMovies" prefHeight="34.0" prefWidth="80.0" text="Get movies" />
+      <Button layoutX="332.0" layoutY="141.0" mnemonicParsing="false" onAction="#saveRatingHandler" prefHeight="34.0" prefWidth="78.0" text="OK" />
+      <Button layoutX="332.0" layoutY="183.0" mnemonicParsing="false" onAction="#cancelHandler" prefHeight="34.0" prefWidth="78.0" text="Cancel" />
+      <Button layoutX="14.0" layoutY="352.0" mnemonicParsing="false" onAction="#handlerGetMovies" prefHeight="34.0" prefWidth="95.0" text="Get movies" />
       <Label layoutX="14.0" layoutY="14.0" prefHeight="27.0" prefWidth="298.0" text="Select a movie and click &quot;OK&quot; to get its rating">
          <font>
             <Font size="14.0" />
          </font>
       </Label>
-      <Button layoutX="257.0" layoutY="352.0" mnemonicParsing="false" onAction="#handlerDownloadIMDBDatabase" prefHeight="34.0" prefWidth="160.0" text="Download IMDB database" />
+      <Button layoutX="236.0" layoutY="352.0" mnemonicParsing="false" onAction="#handlerDownloadIMDBDatabase" prefHeight="34.0" prefWidth="181.0" text="Download IMDB database" />
    </children>
 </AnchorPane>
