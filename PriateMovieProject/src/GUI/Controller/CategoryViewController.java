@@ -7,7 +7,6 @@ package GUI.Controller;
 
 import BE.Category;
 import GUI.Model.CategoryViewModel;
-import GUI.Model.MovieModel;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
@@ -37,7 +36,7 @@ public class CategoryViewController implements Initializable
     private TableColumn<Category, String> clmCateSelect;
 
     /**
-     * Initializes the controller class.
+     * The constructor of the CategoryViewController
      */
     public CategoryViewController()
     {
@@ -74,14 +73,14 @@ public class CategoryViewController implements Initializable
     @FXML
     private void handleOkBtn(ActionEvent event)
     {
-
         Stage stage = (Stage) rootPane.getScene().getWindow();
         stage.close();
     }
 
     /**
      * initializes the model
-     * @param cvm
+     * @param cvm the CategoryViewModel this class' models sets it refernce to
+     * So now they both reference the same
      */
     public void initializeModel(CategoryViewModel cvm)
     {
