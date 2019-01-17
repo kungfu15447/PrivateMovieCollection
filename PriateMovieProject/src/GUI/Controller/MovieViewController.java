@@ -293,7 +293,7 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * Uses the searchbar for input and then searches for at movie.
+     * Uses the searchbar for input and then searches for a movie.
      *
      * @param event
      */
@@ -328,7 +328,7 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * Sorts the movie list for "movietitle".
+     * Sorts the movie list by title alphebetically.
      *
      * @param event
      */
@@ -345,7 +345,7 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * Sorts the movie list for "movierating".
+     * Sorts the movie list from highest to lowest rating.
      *
      * @param event
      */
@@ -362,7 +362,7 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * Sorts the movie list for "id".
+     * Sorts the movie list by the movies id from lowest id to highest.
      *
      * @param event
      */
@@ -379,7 +379,7 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * Sets the rating of a movie.
+     * Sets the personal rating of a movie.
      * 
      * @param event
      */
@@ -417,7 +417,9 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * creates a popup window for the CheckMovie.fxml
+     * Checks all movies to see if any movie hasnt been viewed in over 2 years
+     * If the list of movies being checked isnt empty then a popup containing
+     * a list of the uninteracted movies
      */
     public void runPopup()
     {
@@ -476,8 +478,8 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * displays and error
-     * @param ex 
+     * Opens a poup window if an exception has been caught
+     * @param ex the exception being showned in the popup
      */
     private void displayError(Exception ex)
     {
