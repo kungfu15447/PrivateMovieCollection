@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -46,7 +47,7 @@ public class CheckMovieController implements Initializable
             movieModel = new MovieModel();
         } catch (MTBllException ex)
         {
-            Logger.getLogger(CheckMovieController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
     /**
@@ -63,6 +64,10 @@ public class CheckMovieController implements Initializable
         tableCheck.setItems(movieModel.getCheckMovie());
     }
 
+    /**
+     * will delete movies on the checkMovieList and then close the window
+     * @param event 
+     */
     @FXML
     private void handlerYesButton(ActionEvent event)
     {
@@ -71,6 +76,10 @@ public class CheckMovieController implements Initializable
         stage.close();
     }
 
+    /**
+     * will close the window without deleting
+     * @param event 
+     */
     @FXML
     private void handlerNoButton(ActionEvent event)
     {
@@ -79,8 +88,23 @@ public class CheckMovieController implements Initializable
         stage.close();
     }
     
+    /**
+     * returns the deleteMovies method
+     * @return deleteMovies 
+     */
     public boolean deleteMovies() {
         return deleteMovies;
     }
     
+    /**
+     * displays an error message
+     * @param ex 
+     */
+    private void displayError(Exception ex) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(ex.getMessage());
+        alert.showAndWait();
+    }
 }

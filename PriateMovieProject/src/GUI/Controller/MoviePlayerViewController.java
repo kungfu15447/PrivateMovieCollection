@@ -14,10 +14,8 @@ import javafx.beans.property.DoubleProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
-import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
@@ -25,13 +23,10 @@ import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
-import javafx.scene.layout.StackPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import javafx.stage.Stage;
-import javafx.stage.WindowEvent;
 import javafx.util.Duration;
 
 /**
@@ -91,28 +86,6 @@ public class MoviePlayerViewController implements Initializable
         }
         Stage stage = (Stage) anchorPane.getScene().getWindow();
         stage.close();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>()
-        {
-            public void handle(WindowEvent we)
-            {
-                System.out.println("Stage is closing");
-            }
-        });
-    }
-
-    /**
-     * Closes the window
-     */
-    public void windowsExit()
-    {
-        Stage stage = (Stage) anchorPane.getScene().getWindow();
-        stage.setOnCloseRequest(new EventHandler<WindowEvent>()
-        {
-            @Override
-            public void handle(WindowEvent close)
-            {
-            }
-        });
     }
 
     /**
@@ -201,7 +174,6 @@ public class MoviePlayerViewController implements Initializable
         pauseButton.setVisible(false);
         if (!paused && !playing)
         {
-
             Media media = new Media(filePath);
             mediaPlayer = new MediaPlayer(media);
             mediaView.setMediaPlayer(mediaPlayer);
@@ -253,8 +225,9 @@ public class MoviePlayerViewController implements Initializable
             playing = false;
             pauseButton.setVisible(false);
             playButton.setVisible(true);
-            }  
         }
+    }
+
     /**
      * on mouseclick the movie will play or pause depending on what it is
      * already doing. if you doubleclick the mediaView the stage will be

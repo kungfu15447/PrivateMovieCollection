@@ -15,7 +15,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Button;
+import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -103,7 +103,7 @@ public class IMDBRatingViewController implements Initializable {
         try {
             momo.downloadIMDBDatabase();
         } catch (MTBllException ex) {
-            Logger.getLogger(IMDBRatingViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
     
@@ -128,6 +128,18 @@ public class IMDBRatingViewController implements Initializable {
     @FXML
     private void handlerClickedMovie(MouseEvent event) {
         movie = lstImdbMovies.getSelectionModel().getSelectedItem();
+    }
+    
+    /**
+     * displays an error
+     * @param ex 
+     */
+    private void displayError(Exception ex) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(ex.getMessage());
+        alert.showAndWait();
     }
     
 }

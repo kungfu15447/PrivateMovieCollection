@@ -18,6 +18,7 @@ public class MovieSorter
 {
 
     /**
+     * Sorts the movies in alphabetical order.
      * 
      * @param catlist 
      */
@@ -36,6 +37,7 @@ public class MovieSorter
     }
     
     /**
+     * Sorts movies by rating.
      * 
      * @param catlist 
      */
@@ -53,6 +55,7 @@ public class MovieSorter
     }
     
     /**
+     * Sort movies by their ID.
      * 
      * @param catlist 
      */

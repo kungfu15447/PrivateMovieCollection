@@ -39,12 +39,12 @@ public class MovieManager
     /**
      * returns the created movie with the designated parameters
      *
-     * @param name
-     * @param rating
-     * @param filepath
-     * @param lastview
-     * @param imdbrating
-     * @return mdao.createMovie(name, rating, filepath, lastview)
+     * @param name the title of the movie
+     * @param rating the personal rating of the movie
+     * @param filepath the filepath of the movie
+     * @param lastview the last time the movie was viewed
+     * @param imdbrating the IMDB rating of the movie
+     * @return the movie created
      * @throws MTBllException
      */
     public Movie createMovie(String name, double rating, String filepath, int lastview, double imdbrating) throws MTBllException
@@ -59,9 +59,9 @@ public class MovieManager
     }
 
     /**
-     * Gets all movies
+     * Gets all movies from the database
      *
-     * @return mdao.getAllMovies()
+     * @return a list containing all movies
      * @throws MTBllException
      */
     public List<Movie> getAllMovies() throws MTBllException
@@ -78,7 +78,7 @@ public class MovieManager
     /**
      * Deletes the selected movie
      *
-     * @param movie
+     * @param movie the movie getting deleted
      * @throws MTBllException
      */
     public void deleteMovie(Movie movie) throws MTBllException
@@ -112,7 +112,7 @@ public class MovieManager
     /**
      * gets all categories
      *
-     * @return cdao.getAllCategories
+     * @return a list containing all categories
      * @throws MTBllException
      */
     public List<Category> getAllCategories() throws MTBllException
@@ -129,9 +129,8 @@ public class MovieManager
     /**
      * returns the created category with the chosen name
      *
-     * @param name
-     * @return
-     * @returncdao.createCategory(name)
+     * @param name title of the category
+     * @return the category getting created
      * @throws MTBllException
      */
     public Category createCategory(String name) throws MTBllException
@@ -163,7 +162,7 @@ public class MovieManager
     }
 
     /**
-     * deletes the selected category from from the table
+     * deletes the selected category from the CategoryMovie table
      *
      * @param category
      * @throws MTBllException
@@ -243,10 +242,10 @@ public class MovieManager
     }
 
     /**
-     * returns the IMDB movie titles
+     * returns the IMDB movies by comparing their title to a search word
      *
-     * @param searchWord
-     * @return return imdao.getIMDBMovieTitles(searchWord)
+     * @param searchWord the word used to get the specific movie titles
+     * @return a list containing the IMDB movies 
      */
     public List<IMDBMovie> getIMDBMovieTitles(String searchWord)
     {
@@ -254,10 +253,10 @@ public class MovieManager
     }
 
     /**
-     * retirns the IMDB movie rating
+     * Gets the IMDB rating from a movie
      *
-     * @param movieId
-     * @return return imdao.getIMDBMovieRating(movieId)
+     * @param movieId the id of the movie
+     * @return the IMDB rating from that movie
      */
     public double getIMDBMovieRating(String movieId)
     {
@@ -265,7 +264,8 @@ public class MovieManager
     }
 
     /**
-     * downloads the IMDB database
+     * downloads two zip files from the IMDB database and unzips them on the
+     * computer
      *
      * @throws MTBllException
      */

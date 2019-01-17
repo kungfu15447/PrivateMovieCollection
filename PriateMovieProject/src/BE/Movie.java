@@ -24,6 +24,15 @@ public class Movie
     private int lastview;
     private final List<Integer> CATEGORYIDLIST;
     
+    /**
+     * 
+     * @param id
+     * @param name
+     * @param rating
+     * @param imdbRating
+     * @param filepath
+     * @param lastview 
+     */
     public Movie(int id, String name, double rating, double imdbRating, String filepath, int lastview) {
         this.ID = id;
         this.name = name;
@@ -135,26 +144,50 @@ public class Movie
         return CATEGORYIDLIST;
     }
     
+    /**
+     * returns the imdb rating
+     * @return imdbRating
+     */
     public double getImdbRating() {
         return imdbRating;
     }
     
+    /**
+     * sets the imdb rating
+     * @param imdbRating 
+     */
     public void setImdbRating(double imdbRating) {
         this.imdbRating = imdbRating;
     }
     
+    /**
+     * returns the rating as a string
+     * @return stringRating
+     */
     public String getStringRating() {
         return stringRating;
     }
     
+    /**
+     * sets the rating as a string
+     * @param stringRating 
+     */
     public void setStringRating(String stringRating) {
         this.stringRating = stringRating;
     }
     
+    /**
+     * returns the imdb rating as a string
+     * @return stringImdbRating
+     */
     public String getStringImdbRating() {
         return stringImdbRating;
     }
     
+    /**
+     * sets the imdb rating as a string
+     * @param stringImdbRating 
+     */
     public void setStringImdbRating(String stringImdbRating) {
         this.stringImdbRating = stringImdbRating;
     }
