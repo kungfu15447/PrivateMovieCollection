@@ -27,7 +27,7 @@ public class CategoryViewModel
     ObservableList<Category> categoryList;
 
     /**
-     * Constructor.
+     * Constructor of the CategoryViewModel class.
      */
     public CategoryViewModel()
     {
@@ -44,8 +44,8 @@ public class CategoryViewModel
 
     /**
      * Adds a category to a movie.
-     * @param catlist
-     * @param movie
+     * @param catlist the list of categories getting added to the movie
+     * @param movie the movie getting categories added to it
      * @throws MTBllException 
      */
     public void addCategoryToMovie(List<Category> catlist, Movie movie) throws MTBllException
@@ -54,8 +54,9 @@ public class CategoryViewModel
     }
 
     /**
-     * Adds a category to the checked categories list and then returns the checked category list.
-     * @return checkedCategoryList
+     * Checks the list of categories through and adds the selected categories
+     * to a new list. It then returns that list
+     * @return the list of selected categories
      */
     public List<Category> getCheckedCategory()
     {
@@ -72,6 +73,7 @@ public class CategoryViewModel
 
     /**
      * Returns the categoryList.
+     * @return 
      */
     public ObservableList<Category> getCategories()
     {
@@ -79,8 +81,9 @@ public class CategoryViewModel
     }
 
     /**
-     * Deletes a category from the table
-     * @param category
+     * Deletes a category from the CategoryMovie table if it has been deleted
+     * in the Category table
+     * @param category the category getting deleted
      * @throws MTBllException 
      */
     public void deleteCategoryFromTable(Category category) throws MTBllException
@@ -90,8 +93,8 @@ public class CategoryViewModel
     }
     
     /**
-     * Deletes a movie from the table
-     * @param movie
+     * Deletes a movie from the CategoryMovie table
+     * @param movie the movie getting deleted
      * @throws MTBllException 
      */
     public void deleteMovieFromTable(Movie movie) throws MTBllException
