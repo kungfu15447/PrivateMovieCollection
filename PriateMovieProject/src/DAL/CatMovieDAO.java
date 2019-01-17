@@ -34,7 +34,7 @@ public class CatMovieDAO
     }
     
     /**
-     * Get movies from categories.
+     * Get movies from categories table.
      * @return categoryMovies
      * @throws MTDalException 
      */
@@ -68,7 +68,7 @@ public class CatMovieDAO
     }
 
     /**
-     * Adds a category to a movie.
+     * Adds one or more categories to a movie.
      * @param catlist
      * @param movie
      * @throws MTDalException 
@@ -93,7 +93,7 @@ public class CatMovieDAO
     }
 
     /**
-     * Deletes a movie in CatMovieTable if deleted in MovieTable.
+     * Deletes a movie in CategoryMovie Table if deleted in Movie Table.
      * @param movie
      * @throws MTDalException 
      */
@@ -112,7 +112,8 @@ public class CatMovieDAO
     }
 
     /**
-     * Deletes a category from CatMovieTable.
+     * Deletes a category from CategoryMovie Table if deleted in the 
+     * Category table.
      * @param category
      * @throws MTDalException 
      */

@@ -31,8 +31,8 @@ public class CategoryDAO
     }
     
     /**
-     * Gets all categories.
-     * @return the category list
+     * Gets all categories from the Category table.
+     * @return a list containing all categories
      * @throws MTDalException 
      */
     public List<Category> getAllCategories() throws MTDalException {

@@ -33,8 +33,8 @@ public class MovieDAO
     }
 
     /**
-     * Gets all the movies inserted.
-     * @return all the movies.
+     * Gets all the movies from the Movie table.
+     * @return a list containing all movies.
      * @throws MTDalException 
      */
     public List<Movie> getAllMovies() throws MTDalException
@@ -66,10 +66,11 @@ public class MovieDAO
 
     /**
      * Creates a movie.
-     * @param name
-     * @param rating
-     * @param filepath
-     * @param lastview
+     * @param name the title of the movie
+     * @param rating the personal rating of the movie
+     * @param filepath the filepath of the movie
+     * @param lastview the last time the movie was viewed
+     * @param imdbrating the imdbrating of the movie
      * @return The movie just created.
      * @throws MTDalException 
      */
@@ -104,8 +105,8 @@ public class MovieDAO
     }
 
     /**
-     * Deletes a movie.
-     * @param movie
+     * Deletes a movie from the Movie table.
+     * @param movie the movie getting deleted
      * @throws MTDalException 
      */
     public void deleteMovie(Movie movie) throws MTDalException
@@ -124,8 +125,8 @@ public class MovieDAO
     }
 
     /**
-     * Updates the personal rating.
-     * @param movie
+     * Updates the personal rating of the movie.
+     * @param movie the movies rating getting updated
      * @throws MTDalException 
      */
     public void updateRating(Movie movie) throws MTDalException
