@@ -334,7 +334,7 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     *
+     * updates the local imdb database
      * @param event
      */
     private void updateIMDBDatabase(ActionEvent event)

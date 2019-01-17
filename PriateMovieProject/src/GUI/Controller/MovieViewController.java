@@ -379,8 +379,8 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * Set the rating of a movie.
-     *
+     * Sets the rating of a movie.
+     * 
      * @param event
      */
     @FXML
@@ -417,7 +417,7 @@ public class MovieViewController implements Initializable
     }
 
     /**
-     * Some popup scheme.
+     * creates a popup window for the CheckMovie.fxml
      */
     public void runPopup()
     {
@@ -475,6 +475,10 @@ public class MovieViewController implements Initializable
         alert.showAndWait();
     }
 
+    /**
+     * displays and error
+     * @param ex 
+     */
     private void displayError(Exception ex)
     {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

@@ -64,6 +64,10 @@ public class CheckMovieController implements Initializable
         tableCheck.setItems(movieModel.getCheckMovie());
     }
 
+    /**
+     * will delete movies on the checkMovieList and then close the window
+     * @param event 
+     */
     @FXML
     private void handlerYesButton(ActionEvent event)
     {
@@ -72,6 +76,10 @@ public class CheckMovieController implements Initializable
         stage.close();
     }
 
+    /**
+     * will close the window without deleting
+     * @param event 
+     */
     @FXML
     private void handlerNoButton(ActionEvent event)
     {
@@ -80,10 +88,18 @@ public class CheckMovieController implements Initializable
         stage.close();
     }
     
+    /**
+     * returns the deleteMovies method
+     * @return deleteMovies 
+     */
     public boolean deleteMovies() {
         return deleteMovies;
     }
     
+    /**
+     * displays an error message
+     * @param ex 
+     */
     private void displayError(Exception ex) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Error dialog");
