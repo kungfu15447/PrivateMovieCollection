@@ -55,7 +55,7 @@ public class MovieSorter
     }
     
     /**
-     * Sort movies by their ID.
+     * Sorts movies by their ID.
      * 
      * @param catlist 
      */

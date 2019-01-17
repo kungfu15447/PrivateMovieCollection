@@ -37,6 +37,10 @@ public class MovieModel
     private final MovieFilter MOFI;
     private String filePath;
 
+    /**
+     * The constructor of the MovieModel class
+     * @throws MTBllException 
+     */
     public MovieModel() throws MTBllException
     {
         MOMA = new MovieManager();
@@ -70,7 +74,8 @@ public class MovieModel
     }
 
     /**
-     * initializes the Filechooser
+     * initializes a file by open a filechooser. only mp4 files can be chosen.
+     * When a file is selected the filechooser then returns that files filepath
      */
     public void initializeFile()
     {
@@ -230,7 +235,7 @@ public class MovieModel
     }
 
     /**
-     * Clears the checkedCategoryList and adds the new checked categories.
+     * Clears the checkedCategoryList and adds the new selected categories.
      */
     public void fillCheckedCategoryList()
     {
@@ -245,7 +250,8 @@ public class MovieModel
     }
 
     /**
-     * gets the movies from the checked categories.
+     * gets the movies that has the same categories as the categories been
+     * selected.
      *
      * @throws MTBllException
      */
@@ -260,9 +266,10 @@ public class MovieModel
     }
 
     /**
-     * if there are no checked categories, then clears the movieList and then
-     * adds all movies again. if there are checked categories, then gets movies
-     * from the categories.
+     * if there are no selected categories it returns all movies. 
+     * If there are selected categories it then gets the movies which has the
+     * same categories as the categories selected
+     * the movies 
      *
      * @throws MTBllException
      */
@@ -279,9 +286,9 @@ public class MovieModel
     }
 
     /**
-     * Sorts the movies into lists using a switch statement.
+     * Sorts the movie list different ways using a switch statement
      *
-     * @param sortingchoice
+     * @param sortingchoice the choice on how the list is sorted
      * @throws MTBllException
      */
     public void sortMovieList(String sortingchoice) throws MTBllException
@@ -301,10 +308,10 @@ public class MovieModel
     }
 
     /**
-     * returns a boolean to whether a title exists or not.
+     * Checks if a title to a movie already exist in the database.
      *
-     * @param movieTitle
-     * @return
+     * @param movieTitle the title getting checked
+     * @return true or false based on if the title already exist or not
      * @throws BLL.Exception.MTBllException
      */
     public boolean checkMovieTitles(String movieTitle) throws MTBllException
@@ -322,10 +329,11 @@ public class MovieModel
     }
 
     /**
-     * clears the imdb movie list and adds all movies with 
-     * the correct search word
+     * Adds IMDB movies to a list based on if their title contains the search
+     * word
      *
-     * @param searchWord
+     * @param searchWord the search word thats compared to all the IMDB movie
+     * titles
      * @return imdbMovieList
      */
     public ObservableList<IMDBMovie> getIMDBMovieTitles(String searchWord)
@@ -339,7 +347,7 @@ public class MovieModel
      * returns the imdb movie rating based on the movieId
      *
      * @param movieId
-     * @return moma.getIMDBMovieRating(movieId)
+     * @return the rating of the IMDB movie
      */
     public double getIMDBMovieRating(String movieId)
     {
@@ -347,7 +355,8 @@ public class MovieModel
     }
 
     /**
-     * downloads the IMDB movie database
+     * downloads two zip files from the IMDB website and then unzips them on
+     * the computer
      *
      * @throws MTBllException
      */
@@ -357,7 +366,7 @@ public class MovieModel
     }
 
     /**
-     * Deletes movies if rating under 6 and last seen is 2 years ago.
+     * Deletes movies which havent been seen in 2 years or more
      * 
      * @throws MTBllException 
      */

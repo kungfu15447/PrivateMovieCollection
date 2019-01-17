@@ -66,7 +66,7 @@ public class EditRatingViewController implements Initializable
     /**
      * Initializes this class' movieModel object
      * @param movieModel the movieModel this class' movieModel is getting
-     * initialized with
+     * referenced to
      */
     public void initializeModel(MovieModel movieModel)
     {

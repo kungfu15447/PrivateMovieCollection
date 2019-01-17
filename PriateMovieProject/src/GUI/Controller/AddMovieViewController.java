@@ -15,8 +15,6 @@ import java.math.RoundingMode;
 import java.net.URL;
 import java.util.Date;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.beans.Observable;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
@@ -58,7 +56,9 @@ public class AddMovieViewController implements Initializable
     private final CategoryViewModel CVM;
     @FXML
     private TextField txtRating;
-
+    /**
+     * The constructor of the AddMovieViewController
+     */
     public AddMovieViewController() {
         CVM = new CategoryViewModel();
 
@@ -78,7 +78,7 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     * chooses the file
+     * Opens a filechooser and gets the selected files filepath
      *
      * @param event
      */
@@ -152,7 +152,7 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     * Chooses the category for the movie
+     * Opens a new view where the user can selected the movies categories
      *
      * @param event
      */
@@ -179,21 +179,7 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     * Dragging the slider will adjust the users rating.
-     *
-     * @param event
-     */
-    private void handleRating(MouseEvent event)
-    {
-        ratingSlider.valueProperty().addListener((Observable observable)
-                ->
-        {
-            lblRating.setText(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).toString());
-        });
-    }
-
-    /**
-     * A popup window that displays the error that occured
+     * A popup window that displays the exception that got caught
      *
      * @param ex the exception getting showened to the user
      */
@@ -234,9 +220,9 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     * returns the info from the empty field
+     * returns true if the textfields is empty
      *
-     * @return emptyField
+     * @return a boolean
      */
     public boolean getEmptyFieldInfo()
     {
@@ -250,10 +236,10 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     * Initializes this class' moviemodel object
+     * Initializes this class' moviemodel
      *
      * @param movieModel the movieModel this class' movieModel is getting
-     * initialized with
+     * referenced to
      */
     public void initializeModel(MovieModel movieModel)
     {
@@ -261,8 +247,8 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     * Retrieves the Alert Box to show the user, if the title has not been
-     * filled out
+     * Retrieves the Alert Box to show the user, if a specific textfield is
+     * still empty
      */
     public void getAlertBox()
     {
@@ -299,7 +285,9 @@ public class AddMovieViewController implements Initializable
     }
 
     /**
-     *
+     * Opens a new view where the user can get the IMDB rating of a movie based
+     * on the title the user has given the movie they are adding to their
+     * collection
      * @param event
      */
     @FXML
@@ -329,20 +317,6 @@ public class AddMovieViewController implements Initializable
                 }
             });
         } catch (IOException ex) {
-            displayError(ex);
-        }
-    }
-
-    /**
-     * updates the local imdb database
-     * @param event
-     */
-    private void updateIMDBDatabase(ActionEvent event)
-    {
-        try
-        {
-            movieModel.downloadIMDBDatabase();
-        } catch (MTBllException ex) {
             displayError(ex);
         }
     }

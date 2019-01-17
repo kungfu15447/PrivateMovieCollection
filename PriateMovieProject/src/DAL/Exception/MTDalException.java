@@ -30,7 +30,7 @@ public class MTDalException extends Exception
     }
     
     /**
-     * A cunstructor of the exception class MTDalExceptio class.
+     * A cunstructor of the exception class MTDalException class.
      * Throws a message and the exception if an exception has been catched
      * @param message the message getting thrown
      * @param ex the exception getting thrown

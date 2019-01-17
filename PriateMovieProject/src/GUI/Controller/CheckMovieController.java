@@ -10,13 +10,10 @@ import BLL.Exception.MTBllException;
 import GUI.Model.MovieModel;
 import java.net.URL;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
@@ -41,6 +38,9 @@ public class CheckMovieController implements Initializable
     private AnchorPane rootPane;
     private boolean deleteMovies;
 
+    /**
+     * The constructor of the CheckMovieController
+     */
     public CheckMovieController() {
         try
         {
@@ -65,7 +65,8 @@ public class CheckMovieController implements Initializable
     }
 
     /**
-     * will delete movies on the checkMovieList and then close the window
+     * Sets the instance variable deleteMovies equals true and then closes the
+     * view
      * @param event 
      */
     @FXML
@@ -77,7 +78,8 @@ public class CheckMovieController implements Initializable
     }
 
     /**
-     * will close the window without deleting
+     * Sets the instance variable deleteMovies equals false and then closes the
+     * view
      * @param event 
      */
     @FXML
@@ -89,7 +91,7 @@ public class CheckMovieController implements Initializable
     }
     
     /**
-     * returns the deleteMovies method
+     * returns the instance variable deleteMovies 
      * @return deleteMovies 
      */
     public boolean deleteMovies() {
@@ -98,7 +100,7 @@ public class CheckMovieController implements Initializable
     
     /**
      * displays an error message
-     * @param ex 
+     * @param ex the exception getting displayed
      */
     private void displayError(Exception ex) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
