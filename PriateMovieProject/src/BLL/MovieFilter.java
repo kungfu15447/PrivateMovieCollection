@@ -13,8 +13,6 @@ import DAL.Exception.MTDalException;
 import DAL.MovieDAO;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 
 /**
  *
@@ -27,6 +25,9 @@ public class MovieFilter
     CatMovieDAO catdao;
 
     
+    /**
+     * The constructer of the MovieFilter class
+     */
     public MovieFilter()
     {
         catdao = new CatMovieDAO();
@@ -34,10 +35,13 @@ public class MovieFilter
     }
 
     /**
-     * 
-     * @param searchBase
-     * @param categoryList
-     * @param query
+     * Returns a list of movies whose titles contains a searched word
+     * If the searched word is empty the method either returns 
+     * a list containing all movies or a list containing movies based on 
+     * specific selected categories.
+     * @param searchBase the list getting searched through
+     * @param categoryList the list of selected categories
+     * @param query the searched word
      * @return SearchList
      * @throws MTBllException 
      */
@@ -76,9 +80,34 @@ public class MovieFilter
     }
 
     /**
-     * 
-     * @param catlist
-     * @return
+     * Returns a filtered list of movies based on a list of selected categories
+     * This method gets a list of all movies from the CategoryMovie table
+     * This list will have a bunch of duiplicates of the same movie objects. 
+     * The only difference in these object is there list containing one integer.
+     * that integer represent a the id of a category. So if a movie object has 
+     * three categories then that movie will occure three times in this list. 
+     * After this the method then gets a list of selected categories and takes 
+     * every categories id and inserts them into a new list. It then checks if 
+     * that list only contains one id or multiple. If it has multiple category 
+     * ids the method then goes into a loop where it checks every movie except 
+     * the first through and compares them to a temporary movie object 
+     * which is the first movie in that list. If the movies title is the same as
+     * the temporary movie object then their list containing one category id 
+     * will be added to the movie object. If the list gets to a movie where its 
+     * title is not the same then that movie which just occured will be the new
+     * temporary movie object. So we will end up with a list where there is
+     * still duplicates of movies but the first occurence of a new movie will
+     * have all its categories id in its list. The method then goes through every
+     * movie again and checks if its list of categories id is identical to the
+     * list of selected categories which was made at the start of the method. 
+     * If ther are identical then they get added to the filtered list. 
+     * After the loop is done then the list is then returned.
+     * Also if the list of categories is not greater than one then it doesnt
+     * go through this whole process. Then it just checks if the movies contains 
+     * that one category. And if they do then they are added to the filtered
+     * list
+     * @param catlist the list of selected categories
+     * @return the list of filtered movies based on the selected categories
      * @throws MTBllException 
      */
     public List<Movie> categoriFilter(List<Category> catlist) throws MTBllException
