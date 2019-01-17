@@ -44,7 +44,7 @@ public class IMDBRatingViewController implements Initializable {
     }    
 
     /**
-     * selects the selected item, gets the rating and closes the window
+     * selects the selected movie and gets its rating and then closes the window
      * @param event 
      */
     @FXML
@@ -56,7 +56,7 @@ public class IMDBRatingViewController implements Initializable {
     }
 
     /**
-     * sets movie to null, gets rating and closes teh window
+     * sets instance movie object to null and closes the window
      * @param event 
      */
     @FXML
@@ -77,14 +77,15 @@ public class IMDBRatingViewController implements Initializable {
     
     /**
      * initializes the title
-     * @param title 
+     * @param title the movie title
      */
     public void initializeTitle(String title) {
         this.movieTitle = title;
     }
 
     /**
-     * gets the movie titles from imdb
+     * Gets the imdb Movies based on their movie title and inserts them into
+     * the listview
      * @param event 
      */
     @FXML
@@ -93,7 +94,8 @@ public class IMDBRatingViewController implements Initializable {
     }
 
     /**
-     * downloads the imdb movie database
+     * downloads two zip files from the IMDB website and then unzips them on
+     * the computer
      * @param event 
      */
     @FXML
@@ -106,9 +108,10 @@ public class IMDBRatingViewController implements Initializable {
     }
     
     /**
-     * Downloads the movie data from the imdb database
-     * sets the return output to -, if there is no movie title for the movie.
-     * @return movieRating
+     * Checks whether the instance movie object is null. If it is it sets the
+     * instance variable movieRating to -1. Else it sets the variable to the
+     * selected movies rating. It then returns movieRating
+     * @return the movies rating getting returned
      */
     public double getRating() {
         if (movie == null) {
@@ -120,7 +123,7 @@ public class IMDBRatingViewController implements Initializable {
     }
 
     /**
-     * Selects the selected movie from the user mouse input
+     * Sets the instance movie object to the selected movie in the listview
      * @param event 
      */
     @FXML
@@ -129,8 +132,8 @@ public class IMDBRatingViewController implements Initializable {
     }
     
     /**
-     * displays an error
-     * @param ex 
+     * displays the exception that was caught
+     * @param ex the exception getting showed
      */
     private void displayError(Exception ex) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);

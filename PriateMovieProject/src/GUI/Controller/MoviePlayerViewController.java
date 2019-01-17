@@ -19,8 +19,6 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.Slider;
 import javafx.scene.image.ImageView;
-import javafx.scene.input.KeyCode;
-import javafx.scene.input.KeyEvent;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
@@ -72,8 +70,8 @@ public class MoviePlayerViewController implements Initializable
     }
 
     /**
-     * Closes the window If the mediaplayer is playing, then the method will
-     * terminate it
+     * Closes the window. If the mediaplayer is playing then the method will
+     * stop it from playing
      *
      * @param event
      */
