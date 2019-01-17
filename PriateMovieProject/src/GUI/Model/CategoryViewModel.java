@@ -26,6 +26,9 @@ public class CategoryViewModel
     MovieManager moma;
     ObservableList<Category> categoryList;
 
+    /**
+     * Constructor.
+     */
     public CategoryViewModel()
     {
         try

@@ -390,7 +390,7 @@ public class MovieViewController implements Initializable
         int index = tableView.getSelectionModel().getSelectedIndex();
         if (movie == null)
         {
-            String header = "You have not chosen a movie";
+            String header = "  You have not chosen a movie";
             String content = "Please select a movie to edit rating";
             getAlertBox(header, content);
         } else
