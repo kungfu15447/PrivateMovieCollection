@@ -322,8 +322,8 @@ public class MovieModel
     }
 
     /**
-     * clears the imdb movie list and adds adds all movies with the correct
-     * search word
+     * clears the imdb movie list and adds all movies with 
+     * the correct search word
      *
      * @param searchWord
      * @return imdbMovieList
@@ -336,7 +336,7 @@ public class MovieModel
     }
 
     /**
-     * reutns the imdb movie rating based on the movieId
+     * returns the imdb movie rating based on the movieId
      *
      * @param movieId
      * @return moma.getIMDBMovieRating(movieId)
@@ -356,6 +356,11 @@ public class MovieModel
         MOMA.downloadIMDBDatabase();
     }
 
+    /**
+     * Deletes movies if rating under 6 and last seen is 2 years ago.
+     * 
+     * @throws MTBllException 
+     */
     public void deleteCheckMoviesFromList() throws MTBllException
     {
         for (Movie movie : MOVIECHECK) 

@@ -130,6 +130,10 @@ public class IMDBRatingViewController implements Initializable {
         movie = lstImdbMovies.getSelectionModel().getSelectedItem();
     }
     
+    /**
+     * displays an error
+     * @param ex 
+     */
     private void displayError(Exception ex) {
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Error dialog");
