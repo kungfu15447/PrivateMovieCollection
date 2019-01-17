@@ -103,8 +103,7 @@ public class MovieFilter
      * After the loop is done the list is then returned.
      * Also if the list of categories is not greater than one then it doesnt
      * go through this whole process. Then it just checks if the movies contains 
-     * that one category. And if they do then they are added to the filtered
-     * list
+     * that one category. And if they do then they are added to the filtered list
      * @param catlist the list of selected categories
      * @return the list of filtered movies based on the selected categories
      * @throws MTBllException 
