@@ -71,7 +71,8 @@ public class ImdbDAO
     }
     
     /**
-     * Gets the movie titles from IMDB.
+     * Gets the movie titles from IMDB by reading the downloaded files from
+     * the IMDB website.
      * @param searchWord
      * @return The movie titles.
      */
@@ -97,7 +98,8 @@ public class ImdbDAO
     }
     
     /**
-     * Gets the rating from IMDB.
+     * Gets the rating from IMDB by reading the downloaded files from
+     * the IMDB website.
      * @param movieId
      * @return 
      */
@@ -121,7 +123,11 @@ public class ImdbDAO
     }
     
     /**
-     * Downloads the IMDB database.
+     * Downloads two zipped files from the IMDB database that contains ratings
+     * and titles of movies on their platform. The two zipped files then get
+     * unzipped and deleted off the computer. If files from the website already
+     * exist on the computer they will be deleated before the files gets
+     * unzipped
      * @throws MTDalException 
      */
     public void downloadIMDBDatabase() throws MTDalException {
