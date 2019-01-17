@@ -22,7 +22,7 @@ public class Movie
     private String stringImdbRating;
     private String filepath;
     private int lastview;
-    private final List<Integer> categoryIdList;
+    private final List<Integer> CATEGORYIDLIST;
     
     public Movie(int id, String name, double rating, double imdbRating, String filepath, int lastview) {
         this.ID = id;
@@ -31,7 +31,7 @@ public class Movie
         this.filepath = filepath;
         this.lastview = lastview;
         this.imdbRating = imdbRating;
-        categoryIdList = new ArrayList<>();
+        CATEGORYIDLIST = new ArrayList<>();
         if (rating == -1) {
             this.stringRating = "No rating given";
         } else {
@@ -132,7 +132,7 @@ public class Movie
      * @return categoryIdList
      */
     public List<Integer> getList() {
-        return categoryIdList;
+        return CATEGORYIDLIST;
     }
     
     public double getImdbRating() {

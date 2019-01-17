@@ -40,10 +40,6 @@ public class CheckMovieController implements Initializable
     @FXML
     private AnchorPane rootPane;
     private boolean deleteMovies;
-    @FXML
-    private Button btnYes;
-    @FXML
-    private Button btnNo;
 
     public CheckMovieController() {
         try

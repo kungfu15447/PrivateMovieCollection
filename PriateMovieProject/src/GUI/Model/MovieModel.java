@@ -27,28 +27,28 @@ import javafx.stage.FileChooser;
 public class MovieModel
 {
 
-    private final ObservableList<Movie> movieCheck;
-    private final ObservableList<Movie> movieList;
-    private final ObservableList<Category> categoryList;
-    private final ObservableList<Category> checkedCategoryList;
-    private final ObservableList<IMDBMovie> imdbMovieList;
-    private final MovieManager moma;
-    private final MovieSorter moso;
-    private final MovieFilter mofi;
+    private final ObservableList<Movie> MOVIECHECK;
+    private final ObservableList<Movie> MOVIELIST;
+    private final ObservableList<Category> CATEGORYLIST;
+    private final ObservableList<Category> CHECKEDCATEGORYLIST;
+    private final ObservableList<IMDBMovie> IMDBMOVIELIST;
+    private final MovieManager MOMA;
+    private final MovieSorter MOSO;
+    private final MovieFilter MOFI;
     private String filePath;
 
     public MovieModel() throws MTBllException
     {
-        moma = new MovieManager();
-        moso = new MovieSorter();
-        mofi = new MovieFilter();
-        movieList = FXCollections.observableArrayList();
-        categoryList = FXCollections.observableArrayList();
-        movieCheck = FXCollections.observableArrayList();
-        checkedCategoryList = FXCollections.observableArrayList();
-        imdbMovieList = FXCollections.observableArrayList();
-        movieList.addAll(moma.getAllMovies());
-        categoryList.addAll(moma.getAllCategories());
+        MOMA = new MovieManager();
+        MOSO = new MovieSorter();
+        MOFI = new MovieFilter();
+        MOVIELIST = FXCollections.observableArrayList();
+        CATEGORYLIST = FXCollections.observableArrayList();
+        MOVIECHECK = FXCollections.observableArrayList();
+        CHECKEDCATEGORYLIST = FXCollections.observableArrayList();
+        IMDBMOVIELIST = FXCollections.observableArrayList();
+        MOVIELIST.addAll(MOMA.getAllMovies());
+        CATEGORYLIST.addAll(MOMA.getAllCategories());
     }
 
     /**
@@ -64,8 +64,8 @@ public class MovieModel
      */
     public Movie createMovie(String title, double rating, String filepath, int lastView, double imdbrating) throws MTBllException
     {
-        Movie movie = moma.createMovie(title, rating, filepath, lastView, imdbrating);
-        movieList.add(movie);
+        Movie movie = MOMA.createMovie(title, rating, filepath, lastView, imdbrating);
+        MOVIELIST.add(movie);
         return movie;
     }
 
@@ -92,9 +92,9 @@ public class MovieModel
      */
     public void deleteMovie(Movie movie) throws MTBllException
     {
-        moma.deleteMovie(movie);
-        moma.deleteMovieFromTable(movie);
-        movieList.remove(movie);
+        MOMA.deleteMovie(movie);
+        MOMA.deleteMovieFromTable(movie);
+        MOVIELIST.remove(movie);
     }
 
     /**
@@ -104,7 +104,7 @@ public class MovieModel
      */
     public ObservableList<Movie> getMovies()
     {
-        return movieList;
+        return MOVIELIST;
     }
 
     /**
@@ -124,7 +124,7 @@ public class MovieModel
      */
     public ObservableList<Category> getCategories()
     {
-        return categoryList;
+        return CATEGORYLIST;
     }
 
     /**
@@ -135,8 +135,8 @@ public class MovieModel
      */
     public void createCategory(String title) throws MTBllException
     {
-        Category cate = moma.createCategory(title);
-        categoryList.add(cate);
+        Category cate = MOMA.createCategory(title);
+        CATEGORYLIST.add(cate);
     }
 
     /**
@@ -148,9 +148,9 @@ public class MovieModel
     public void deleteCategory(Category category) throws MTBllException
     {
 
-        categoryList.remove(category);
-        moma.deleteCategory(category);
-        moma.deleteCategoryFromTable(category);
+        CATEGORYLIST.remove(category);
+        MOMA.deleteCategory(category);
+        MOMA.deleteCategoryFromTable(category);
 
     }
 
@@ -163,8 +163,8 @@ public class MovieModel
      */
     public void updateRating(Movie movie, int index) throws MTBllException
     {
-        moma.updateRating(movie);
-        movieList.set(index, movie);
+        MOMA.updateRating(movie);
+        MOVIELIST.set(index, movie);
     }
 
     /**
@@ -179,7 +179,7 @@ public class MovieModel
         long miliTime = date.getTime();
         int days = (int) (miliTime / (60 * 60 * 24 * 1000));
         movie.setLastview(days);
-        moma.updateLastView(movie);
+        MOMA.updateLastView(movie);
     }
 
     /**
@@ -193,16 +193,15 @@ public class MovieModel
         long MiliTime = Date.getTime();
         int days = (int) (MiliTime / (60 * 60 * 24 * 1000));
         int twoYearsInDays = 730;
-        for (Movie movie : movieList)
+        for (Movie movie : MOVIELIST)
         {
             int days2 = movie.getLastview();
             int inBetween = (days - days2);
             if (inBetween > twoYearsInDays)
             {
-                movieCheck.add(movie);
+                MOVIECHECK.add(movie);
             }
         }
-
     }
 
     /**
@@ -212,7 +211,7 @@ public class MovieModel
      */
     public ObservableList<Movie> getCheckMovie()
     {
-        return movieCheck;
+        return MOVIECHECK;
     }
 
     /**
@@ -225,9 +224,9 @@ public class MovieModel
     public void searchMovies(String query) throws MTBllException
     {
         ObservableList<Movie> searchBase = FXCollections.observableArrayList();
-        searchBase.addAll(movieList);
-        movieList.clear();
-        movieList.addAll(mofi.searchFilter(searchBase, checkedCategoryList, query));
+        searchBase.addAll(MOVIELIST);
+        MOVIELIST.clear();
+        MOVIELIST.addAll(MOFI.searchFilter(searchBase, CHECKEDCATEGORYLIST, query));
     }
 
     /**
@@ -235,12 +234,12 @@ public class MovieModel
      */
     public void fillCheckedCategoryList()
     {
-        checkedCategoryList.clear();
-        for (Category cate : categoryList)
+        CHECKEDCATEGORYLIST.clear();
+        for (Category cate : CATEGORYLIST)
         {
             if (cate.getSelect().isSelected())
             {
-                checkedCategoryList.add(cate);
+                CHECKEDCATEGORYLIST.add(cate);
             }
         }
     }
@@ -252,11 +251,11 @@ public class MovieModel
      */
     private void getMoviesFromCats() throws MTBllException
     {
-        movieList.clear();
-        List<Movie> moviesFromCatsList = mofi.categoriFilter(checkedCategoryList);
+        MOVIELIST.clear();
+        List<Movie> moviesFromCatsList = MOFI.categoriFilter(CHECKEDCATEGORYLIST);
         for (Movie movie : moviesFromCatsList)
         {
-            movieList.add(movie);
+            MOVIELIST.add(movie);
         }
     }
 
@@ -269,10 +268,10 @@ public class MovieModel
      */
     public void contextOfMovieList() throws MTBllException
     {
-        if (checkedCategoryList.isEmpty())
+        if (CHECKEDCATEGORYLIST.isEmpty())
         {
-            movieList.clear();
-            movieList.addAll(moma.getAllMovies());
+            MOVIELIST.clear();
+            MOVIELIST.addAll(MOMA.getAllMovies());
         } else
         {
             getMoviesFromCats();
@@ -290,13 +289,13 @@ public class MovieModel
         switch (sortingchoice)
         {
             case "movietitle":
-                moso.sortMovieListTitle(movieList);
+                MOSO.sortMovieListTitle(MOVIELIST);
                 break;
             case "movierating":
-                moso.sortMovieListRating(movieList);
+                MOSO.sortMovieListRating(MOVIELIST);
                 break;
             case "id":
-                moso.sortMovieListId(movieList);
+                MOSO.sortMovieListId(MOVIELIST);
                 break;
         }
     }
@@ -310,7 +309,7 @@ public class MovieModel
      */
     public boolean checkMovieTitles(String movieTitle) throws MTBllException
     {
-        List<Movie> allmovies = moma.getAllMovies();
+        List<Movie> allmovies = MOMA.getAllMovies();
         boolean existingTitle = false;
         for (Movie movie : allmovies)
         {
@@ -331,9 +330,9 @@ public class MovieModel
      */
     public ObservableList<IMDBMovie> getIMDBMovieTitles(String searchWord)
     {
-        imdbMovieList.clear();
-        imdbMovieList.addAll(moma.getIMDBMovieTitles(searchWord));
-        return imdbMovieList;
+        IMDBMOVIELIST.clear();
+        IMDBMOVIELIST.addAll(MOMA.getIMDBMovieTitles(searchWord));
+        return IMDBMOVIELIST;
     }
 
     /**
@@ -344,7 +343,7 @@ public class MovieModel
      */
     public double getIMDBMovieRating(String movieId)
     {
-        return moma.getIMDBMovieRating(movieId);
+        return MOMA.getIMDBMovieRating(movieId);
     }
 
     /**
@@ -354,15 +353,16 @@ public class MovieModel
      */
     public void downloadIMDBDatabase() throws MTBllException
     {
-        moma.downloadIMDBDatabase();
+        MOMA.downloadIMDBDatabase();
     }
 
     public void deleteCheckMoviesFromList() throws MTBllException
     {
-        for (Movie movie : movieCheck) {
-            moma.deleteMovieFromTable(movie);
-            moma.deleteMovie(movie);
-            movieList.remove(movie);
+        for (Movie movie : MOVIECHECK) 
+        {
+            MOMA.deleteMovieFromTable(movie);
+            MOMA.deleteMovie(movie);
+            MOVIELIST.remove(movie);
         }
     }
 }
