@@ -192,7 +192,7 @@ public class MovieManager
     /**
      * gets all movies from the selected category
      *
-     * @return cmdao.getMoviesFromCats()
+     * @return movies from categories
      * @throws MTBllException
      */
     public List<Movie> getMoviesFromCats() throws MTBllException
