@@ -26,7 +26,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
-import javafx.scene.control.Button;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.DialogPane;
 import javafx.scene.control.TableColumn;
@@ -215,6 +214,7 @@ public class MovieViewController implements Initializable
             }
         } catch (MTBllException ex)
         {
+            displayError(ex);
         }
     }
 
@@ -238,7 +238,7 @@ public class MovieViewController implements Initializable
                 MOVIEMODEL.createCategory(result.get());
             } catch (MTBllException ex)
             {
-
+                displayError(ex);
             }
         }
     }
@@ -266,7 +266,7 @@ public class MovieViewController implements Initializable
             }
         } catch (MTBllException ex)
         {
-            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
 
@@ -305,7 +305,7 @@ public class MovieViewController implements Initializable
             MOVIEMODEL.searchMovies(searchbar.getText().toLowerCase());
         } catch (MTBllException ex)
         {
-            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
 
@@ -319,15 +319,11 @@ public class MovieViewController implements Initializable
     {
         try
         {
-
-            if (!MOVIEMODEL.getMovies().isEmpty())
-            {
-                MOVIEMODEL.fillCheckedCategoryList();
-                MOVIEMODEL.contextOfMovieList();
-            }
+            MOVIEMODEL.fillCheckedCategoryList();
+            MOVIEMODEL.contextOfMovieList();
         } catch (MTBllException ex)
         {
-            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
 
@@ -344,7 +340,7 @@ public class MovieViewController implements Initializable
             MOVIEMODEL.sortMovieList("movietitle");
         } catch (MTBllException ex)
         {
-            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
 
@@ -361,7 +357,7 @@ public class MovieViewController implements Initializable
             MOVIEMODEL.sortMovieList("movierating");
         } catch (MTBllException ex)
         {
-            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
 
@@ -378,7 +374,7 @@ public class MovieViewController implements Initializable
             MOVIEMODEL.sortMovieList("id");
         } catch (MTBllException ex)
         {
-            Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
 
@@ -415,7 +411,7 @@ public class MovieViewController implements Initializable
                 stage.show();
             } catch (IOException ex)
             {
-
+                displayError(ex);
             }
         }
     }
@@ -455,7 +451,7 @@ public class MovieViewController implements Initializable
                 });
             } catch (IOException ex)
             {
-                Logger.getLogger(MovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+                displayError(ex);
             }
         }
     }
@@ -476,6 +472,15 @@ public class MovieViewController implements Initializable
 
         Stage stage = (Stage) alert.getDialogPane().getScene().getWindow();
 
+        alert.showAndWait();
+    }
+
+    private void displayError(Exception ex)
+    {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(ex.getMessage());
         alert.showAndWait();
     }
 }

@@ -15,6 +15,7 @@ import java.util.logging.Logger;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
 import javafx.scene.control.Button;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -50,7 +51,7 @@ public class CheckMovieController implements Initializable
             movieModel = new MovieModel();
         } catch (MTBllException ex)
         {
-            Logger.getLogger(CheckMovieController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
     /**
@@ -87,4 +88,11 @@ public class CheckMovieController implements Initializable
         return deleteMovies;
     }
     
+    private void displayError(Exception ex) {
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Error dialog");
+        alert.setHeaderText(null);
+        alert.setContentText(ex.getMessage());
+        alert.showAndWait();
+    }
 }

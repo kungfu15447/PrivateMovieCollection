@@ -153,7 +153,7 @@ public class AddMovieViewController implements Initializable {
             stage.setScene(new Scene(root));
             stage.show();
         } catch (IOException ex) {
-            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
 
@@ -288,7 +288,7 @@ public class AddMovieViewController implements Initializable {
                 }
             });
         } catch (IOException ex) {
-            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
 
@@ -300,14 +300,7 @@ public class AddMovieViewController implements Initializable {
         try {
             movieModel.downloadIMDBDatabase();
         } catch (MTBllException ex) {
-            Logger.getLogger(AddMovieViewController.class.getName()).log(Level.SEVERE, null, ex);
+            displayError(ex);
         }
     }
-    /*
-    Kode der ikke må slettes! Skal bruges senere
-    ratingSlider.valueProperty().addListener((Observable observable) ->
-        {
-            lblRating.setText(new BigDecimal(ratingSlider.getValue()).setScale(1, RoundingMode.HALF_UP).toString());
-        });
-     */
 }

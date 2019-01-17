@@ -52,11 +52,7 @@ public class MovieManager
     {
         try
         {
-<<<<<<< HEAD
-            return MDAO.createMovie(name, rating, filepath, lastview);
-=======
-            return mdao.createMovie(name, rating, filepath, lastview, imdbrating);
->>>>>>> b2cdbe2b009936e4e7a7bd7325683481f9a76fb6
+            return MDAO.createMovie(name, rating, filepath, lastview, imdbrating);
         } catch (MTDalException ex)
         {
             throw new MTBllException("" + ex.getMessage());
