@@ -1,0 +1,11 @@
+These are the jar files we used for the project.
+The links to the jar files are provided below.
+
+Apache Commons IO 2.6
+http://commons.apache.org/proper/commons-io/download_io.cgi
+
+univocity-parsers
+https://www.univocity.com/pages/univocity_parsers_download
+
+Microsoft JDBC Driver 7.0 for SQL Server
+https://www.microsoft.com/en-us/download/details.aspx?id=57175
