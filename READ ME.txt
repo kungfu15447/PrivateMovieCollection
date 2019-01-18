@@ -1,4 +1,4 @@
-These are the jar files we used for the project.
+These are the libraries we used for the project.
 The links to the jar files are provided below.
 
 Apache Commons IO 2.6
