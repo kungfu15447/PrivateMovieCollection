@@ -8,8 +8,10 @@
   </information>
   <resources>
     <j2se version="1.6+" href="http://java.sun.com/products/autodl/j2se"/>
-    <jar href="PrivateMovieProject.jar" size="64245" download="eager" />
+    <jar href="PrivateMovieProject.jar" size="83132" download="eager" />
+    <jar href="lib\commons-io-2.6.jar" size="214788" download="eager" />
     <jar href="lib\sqljdbc42.jar" size="653996" download="eager" />
+    <jar href="lib\univocity-parsers-2.7.6.jar" size="405673" download="eager" />
   </resources>
   <applet-desc  width="800" height="600" main-class="com.javafx.main.NoJavaFXFallback"  name="PrivateMovieProject" >
     <param name="requiredFXVersion" value="8.0+"/>
